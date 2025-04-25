@@ -1,0 +1,11 @@
+
+
+/* styles/globals.css */
+.boxx {
+	@apply border border-[#286AF621] bg-[#286AF608];
+}
+
+/* Dark mode styles */
+.dark .boxx {
+	@apply border-none bg-[#0A1913];
+}

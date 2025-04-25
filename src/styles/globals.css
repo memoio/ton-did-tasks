@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@custom-variant dark (&:where(.dark, .dark *, .box));
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: linear-gradient(to right, #000402 50%, #00110A 100%);
+        --foreground: #ededed;
+    }
+
+    
+    body {
+        color: var(--foreground);
+        font-family: "Roboto", sans-serif;
+    }
+/*
+    .box {
+        border: none !important;
+        background-color: #0A1913 !important;
+    }
+
+    .button_primary {
+        background-color: #0A1913 !important;
+        border-width: 2px 0px;
+        border-style: solid;
+        border-color: #00B66C;
+    }
+    */
+}
+
+
+@theme {
+    --color-light-fill: #ECECEC;
+    --color-dao-gray: #666666;
+    --color-light-gray: #CFCFCF;
+    --color-light-green: #CFCFCF;
+    --color-fill-bright: #05F292;
+
+    --color-dao-yellow: #F09A24;
+    --color-dao-green: #00B66C;
+
+    --color-light-stroke: #CDCDCD;
+    --color-dark-stroke: #1C1C1C;
+    
+    --color-main-blue: #286AF6;
+    
+    --color-sec-bg: #0A1913;
+    --color-dark-bg: #060706;
+}
+
+body {
+    color: var(--foreground);
+    font-family: "Roboto", sans-serif;
+}
+
+
+.roboto, * {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+
+/*
+.box {
+    background-color: #286AF608;
+    border: 1px solid #286AF621;
+}
+*/
+
+
+.w6u9j6 {
+    transition: all 2000ms;
+}
+
+.animate-spin {
+    animation-direction: reverse !important;
+}
+
+.transition-slow {
+    transition: all 1000ms;
+}
+
+.button_primary {
+    background-color: #00B66C;
+    padding: 8px 0px;
+}
+
+.vr56syh {
+    background: var(--background);
+}
