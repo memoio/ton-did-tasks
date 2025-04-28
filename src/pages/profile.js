@@ -1,5 +1,6 @@
 import { AlertCard, LinkProfileCard, ReferralCard } from "@/components/cards";
 import { Footer } from "@/components/footer";
+import { CopyIconYellow } from "@/components/icons";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -7,7 +8,7 @@ import { useRef, useState } from "react";
 
 export default function Profile () {
     const router = useRouter()
-    const [ic, setIc] = useState(false)
+    const [ic, setIc] = useState(true) //Toggle
 
     const copyToClipboard = (text) => {
         if (navigator?.clipboard?.writeText) {
@@ -30,8 +31,8 @@ export default function Profile () {
 
     return (
         <>
-            <div className="flex flex-col gap-4 p-8 pb-28">
-                <div className="bg-dao-green rounded-md p-4 flex flex-col">
+            <div className="flex flex-col gap-4 p-8 pb-32">
+                <div id="profile_header" className="rounded-md p-4 flex flex-col">
                     <div className="flex justify-between items-start rounded-md text-white w-full">
                         <div className="flex gap-2 w-fit items-center">
                             <Image src={"/Ellipse 223.png"} className="aspect-auto object-contain" width={55} height={55} alt="" />
@@ -55,7 +56,7 @@ export default function Profile () {
                         <p className="">Wallet</p>
                         <div className="flex gap-2">
                             <p className="">0x06B45...EBFEe</p>
-                            <button onClick={ () => copyToClipboard('0x06B45...EBFEe')} ><Image src={"/copy-icon.svg"} className="" width={18} height={18} alt=""/></button>
+                            <button onClick={ () => copyToClipboard('0x06B45...EBFEe')} ><CopyIconYellow /></button>
                         </div>
                     </div>
 
@@ -75,7 +76,7 @@ export default function Profile () {
                     </div>
                 </div>
 
-                <button onClick={ logOutFunc } className="bg-dao-green text-white p-2 rounded-full">Log Out</button>
+                <button onClick={ logOutFunc } className="bg-dao-green text-white p-2 rounded-full dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green">Log Out</button>
             </div>
 
             <Footer active={"profile"} />

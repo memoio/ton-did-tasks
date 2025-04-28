@@ -10,7 +10,7 @@ export default function Home () {
     const [isFailed, setIsFailed] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
 
-    const [isDid, setIsDid] = useState(false)
+    const [isDid, setIsDid] = useState(true) //Toggle
     const [address, setAddress] = useState('did:memo:74a10356eecd185b510a0173e9c4638c6bbd15b107fbb772203a2664fe980ecbf')
 
     const router = useRouter();
@@ -76,7 +76,7 @@ export default function Home () {
             { isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Failed"} text={"DID creation failed, you may need to try again!"} size={87} closeFunc={ closeFunc } btn={"Try Again"} /> }
             { isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"Success"} text={"DID was successfully created, go do the tasks and earn rewards!"} size={87} closeFunc={ closeFunc } btn={"Ok"} /> }
             
-            <div className="flex flex-col gap-4 p-8 pb-28">
+            <div className="flex flex-col gap-4 p-8 pb-32">
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 p-8 flex flex-col items-center justify-center text-center gap-2 rounded-2xl dark:bg-sec-bg dark:border-none">
                     <Image src={"/Frame 34643-dp.png"} className="mx-auto" width={89} height={89} alt="" />
                     <h2 className="text-dao-yellow text-2xl font-semibold">Data DID</h2>
@@ -87,7 +87,7 @@ export default function Home () {
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 p-4 flex flex-col gap-2 rounded-2xl dark:bg-sec-bg dark:border-none">
                     <h2 className="text-black font-bold dark:text-white">No. 116266</h2>
                     <div className="w-full flex justify-between gap-2 -mt-2">
-                        <p className="text-gray break-all dark:text-light-gray">{ shortener(address) }</p>
+                        <p className="text-dao-gray break-all dark:text-light-gray">{ shortener(address) }</p>
                         <button onClick={ () => copyToClipboard("did:memo:74a10356eecd185b510a0173e9c4638c6bbd15b107fbb772203a2664fe980ecbf ")} className="min-w-6 max-w-6 flex justify-end"><Image src={"/icons_copy.svg"} width={28} height={28} alt="" /></button>
                     </div>
                 </div>:
@@ -99,8 +99,8 @@ export default function Home () {
                     <DidMint title={"Pay With"} text={"0.0 memo"} />
                     <DidMint title={"Total"} text={"0.0 memo+0.0 gas"} />
 
-                    <button onClick={ createDidFX } className="font-semibold py-2 bg-dao-green text-white rounded-full border-y-2 border-solid mt-4 dark:bg-sec-bg dark:border-dao-green">Create</button>
-                    <p className="italic text-center leading-tight mt-4 text-sm text-dao-gray">Note: At this stage, the cost of creating DID is borne by MEMO</p>
+                    <button onClick={ createDidFX } className="py-2 bg-dao-green text-white rounded-full border-y-2 border-solid mt-4 dark:bg-sec-bg dark:border-dao-green">Create</button>
+                    <p className="italic text-center leading-tight mt-4 text-sm text-light-gray">Note: At this stage, the cost of creating DID is borne by MEMO</p>
                 </div>
                 }
 

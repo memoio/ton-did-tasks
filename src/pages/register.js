@@ -40,7 +40,7 @@ export default function Register () {
         <>  
             { isVisible && <AlertCard image={"/Clip path group-check.svg"} title={"Add Successful"} size={87} closeFunc={ closeFunc } /> }
 
-            <div className="px-8 py-4 flex flex-col gap-4 pb-28">
+            <div className="px-8 py-4 flex flex-col gap-4 pb-32 text-dark-bg dark:text-white">
                 <SubHeader title={"Register"} />
                 <div className="flex gap-4 items-start">
                     <Image src={"/Vector 1-logo.svg"} width={33} height={27} alt="" />
@@ -55,7 +55,7 @@ export default function Register () {
                         <button onClick={ () => toggle(phone) } ref={ phone } className="underline-offset-8">Phone Number</button>
                     </div>
 
-                    <form className="flex flex-col gap-4">
+                    <form className="flex flex-col gap-4 placeholder:text-dao-gray">
                         <div className="flex flex-col gap-1">
                             <label for="contact">{ contact? <>Email</>: <>Phone Number</> }</label>
                             { contact? <input name="contact" type="email" className="bg-main-blue/8 dark:bg-dao-gray/6 border border-solid border-main-blue/20 dark:border-dark-stroke px-4 py-3 rounded-lg" placeholder="Email" />:
@@ -351,7 +351,7 @@ export default function Register () {
                         </div>
 
                     <div className="">
-                        <p className="">Already have an account? <Link href={"#"} className="text-dao-yellow">Log In</Link></p>
+                        <p className="">Already have an account? <Link href={"/tge-pad"} className="text-dao-yellow">Log In</Link></p>
                     </div>
 
 

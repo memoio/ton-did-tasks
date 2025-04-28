@@ -11,8 +11,7 @@ export default function PointsDetail () {
                     <PointsDetails title={"Invite"} date={"04/16/2025"} amount={200} />
                     <PointsDetails title={"Invite"} date={"04/16/2025"} amount={200} />
                     <PointsDetails title={"Invite"} date={"04/16/2025"} amount={200} />
-                    <PointsDetails title={"Invite"} date={"04/16/2025"} amount={200} />
-                    
+                    <PointsDetails title={"Invite"} date={"04/16/2025"} amount={200} /> 
                 </div>
             </div>
         </>

@@ -10,7 +10,7 @@ import { DailyTask } from "@/components/cards";
 import { TelegramLogoIconBW, TwitterLogoIcon } from "@/components/icons";
 
 export default function InviteCode () {
-    const [isSuccess, setIsSuccess] = useState(true)
+    const [isSuccess, setIsSuccess] = useState(false)
 
     const closeFunc = () => {
         if ( isSuccess ) {
@@ -33,7 +33,7 @@ export default function InviteCode () {
                         <input name="file" type="file" className="absolute inset-0 z-10 opacity-0" />
                         <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" className="fill-dao-yellow size-8 absolute top-1/2 -translate-y-1/2 inset-x-0 mx-auto"><path d="M450-450H200v-60h250v-250h60v250h250v60H510v250h-60v-250Z"/></svg>
                     </div>
-                    <button className="bg-dao-green w-full p-2 text-white rounded-full">Submit</button>
+                    <button onClick={ () => setIsSuccess(true) } className="bg-dao-green w-full p-2 text-white rounded-full dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green">Submit</button>
                 </div>
             </div>
         </>

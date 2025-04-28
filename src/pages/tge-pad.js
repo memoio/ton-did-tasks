@@ -13,7 +13,7 @@ export default function TGEPad () {
                 <Image src={"/Frame 34619-xx.png"} className="bg-dao-green rounded" width={393} height={117} alt="" />
                 
                 <div className="flex flex-col gap-4">
-                    <WalletAccessories image={"/binance.svg"} Link={""} title={"Binance"} address={"0x12345678"} />
+                    <WalletAccessories image={"/binance.svg"} Link={""} title={"Binance"} address={"0x485y4tu...4uy54u"} />
                     <WalletAccessories image={"/okx.svg"} Link={""} title={"OKX"} address={null} />
                     <WalletAccessories image={"/gate.io.svg"} Link={""} title={"Gate.io"} address={null} />
                 </div>

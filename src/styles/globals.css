@@ -95,10 +95,20 @@ body {
 }
 
 .button_primary {
-    background-color: #00B66C;
     padding: 8px 0px;
 }
 
 .vr56syh {
     background: var(--background);
+}
+
+#profile_header {
+    background-image: url('/Frame 34608.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.italic {
+    font-style: italic !important;
 }

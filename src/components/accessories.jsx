@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, ArrowRightGreen, CopyIcon } from "./icons";
 
 
 export function SubHeader ({ title }) {
@@ -50,15 +51,10 @@ export function WalletAccessories ({ title, image, address, name }) {
                 <Image src={image} className="aspect-square object-contain" width={42} height={42} alt="" />
                 <div className="flex flex-col">
                     <h2 className="text-dao-gray dark:text-light-gray">{ title }</h2>
-                    { address? <p className="text-dark-stroke dark:text-white font-semibold -mt-1 flex items-center gap-2">{ address } <button onClick={ () => copyToClipboard(address) } className=""><Image src={"/copy-icon.svg"} width={16} height={16} alt="" /></button></p>: <p className="text-dark-stroke dark:text-white font-semibold -mt-1">Add Address</p> }
+                    { address? <p className="text-dark-stroke dark:text-white font-semibold -mt-1 flex items-center gap-2">{ address } <button onClick={ () => copyToClipboard(address) } className=""><CopyIcon /></button></p>: <p className="text-dark-stroke dark:text-white font-semibold -mt-1">Add Address</p> }
                 </div>
             </div>
-            <Link href={`/add-address/${title}`}>
-                <svg width="24" height="24" viewBox="0 0 24 24" className="p-1 bg-main-blue/15 dark:bg-white/5 rounded-full size-10 fill-[#666666] dark:fill-white" xmlns="http://www.w3.org/2000/svg">
-                <rect x="24" width="24" height="24" rx="12" transform="rotate(90 24 0)" fill="white" fill-opacity="0.04"/>
-                <path d="M12.5326 9.08936C12.4703 9.03176 12.4203 8.96231 12.3856 8.88514C12.3509 8.80797 12.3322 8.72467 12.3307 8.6402C12.3292 8.55573 12.3449 8.47182 12.3768 8.39349C12.4088 8.31516 12.4563 8.244 12.5165 8.18426C12.5768 8.12452 12.6486 8.07743 12.7276 8.04579C12.8066 8.01415 12.8913 7.99861 12.9765 8.0001C13.0617 8.00159 13.1457 8.02008 13.2236 8.05446C13.3014 8.08884 13.3715 8.13842 13.4296 8.20023L16.8144 11.5554C16.9332 11.6734 17 11.8333 17 12C17 12.1667 16.9332 12.3266 16.8144 12.4446L13.4296 15.7998C13.3715 15.8616 13.3014 15.9112 13.2236 15.9455C13.1457 15.9799 13.0617 15.9984 12.9765 15.9999C12.8913 16.0014 12.8066 15.9859 12.7276 15.9542C12.6486 15.9226 12.5768 15.8755 12.5165 15.8157C12.4563 15.756 12.4088 15.6848 12.3768 15.6065C12.3449 15.5282 12.3292 15.4443 12.3307 15.3598C12.3322 15.2753 12.3509 15.192 12.3856 15.1149C12.4203 15.0377 12.4703 14.9682 12.5326 14.9106L14.8343 12.6291L6.63465 12.6291C6.46633 12.6291 6.3049 12.5628 6.18588 12.4448C6.06686 12.3269 6 12.1668 6 12C6 11.8332 6.06686 11.6731 6.18588 11.5552C6.3049 11.4372 6.46633 11.3709 6.63465 11.3709L14.8343 11.3709L12.5326 9.08936Z"/>
-                </svg>
-            </Link>
+            { address? <Link href={`/add-address/${title}`}><ArrowRightGreen /></Link>: <Link href={`/add-address/${title}`}><ArrowRight /></Link> }
         </div>
     )
 }
@@ -72,12 +68,12 @@ export function RegisterCards ({ icon, size }) {
 
 export function PointsDetails ({title, date, amount }) {
     return (
-        <div className="py-4 border-b border-solid border-light-stroke flex justify-between items-center dark:border-white/6">
+        <div className="py-4 border-b-1 dark:border-b-2 border-solid border-light-stroke flex justify-between items-center dark:border-white/6">
             <div className="">
-                <p className="dark:font-semibold dark:text-light-gray">{ title }</p>
-                <p className="font-semibold dark:font-normal">{ date }</p>
+                <p className="text-black font-semibold dark:text-white">{ title }</p>
+                <p className="text-dao-gray dark:text-light-gray dark:font-normal">{ date }</p>
             </div>
-            <p className="text-dao-yellow font-semibold dark:text-white">+{ amount }</p>
+            <p className="text-black font-semibold dark:text-white">+{ amount }</p>
         </div>
     )
 }
@@ -85,7 +81,7 @@ export function PointsDetails ({title, date, amount }) {
 
 export function InvitationDetails ({ name, timestamp, bind, did }) {
     return (
-        <div className="bg-main-blue/10 dark:bg-sec-bg border border-solid border-main-blue/20 dark:border-0 rounded-[10px] p-4 flex justify-between">
+        <div className="bg-main-blue/10 dark:bg-sec-bg border border-solid border-main-blue/20 dark:border-0 rounded-[10px] p-4 flex justify-between text-dark-bg dark:text-white">
             <div className="">
                 <p className="font-semibold">{ name }</p>
                 <p className="flex gap-1 text-sm">{ bind? <Image src={"/ion_checkbox-outline.svg"} width={16} height={16} alt={" "} />: <Image src={"/ion_checkbox-outline-null.svg"} width={16} height={16} alt={""} /> }Bind Invitation Code</p>
@@ -100,19 +96,23 @@ export function InvitationDetails ({ name, timestamp, bind, did }) {
 
 
 
-export function MessageList ({ image, title, message, timestamp }) {
+export function MessageList ({ image, title, message, timestamp, isClamp }) {
     const msg = useRef(null)
 
+    useEffect(() => {
+        isClamp == false && msg.current.classList.remove('line-clamp-2')
+    }, [isClamp])
+
     return (
-        <div onClick={ () => { msg.current.classList.toggle('line-clamp-2') }} className="bg-main-blue/8 border border-solid border-main-blue/21 rounded-lg p-4 dark:bg-sec-bg dark:border-none">
+        <div className="bg-main-blue/8 border border-solid border-main-blue/21 rounded-lg p-4 dark:bg-sec-bg dark:border-none">
             <div className="flex gap-2">
                 <Image src={image} width={43} height={43} alt="" />
                 <div className="">
-                    <p className="font-semibold">{ title }</p>
+                    <p className="font-semibold text-black dark:text-white">{ title }</p>
                     <p className="text-sm text-black dark:text-white">{ timestamp }</p>
                 </div>
             </div>
-            <p  ref={msg} className="line-clamp-2 mt-2 dark:text-dao-gray">{ message }</p>
+            <p ref={msg} className="line-clamp-2 text-dao-gray mt-2">{ message }</p>
         </div>
     )
 }

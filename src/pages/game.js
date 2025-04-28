@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 export default function Game () {
     const router = useRouter();
     
-    const [timeLeft, setTimeLeft] = useState(3)
+    const [timeLeft, setTimeLeft] = useState(30)
     const [actionId, setActionId] = useState(1)
     const [points, setPoints] = useState(0)
     const [clickCount, setClickCount] = useState(0)
@@ -197,8 +197,9 @@ export default function Game () {
 
             <div ref={ gameO } className="min-h-svh min-w-screen hidden flex-col justify-center items-center p-8 fixed z-10 inset-0 vr56syh">
                 <div className="fixed inset-0 bg-white">
-                    <div className="bg-black/60 fixed inset-0"></div>
+                    <div className="bg-black/60 dark:bg-gradient-to-r from-[#000402] from-50% to-[#00110A] to-100% fixed inset-0"></div>
                 </div>
+
                 <div className="flex flex-col gap-4 bg-white w-full p-8 rounded-xl text-center relative border-2 border-solid border-black dark:bg-sec-bg dark:border-dark-stroke">
                     <div className="p-2 size-28 bg-white border border-solid border-light-stroke rounded-full flex items-center justify-center absolute -top-16 inset-x-0 mx-auto dark:bg-sec-bg"><Image src={"/image-removebg-preview (8).png"} className="mx-auto aspect-square object-contain" width={500} height={500} alt="" /></div>
                     <h1 className="text-2xl font-semibold mt-8 text-black dark:text-white">Game Over</h1>

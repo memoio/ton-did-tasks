@@ -8,7 +8,7 @@ export function AlertCard ({ image, title, text, action, size, closeFunc, btn })
     return (
         <div className="fixed inset-0 bg-black/50 p-8 z-50 flex items-center justify-center text-black dark:text-white">
             <button onClick={ closeFunc } className="fixed inset-0 z-0"></button>
-            <div className="w-full relative z-10 bg-white dark:bg-sec-bg px-12 py-4 rounded-2xl border border-solid dark:border-dark-stroke flex flex-col items-center text-center pb-8">
+            <div className="w-full relative z-10 bg-white dark:bg-sec-bg px-8 py-4 rounded-2xl border border-solid dark:border-dark-stroke flex flex-col items-center text-center pb-8">
                 <div className="-translate-y-14 rounded-full inset-x-0 mx-auto">
                     <Image src={ image } className="rounded-full mx-auto bg-white dark:bg-sec-bg border border-solid border-light-stroke dark:border-dark-stroke" width={size} height={size} alt="" />
                 </div>
@@ -53,9 +53,9 @@ export function HomeTripleCard ({ icon, title, text, link, amount, funcAction })
                 </div>
                 <p className="font-semibold text-black text-lg dark:text-white">{ amount }</p>
             </div>
-            { !isDid && <button className="bg-dao-green text-white px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-gray dark:text-dao-gray">{ text }</button> }
-            { isDid && link? <Link href={link} className="bg-light-gray text-dao-gray px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-green dark:text-white">{ text }</Link>: <></> }
-            { isDid && funcAction? <button onClick={ funcAction } className="bg-light-gray text-dao-gray px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-green dark:text-white">{ text }</button>: <></> }
+            { !isDid && <button className="bg-light-gray text-dao-gray px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-gray dark:text-dao-gray">{ text }</button> }
+            { isDid && link? <Link href={link} className="bg-dao-green text-white px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-green dark:text-white">{ text }</Link>: <></> }
+            { isDid && funcAction? <button onClick={ funcAction } className="bg-dao-green text-white px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-green dark:text-white">{ text }</button>: <></> }
         </div>
     )
 }
@@ -75,7 +75,21 @@ export function CheckInCard ({day, status, checkInFunc}) {
 }
 
 
-export function DailyTask ({ icon, text, updateFunc }) {
+export function DailyTask ({ icon, text, updateFunc, btn, link }) {
+    const router = useRouter()
+    const [localBtn, setLocalBtn] = useState(btn)
+
+
+    const localUpdateFunc = () => {
+        if ( btn === "Join" || btn === "Follow" ) {
+            setLocalBtn("Claim")
+            //router.push('/invitation-code')
+        } else {
+            router.push(`/${link}`)
+        }
+        updateFunc()
+    }
+
     return (
         <div className="flex justify-between gap-4 max-w-full">
             <div className="flex gap-2 w-3/4">
@@ -86,7 +100,7 @@ export function DailyTask ({ icon, text, updateFunc }) {
                 </div>
             </div>
 
-            <button onClick={ updateFunc } className="button_primary h-fit rounded-full text-white min-w-16 text-sm">Share</button>
+            <button onClick={ localUpdateFunc } className="bg-dao-green px-4 py-2 h-fit rounded-full text-white min-w-16 text-sm dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green">{ btn? <>{ localBtn }</>: <>Share</> }</button>
         </div>
     )
 }
@@ -123,15 +137,15 @@ export function LinkProfileCard ({ name, status }) {
 
 export function LeaderboardCard ({ name, point, count }) {
     return (
-        <div className="box rounded-lg p-4 flex justify-between items-center">
+        <div className="bg-main-blue/8 border border-solid border-main-blue/21 rounded-lg p-4 flex justify-between items-center dark:bg-sec-bg dark:border-none">
             <div className="flex gap-2">
                 <Image src={"/Ellipse 224.png"} width={43} height={43} alt="" />
                 <div className="flex flex-col justify-center">
-                    <p className="leading-tight text-sm font-semibold">{ name }</p>
+                    <p className="leading-tight text-sm font-semibold text-dark-bg dark:text-white">{ name }</p>
                 </div>
             </div>
         
-            <p className="font-semibold text-sm">{ point } Points</p>
+            <p className="font-semibold text-sm text-dark-bg dark:text-white">{ point } Points</p>
             <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm dark:bg-dao-yellow/15 dark:text-dao-yellow">{ count }</p>
         </div>
     )
@@ -140,7 +154,7 @@ export function LeaderboardCard ({ name, point, count }) {
 export function ProfileCard ({ title, link }) {
     return (
         <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke flex gap-4 p-4 justify-between rounded-xl">
-            <p className="">{ title }</p>
+            <p className="text-dao-gray dark:text-light-gray">{ title }</p>
             <Link href={ link } className=""><Image src={"/rer5tyFrame.svg"} className="" width={24} height={24} alt=""/></Link>
         </div>
     )

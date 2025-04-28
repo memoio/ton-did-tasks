@@ -45,7 +45,7 @@ export default function Home () {
             { !isDid && <AlertCard image={"/Frame 34643.svg"} title={"Notice"} text={"Please Create DID First!"} size={87} closeFunc={ closeFunc } btn={"Ok"} /> }
             { isVisible && <AlertCard image={"/Frame 34643-celeb.svg"} title={"+1000 Points"} text={"Daily Check Success"} size={87} closeFunc={ closeFunc } btn={"Back Tomorrow"} /> }
             
-            <div className="flex flex-col gap-4 p-8 pb-28">
+            <div className="flex flex-col gap-4 p-8 pb-32">
                 <div className="flex justify-between items-center">
                     <div className="flex gap-2 w-fit items-center">
                         <Image src={"/Frame 34635.png"} className="aspect-auto object-contain" width={41} height={40} alt="" />

@@ -51,7 +51,7 @@ export default function Earnings () {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-4 p-8 pb-28">
+            <div className="flex flex-col gap-4 p-8 pb-32">
                 <div className="bg-dao-green p-4 rounded-lg text-white flex flex-col gap-2">
                     <div className="flex justify-between">
                         <p className="flex gap-2"><Image src={"/connection 1.svg"} width={24} height={24} alt="" />Referral</p>
@@ -59,8 +59,8 @@ export default function Earnings () {
                     </div>
 
                     <div className="flex justify-between text-sm">
-                        <Link href={"/points-details"} className="flex gap-0">History<Image src={"/uit_angle-up.svg"} width={14} height={14} alt="" /></Link>
-                        <p className="">Total</p>
+                        <Link href={"/invitation-details"} className="flex gap-0">History<Image src={"/uit_angle-up.svg"} width={14} height={14} alt="" /></Link>
+                        <p className="">Total Invited</p>
                     </div>
                 </div>
 

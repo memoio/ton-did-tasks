@@ -3,7 +3,7 @@ import { SubHeaderTri } from "@/components/accessories";
 export default function PrivacyPolicy () {
     return (
         <>
-            <div className="px-8 py-4 flex flex-col gap-4 pb-28">
+            <div className="px-8 py-4 flex flex-col gap-4 pb-28 text-dark-bg dark:text-white">
                 <SubHeaderTri title={"Privacy Policy"} />
 
                 <section className="flex flex-col gap-2">
