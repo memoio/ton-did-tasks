@@ -10,7 +10,9 @@ export default function Home() {
     const [elState, setElState] = useState(null)
 
     useEffect(() => {
-        //router.push('/invitation-code')
+        if (isConnected) {
+            router.push('/invitation-code');
+        }
     }, [isConnected, router])
 
     const wccFX = (e) => {
@@ -20,7 +22,7 @@ export default function Home() {
     return (
         <div className="min-h-screen max-h-screen w-full flex flex-col gap-8 items-center text-dao-yellow dark:text-white p-8">
             <h1 className="flex items-center justify-center gap-4 font-bold text-xl pt-12"><Image src={"/si_wallet-line.svg"} width={24} height={24} alt="" />Connect Wallet</h1>
-            
+
             <div className="flex flex-col gap-4 w-full">
                 <WalletConnectionCard id={1} elState={elState} fx={() => setElState(1)} image={"/6323b6987f8e01af2ce9189a_public 1.svg"} name={"Token Pocket"} />
                 <WalletConnectionCard id={2} elState={elState} fx={() => setElState(2)} image={"/images__1_-removebg-preview 1.svg"} name={"Metamask"} />
