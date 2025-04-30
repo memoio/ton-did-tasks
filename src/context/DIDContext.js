@@ -11,7 +11,8 @@ export const DIDProvider = ({ children }) => {
         number: "000000",
         exist: false,
     });
-    const { address, isConnected } = useAccount();
+    const [initialed, setInitialed] = useState(false);
+    const { address } = useAccount();
 
     const setDID = (did, number, exist) => {
         setDIDInfo({
@@ -23,12 +24,9 @@ export const DIDProvider = ({ children }) => {
 
     const HandleDID = async () => {
         try {
-            // const splitted = address.split(":")
-            // const splitedAddress = splitted[1];
-            console.log(address);
-
             const did = await getDIDInfo(address);
             setDID(did.did, did.number, did.exist);
+            console.log(didInfo);
         } catch (error) {
             alert(`Error binding wallet: ${error}`);
             return
@@ -38,7 +36,8 @@ export const DIDProvider = ({ children }) => {
     const updateDID = HandleDID;
 
     useEffect(() => {
-        if (isConnected && address !== "" && didInfo.did === "") {
+        if (address && address !== "" && !initialed) {
+            setInitialed(true);
             HandleDID();
         }
     }, [address]);

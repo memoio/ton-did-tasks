@@ -1,8 +1,8 @@
-import { DidMint } from "@/components/accessories";
 import { AlertCard, CheckInCard } from "@/components/cards";
 import { Footer } from "@/components/footer";
 import Image from "next/image";
 import Link from "next/link";
+import { recordAdd } from "@/components/api/airdrop";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { DailyTask } from "@/components/cards";
@@ -10,6 +10,7 @@ import { TelegramLogoIconBW, TwitterLogoIcon } from "@/components/icons";
 import { useDIDInfo } from "@/context/DIDContext";
 import { useAuth } from "@/context/AuthContext";
 import { useAction } from "@/context/ActionContext";
+import { useAccount } from "wagmi";
 
 export default function Earnings() {
     const [isVisible, setIsVisible] = useState(false)
@@ -21,9 +22,11 @@ export default function Earnings() {
     const [text, setText] = useState(null)
     const [isFailedText, setIsFailedText] = useState(null)
 
+    const { address } = useAccount();
+
     const { didInfo } = useDIDInfo();
-    const { addPoint } = useAuth();
-    const { dailyAction, questAction, setDaily, setQuest } = useAction();
+    const { userInfo, addPoint } = useAuth();
+    const { days, dailyAction, questAction, setDaily, setQuest, finishDailyCheck } = useAction();
 
     const router = useRouter();
 
@@ -42,7 +45,7 @@ export default function Earnings() {
     }
 
     const finishTask = async (action, point, txt, failText) => {
-        if (didInfo.Exist) {
+        if (didInfo.exist && address) {
             setPoints(point);
             setText(txt);
             setIsFailedText(failText);
@@ -52,11 +55,15 @@ export default function Earnings() {
                 addPoint(point);
                 if (action >= 70) {
                     setDaily(action - 70);
+                    if (action == 70) {
+                        finishDailyCheck();
+                    }
                 } else {
                     setQuest(action - 50);
                 }
                 setIsVisible(true);
             } catch (err) {
+                setIsFailedText(err);
                 setIsFailed(false);
             }
         }
@@ -65,9 +72,21 @@ export default function Earnings() {
         }
     }
 
-    const checkInFunc = () => {
-        setIsCheckedIn(true)
+    const getTaskStatus = (day, days, checked) => {
+        if (!checked && day === days + 1) {
+            return "2";
+        }
+
+        if (day <= days) {
+            return "1";
+        } else {
+            return "0";
+        }
     }
+
+    // const checkInFunc = () => {
+    //     setIsCheckedIn(true)
+    // }
 
     return (
         <>
@@ -80,7 +99,7 @@ export default function Earnings() {
                 <div className="bg-dao-green p-4 rounded-lg text-white flex flex-col gap-2">
                     <div className="flex justify-between">
                         <p className="flex gap-2"><Image src={"/mdi_star-four-points-circle-outline-gold.svg"} width={22} height={22} alt="" />Points</p>
-                        <p className="font-semibold">1000</p>
+                        <p className="font-semibold">{userInfo.points}</p>
                     </div>
 
                     <div className="flex justify-between text-sm">
@@ -92,10 +111,10 @@ export default function Earnings() {
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px]">
                     <h2 className="flex gap-1 items-center font-semibold text-lg text-black dark:text-white">Daily Check <Image src={"/jam_alert.svg"} width={20} height={20} alt="" /></h2>
                     <div className="grid grid-cols-4 gap-2 mt-2">
-                        <CheckInCard day={1} status={"1"} />
-                        <CheckInCard day={2} status={"1"} />
-                        <CheckInCard day={3} checkInFunc={checkInFunc} />
-                        <CheckInCard day={4} status={"0"} />
+                        <CheckInCard day={1} status={getTaskStatus(1, days, dailyAction.has(0))} checkInFunc={async () => { finishTask(70, 20, "Daily Check-In", "Please Check-In") }} />
+                        <CheckInCard day={2} status={getTaskStatus(2, days, dailyAction.has(0))} checkInFunc={async () => { finishTask(70, 20, "Daily Check-In", "Please Check-In") }} />
+                        <CheckInCard day={3} status={getTaskStatus(3, days, dailyAction.has(0))} checkInFunc={async () => { finishTask(70, 20, "Daily Check-In", "Please Check-In") }} />
+                        <CheckInCard day={4} status={getTaskStatus(4, days, dailyAction.has(0))} checkInFunc={async () => { finishTask(70, 20, "Daily Check-In", "Please Check-In") }} />
                     </div>
                 </div>
 

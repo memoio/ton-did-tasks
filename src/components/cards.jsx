@@ -67,7 +67,7 @@ export function CheckInCard({ day, status, checkInFunc }) {
             <p className="font-semibold text-black dark:text-white">+10</p>
             {status == 1 && <div className="size-6 border border-solid border-dao-green rounded-full flex items-center justify-center"><Image src={"/check.svg"} className="w-3" width={6} height={5} alt="" /></div>}
             {status == 0 && <div className="size-6 border border-solid border-dao-yellow rounded-full flex items-center justify-center"><Image src={"/material-symbols-light_lock-outline.svg"} className="w-4" width={10} height={10} alt="" /></div>}
-            {!status && <button onClick={checkInFunc} className="bg-dao-green text-[10px] text-white p-1 w-full rounded">Check</button>}
+            {status == 2 && <button onClick={checkInFunc} className="bg-dao-green text-[10px] text-white p-1 w-full rounded">Check</button>}
 
             <p className="text-dao-gray text-sm dark:text-light-gray">Day {day}</p>
         </div>
@@ -150,22 +150,22 @@ export function WalletConnectionCard({ image, name, fx, id, elState }) {
     const router = useRouter()
 
     const el = useRef(null)
-    const clickAction = () => {
-        fx(id)
-        router.push('/invitation-code')
-    }
+    // const clickAction = () => {
+    //     fx(id)
+    //     // router.push('/invitation-code')
+    // }
 
     return (
         <>
             {id == elState ?
-                <div ref={el} onClick={clickAction} className="group relative w-full p-3 bg-dao-green text-white border border-solid border-light-stroke flex items-center justify-center gap-2 rounded-[10px] dark:rounded-full dark:border-none">
+                <div ref={el} onClick={fx} className="group relative w-full p-3 bg-dao-green text-white border border-solid border-light-stroke flex items-center justify-center gap-2 rounded-[10px] dark:rounded-full dark:border-none">
                     <Image src={image} width={26} height={26} alt="" />
                     <p className="text-white">{name}</p>
 
                     <button className="absolute right-4 top-1/2 -translate-y-1/2"><Image src={"/mage_electricity-fill-bb.svg"} className="" width={24} height={24} alt="" /></button>
                 </div> :
 
-                <div ref={el} onClick={clickAction} className="group relative w-full p-3 bg-light-fill border border-solid border-light-stroke flex items-center justify-center gap-2 rounded-[10px] dark:bg-sec-bg dark:rounded-full dark:border-none hover:bg-dao-green">
+                <div ref={el} onClick={fx} className="group relative w-full p-3 bg-light-fill border border-solid border-light-stroke flex items-center justify-center gap-2 rounded-[10px] dark:bg-sec-bg dark:rounded-full dark:border-none hover:bg-dao-green">
                     <Image src={image} width={26} height={26} alt="" />
                     <p className="text-dao-gray">{name}</p>
                 </div>

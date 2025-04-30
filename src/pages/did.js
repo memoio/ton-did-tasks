@@ -2,6 +2,7 @@ import { DidMint } from "@/components/accessories";
 import { AlertCard } from "@/components/cards";
 import { Footer } from "@/components/footer";
 import { useDIDInfo } from "@/context/DIDContext";
+import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -12,17 +13,19 @@ export default function Home() {
     const [isVisible, setIsVisible] = useState(false)
     const [isFailed, setIsFailed] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
+    const [isCopied, setIsCopied] = useState(false)
 
     const { address } = useAccount();
     const { didInfo, updateDID } = useDIDInfo();
+    const { addPoint } = useAuth();
 
     const router = useRouter();
 
     const copyToClipboard = (text) => {
         if (navigator?.clipboard?.writeText) {
             navigator.clipboard.writeText(text)
-                .then(() => pcFunc('flex'))
-                .catch(() => copyToClipboardFallback());
+                .then(() => setIsCopied(true))
+                .then(() => setTimeout(() => setIsCopied(false), 1500))
         } else {
             const textArea = document.createElement("textarea");
             textArea.value = text;
@@ -30,6 +33,9 @@ export default function Home() {
             textArea.select();
             document.execCommand("copy");
             document.body.removeChild(textArea);
+
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 1500);
         }
     };
 
@@ -56,10 +62,13 @@ export default function Home() {
 
         try {
             await createDID(address);
+            console.log("create did success!");
 
-            updateDID();
             setIsVisible(false);
             setIsSuccess(true);
+
+            updateDID();
+            addPoint(1000);
         } catch (err) {
             setIsFailed()
         }
@@ -83,7 +92,7 @@ export default function Home() {
                         <h2 className="text-black font-bold dark:text-white">{`No.  ${didInfo.number}`}</h2>
                         <div className="w-full flex justify-between gap-2 -mt-2">
                             <p className="text-gray break-all dark:text-light-gray">{shortener(didInfo.did)}</p>
-                            <button onClick={() => copyToClipboard("did:memo:74a10356eecd185b510a0173e9c4638c6bbd15b107fbb772203a2664fe980ecbf ")} className="min-w-6 max-w-6 flex justify-end"><Image src={"/icons_copy.svg"} width={28} height={28} alt="" /></button>
+                            <button onClick={() => copyToClipboard(didInfo.did)} className="min-w-6 max-w-6 flex justify-end"><Image src={isCopied ? "/check.svg" : "/icons_copy.svg"} width={28} height={28} alt="" /></button>
                         </div>
                     </div> :
 

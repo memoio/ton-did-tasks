@@ -48,7 +48,7 @@ export default function Profile() {
                             <Image src={"/Ellipse 223.png"} className="aspect-auto object-contain" width={55} height={55} alt="" />
                             <div className="flex flex-col gap-0 relative top-0.5">
                                 <p className="font-semibold text-xl leading-4">Cathy</p>
-                                <p className="text-white">{didInfo.exist ? `${didInfo.did.slice(0, 10)}...${didInfo.did.slice(36)}` : `${address?.slice(0, 6)}...${address?.slice(38)}`}</p>
+                                <p className="text-white">{didInfo.exist ? `${didInfo.did.slice(0, 8)}...${didInfo.did.slice(66)}` : `${address?.slice(0, 6)}...${address?.slice(38)}`}</p>
                             </div>
                         </div>
                         <Link href={"/profile/edit"}><Image src={"/mage_electricity-fill.svg"} className="rounded-full" width={36} height={36} alt="" /></Link>

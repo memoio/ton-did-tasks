@@ -9,6 +9,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     // const address = useTonAddress();
+    const [initialed, setInitialed] = useState(false);
     const { address } = useAccount();
     const [isExist, setIsExist] = useState(false);
 
@@ -23,8 +24,9 @@ export const AuthProvider = ({ children }) => {
     });
 
     const setBindWallet = () => {
-        if (address != "") {
+        if (address && address != "" && !initialed) {
             const bindWallet = async () => {
+                setInitialed(true);
                 try {
                     const ip = await getIP();
 
@@ -42,10 +44,10 @@ export const AuthProvider = ({ children }) => {
                 } catch (error) {
                     alert(`Error binding wallet: ${error}`);
                 }
+                setInitialed(true);
             };
 
             bindWallet();
-            setIsExist(true);
         }
     }
 

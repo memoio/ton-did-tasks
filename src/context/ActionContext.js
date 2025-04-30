@@ -7,11 +7,13 @@ import { recordList } from '@/components/api/airdrop';
 export const ActionContext = createContext(null);
 
 export const ActionProvider = ({ children }) => {
-    // const [inviteCode, setInviteCode] = useState("")
+    const [initialed, setInitialed] = useState(false);
+    const [days, setDays] = useState(0);
     const [dailyAction, setDailyAction] = useState(new Set());
     const [questAction, setQuestAction] = useState(new Set());
     // const address = useTonAddress();
     const { isConnected, address } = useAccount();
+    const finishDailyCheck = () => setDays(days + 1);
     const setDaily = (index) => setDailyAction((prev) => new Set(prev).add(index));
     const setQuest = (index) => setQuestAction((prev) => new Set(prev).add(index));
 
@@ -21,8 +23,9 @@ export const ActionProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        if (isConnected && address != "") {
+        if (address && address != "" && !initialed) {
             const HandleDailyAction = async () => {
+                setInitialed(true);
                 try {
                     clear();
                     const records = await recordList(address, 1)
@@ -35,7 +38,8 @@ export const ActionProvider = ({ children }) => {
                         }
                     });
 
-                    const dailyRecords = await recordList(address, 2)
+                    const dailyRecords = await recordList(address, 2);
+                    let consequent = true
                     dailyRecords.map((element) => {
                         console.log(element);
                         if (element.action <= 100) {
@@ -44,9 +48,18 @@ export const ActionProvider = ({ children }) => {
                             if (element.time > preDayTime) {
                                 setDailyAction((prev) => new Set(prev).add(action));
                             }
+
+                            if (action === 0 && consequent) {
+                                if (element.time <= Date.now() - days * 86400000 && element.time > Date.now() - (days + 1) * 86400000) {
+                                    setDays(days + 1);
+                                } else {
+                                    consequent = false;
+                                }
+                            }
                         }
                     });
 
+                    console.log(days);
                     console.log(questAction);
                     console.log(dailyAction);
                 } catch (error) {
@@ -61,6 +74,8 @@ export const ActionProvider = ({ children }) => {
 
     return (
         <ActionContext.Provider value={{
+            days,
+            finishDailyCheck,
             dailyAction,
             questAction,
             setDaily,

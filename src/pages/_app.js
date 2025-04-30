@@ -17,6 +17,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { DIDProvider } from "@/context/DIDContext";
 import { ActionProvider } from "@/context/ActionContext";
+import { RankProvider } from "@/context/RankContext";
 // import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 // const manifestUrl = 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json';
@@ -58,7 +59,9 @@ export default function App({ Component, pageProps }) {
                         <AuthProvider>
                             <DIDProvider>
                                 <ActionProvider>
-                                    <Component {...pageProps} />
+                                    <RankProvider>
+                                        <Component {...pageProps} />
+                                    </RankProvider>
                                 </ActionProvider>
                             </DIDProvider>
                         </AuthProvider>

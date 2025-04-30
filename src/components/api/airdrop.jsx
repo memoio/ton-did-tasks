@@ -15,7 +15,6 @@ export async function getUserInfo(address) {
     if (response.data.result === -1) {
         throw new Error(`API return error: ${response.data.error}`);
     }
-    console.log(response);
 
     return {
         inviteCode: response.data.data.inviteCode,
@@ -114,6 +113,7 @@ export async function inviteList(address) {
 }
 
 export async function recordAdd(address, actionId) {
+    console.log(address, actionId);
     const response = await axios.post(
         API_URL.AIRDROP_RECORD_ADD,
         {

@@ -2,6 +2,7 @@ import { API_URL } from "../config/config";
 import axios from 'axios';
 
 export async function createDID(address) {
+    console.log(address);
     const response = await axios.post(
         API_URL.AIRDROP_CREATE_DID,
         {

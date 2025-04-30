@@ -17,7 +17,6 @@ export default function Home() {
     const { didInfo } = useDIDInfo();
     const { userInfo } = useAuth();
     const [isDark, setIsDark] = useState(false);
-    // const [checked, setChecked] = useState(false);
 
     useEffect(() => {
         // Load theme preference from localStorage
@@ -74,8 +73,8 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <HomeTripleCard icon={"/mdi_star-four-points-circle-outline.svg"} title={"Points Earned Today"} amount={1000} text={"Earn More"} link={"#"} />
-                    <HomeTripleCard icon={"/uil_calender.svg"} title={"Streak Check-In"} amount={1000} text={"Claim Now"} funcAction={() => setIsVisible(true)} />
+                    <HomeTripleCard icon={"/mdi_star-four-points-circle-outline.svg"} title={"Points Earned Today"} amount={1000} text={"See Details"} link={"/points-details"} />
+                    <HomeTripleCard icon={"/uil_calender.svg"} title={"Streak Check-In"} amount={20} text={"Claim Now"} link={"/earning"} />
                     <HomeTripleCard icon={"/fa6-solid_ranking-star.svg"} title={"My Global Rank"} amount={1000} text={"See Details"} link={"/leaderboard"} />
                 </div>
 
