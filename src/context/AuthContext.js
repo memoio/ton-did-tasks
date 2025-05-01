@@ -10,7 +10,8 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     // const address = useTonAddress();
     const [initialed, setInitialed] = useState(false);
-    const { address } = useAccount();
+    const [address, setAddress] = useState("");
+    const { address:walletAddress } = useAccount();
     const [isExist, setIsExist] = useState(false);
 
     const [userInfo, setUserInfo] = useState({
@@ -24,15 +25,15 @@ export const AuthProvider = ({ children }) => {
     });
 
     const setBindWallet = () => {
-        if (address && address != "" && !initialed) {
+        if (walletAddress && walletAddress !== "" && address!==walletAddress) {
             const bindWallet = async () => {
-                setInitialed(true);
+                setAddress(walletAddress);
                 try {
                     const ip = await getIP();
 
-                    await bindUserWallet(address, ip);
+                    await bindUserWallet(walletAddress, ip);
 
-                    const userInfo = await getUserInfo(address);
+                    const userInfo = await getUserInfo(walletAddress);
                     setUserInfo({
                         inviteCode: userInfo.inviteCode,
                         inviteCount: userInfo.inviteCount,
@@ -84,14 +85,11 @@ export const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        if (address && address != "" && !isExist) {
-            console.log(address);
-            setBindWallet()
-        }
-    }, [address]);
+        setBindWallet();
+    }, [walletAddress]);
 
     return (
-        <AuthContext.Provider value={{ userInfo, setBindWallet, setPoints, addPoint }}>
+        <AuthContext.Provider value={{ userInfo, address, setBindWallet, setPoints, addPoint }}>
             {children}
         </AuthContext.Provider>
     );

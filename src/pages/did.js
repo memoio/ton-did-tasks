@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
 import { createDID } from "@/components/api/did";
 
 export default function Home() {
@@ -15,9 +15,9 @@ export default function Home() {
     const [isSuccess, setIsSuccess] = useState(false)
     const [isCopied, setIsCopied] = useState(false)
 
-    const { address } = useAccount();
+    // const { address } = useAccount();
     const { didInfo, updateDID } = useDIDInfo();
-    const { addPoint } = useAuth();
+    const { addPoint, address } = useAuth();
 
     const router = useRouter();
 

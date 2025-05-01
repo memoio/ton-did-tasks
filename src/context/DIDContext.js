@@ -1,7 +1,8 @@
 'use client';
 import { createContext, useContext, useState, useEffect } from 'react';
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
 import { getDIDInfo } from '@/components/api/did';
+import { useAuth } from './AuthContext';
 
 export const DIDContext = createContext(null);
 
@@ -12,7 +13,7 @@ export const DIDProvider = ({ children }) => {
         exist: false,
     });
     const [initialed, setInitialed] = useState(false);
-    const { address } = useAccount();
+    const { address } = useAuth();
 
     const setDID = (did, number, exist) => {
         setDIDInfo({

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
+import { TON_DID_WEB } from "@/components/config/config";
 
 export default function Earnings() {
     const popup = useRef(null)
@@ -12,6 +13,8 @@ export default function Earnings() {
     const { userInfo } = useAuth()
 
     const router = useRouter();
+
+    // const currentUrl = `${TON_DID_WEB}?startapp=${userInfo?.inviteCode}`;
 
     const handleInviteTG = () => {
         if (window.Telegram?.WebApp?.openTelegramLink) {
@@ -68,10 +71,10 @@ export default function Earnings() {
 
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke text-black dark:text-white p-4 rounded-lg flex flex-col gap-2">
                     <h2 className="text-lg font-bold">Referral Link</h2>
-                    <p className="bg-[#1D1F1D]/8 p-4 rounded-md dark:bg-[#1D1F1D]">{`https://t.me/aZennetwork1_bot?start=${userInfo.inviteCode}`}</p>
+                    <p className="bg-[#1D1F1D]/8 p-4 rounded-md dark:bg-[#1D1F1D]">{`${TON_DID_WEB}?startapp=${userInfo?.inviteCode}`}</p>
                     <div className="flex gap-2 items-center justify-center mt-1">
                         <button onClick={handleInviteTG} className="bg-dao-green w-full text-white rounded-full p-1.5">Share Link</button>
-                        <button onClick={() => copyToClipboard(`https://t.me/aZennetwork1_bot?start=${userInfo.inviteCode}`)} className=""><Image src={isCopied ? "/check.svg" : "/meteor-icons_copy.svg"} width={35} height={35} alt="" /></button>
+                        <button onClick={() => copyToClipboard(`${TON_DID_WEB}?startapp=${userInfo?.inviteCode}`)} className=""><Image src={isCopied ? "/check.svg" : "/meteor-icons_copy.svg"} width={35} height={35} alt="" /></button>
                     </div>
                 </div>
 

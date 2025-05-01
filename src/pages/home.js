@@ -7,15 +7,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
 
 export default function Home() {
     const [isVisible, setIsVisible] = useState(false)
 
     const router = useRouter();
-    const { address } = useAccount();
+    // const { address } = useAccount();
     const { didInfo } = useDIDInfo();
-    const { userInfo } = useAuth();
+    const { userInfo, address } = useAuth();
     const [isDark, setIsDark] = useState(false);
 
     useEffect(() => {

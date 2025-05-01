@@ -4,15 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
-import { useAccount } from "wagmi";
+// import { useAccount } from "wagmi";
 import { useAuth } from "@/context/AuthContext";
 import { useDIDInfo } from "@/context/DIDContext";
 
 export default function Profile() {
     const router = useRouter()
     const [ic, setIc] = useState(false)
-    const { address } = useAccount();
-    const { userInfo } = useAuth();
+    // const { address } = useAccount();
+    const { userInfo, address } = useAuth();
     const { didInfo } = useDIDInfo();
     const [isCopied, setIsCopied] = useState(false);
 
