@@ -39,7 +39,7 @@ export const API_URL_V2 = {
     "AIRDROP_DID_INFO": AIRDROP_BACKEND_URL + "/v2/did/info",
 }
 
-export const API_URL = API_URL_V1;
+export const API_URL = API_URL_V2;
 
 export const TWITTER_OAUTH_STATE = "twitter auth for data-did-v2";
 export const TWITTER_CLIENT_ID = "Y1g3SVlIN0E1cUpRM2dNaHBrYUc6MTpjaQ";

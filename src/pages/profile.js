@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 // import { useAccount } from "wagmi";
 import { useAuth } from "@/context/AuthContext";
 import { useDIDInfo } from "@/context/DIDContext";
+import { useDisconnect } from 'wagmi';
 
 export default function Profile() {
     const router = useRouter()
@@ -15,6 +16,7 @@ export default function Profile() {
     const { userInfo, userProfile, address } = useAuth();
     const { didInfo } = useDIDInfo();
     const [isCopied, setIsCopied] = useState(false);
+    const { disconnectAsync } = useDisconnect();
 
     const copyToClipboard = (text) => {
         console.log(userInfo);
@@ -35,7 +37,11 @@ export default function Profile() {
         }
     };
 
-    const logOutFunc = () => {
+    const logOutFunc = async () => {
+        await disconnectAsync();
+        if (window.okxwallet) {
+            await window.okxwallet.disconnect()
+        }
         router.push('/')
     }
 
