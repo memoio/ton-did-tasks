@@ -14,14 +14,14 @@ export default function Earnings() {
 
     const router = useRouter();
 
-    // const currentUrl = `${TON_DID_WEB}?startapp=${userInfo?.inviteCode}`;
+    const currentUrl = `${TON_DID_WEB}?startapp=${userInfo?.inviteCode}`;
 
     const handleInviteTG = () => {
         if (window.Telegram?.WebApp?.openTelegramLink) {
-            window.Telegram.WebApp.openTelegramLink(urls[0].url);
+            window.Telegram.WebApp.openTelegramLink(currentUrl);
         }
         else {
-            window.open(urls[0].url, '_blank');
+            window.open(currentUrl, '_blank');
         }
     };
 
@@ -71,10 +71,12 @@ export default function Earnings() {
 
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke text-black dark:text-white p-4 rounded-lg flex flex-col gap-2">
                     <h2 className="text-lg font-bold">Referral Link</h2>
-                    <p className="bg-[#1D1F1D]/8 p-4 rounded-md dark:bg-[#1D1F1D]">{`${TON_DID_WEB}?startapp=${userInfo?.inviteCode}`}</p>
+                    <p className="bg-[#1D1F1D]/8 p-4 rounded-md dark:bg-[#1D1F1D]">{
+                        currentUrl
+                    }</p>
                     <div className="flex gap-2 items-center justify-center mt-1">
                         <button onClick={handleInviteTG} className="bg-dao-green w-full text-white rounded-full p-1.5">Share Link</button>
-                        <button onClick={() => copyToClipboard(`${TON_DID_WEB}?startapp=${userInfo?.inviteCode}`)} className=""><Image src={isCopied ? "/check.svg" : "/meteor-icons_copy.svg"} width={35} height={35} alt="" /></button>
+                        <button onClick={() => copyToClipboard(currentUrl)} className=""><Image src={isCopied ? "/check.svg" : "/meteor-icons_copy.svg"} width={35} height={35} alt="" /></button>
                     </div>
                 </div>
 

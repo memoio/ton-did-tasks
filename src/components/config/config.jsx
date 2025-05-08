@@ -1,7 +1,8 @@
 export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be.metamemo.one"
+export const TEST_AIRDROP_BACKEND_URL = "http://47.251.113.228:8084"
 
 export const TON_DID_WEB = "https://t.me/memodid_bot/datadid"
-export const AIRDROP_BACKEND_URL = PRODUCT_AIRDROP_BACKEND_URL
+export const AIRDROP_BACKEND_URL = TEST_AIRDROP_BACKEND_URL
 
 const API_URL_V1 = {
     "AIRDROP_USER_WALLET_BIND": AIRDROP_BACKEND_URL + "/airdrop/bind",
@@ -17,13 +18,13 @@ const API_URL_V1 = {
     "AIRDROP_DID_INFO": AIRDROP_BACKEND_URL + "/did/info",
 }
 
-const API_URL_V2 = {
+export const API_URL_V2 = {
     "AIRPROP_USER_PROFILE": AIRDROP_BACKEND_URL + "/v2/link/user/profile",
     "AIRPROP_X_OAUTH_INFO": AIRDROP_BACKEND_URL + "/v2/link/x/oauth",
     "AIRDROP_LINK_X_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/x/link",
     "AIRDROP_LINK_X_ACCOUNT_BY_TWEET": AIRDROP_BACKEND_URL + "/v2/link/x/link/tweet",
-    "AIRDROP_LINK_TELEGRAM_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/x/telegram",
-    "AIRDROP_LINK_DISCORD_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/x/discord",
+    "AIRDROP_LINK_TELEGRAM_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/telegram/link",
+    "AIRDROP_LINK_DISCORD_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/discord/link",
 
     "AIRDROP_USER_WALLET_BIND": AIRDROP_BACKEND_URL + "/v2/airdrop/bind",
     "AIRDROP_USER_INFO": AIRDROP_BACKEND_URL + "/v2/airdrop/info",
@@ -39,3 +40,11 @@ const API_URL_V2 = {
 }
 
 export const API_URL = API_URL_V1;
+
+export const TWITTER_OAUTH_STATE = "twitter auth for data-did-v2";
+export const TWITTER_CLIENT_ID = "Y1g3SVlIN0E1cUpRM2dNaHBrYUc6MTpjaQ";
+export const TWITTER_CALLBACK_URL = "http://127.0.0.1:3000/callback/twitter";
+
+export const DISCORD_OAUTH_STATE = "discord auth for data-did-v2";
+export const DISCORD_CLIENT_ID = "1369582017217298483";
+export const DISCORD_CALLBACK_URL = "http://127.0.0.1:3000/callback/discord";

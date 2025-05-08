@@ -27,7 +27,7 @@ export const RankProvider = ({ children }) => {
         }
     ]);
 
-    const [pagedToalRank, setPagedToalRank] = useState([
+    const [pagedTotalRank, setPagedTotalRank] = useState([
         {
             points: 0,
             address: "",
@@ -45,7 +45,7 @@ export const RankProvider = ({ children }) => {
     const setRankPage = (page, type) => {
         if (type == 0) {
             setPage(page);
-            setPagedToalRank(totalRankInfo.slice((page - 1) * 10, page * 10));
+            setPagedTotalRank(totalRankInfo.slice((page - 1) * 10, page * 10));
         } else {
             setWeeklyPage(page);
             setPagedWeeklyRank(weeklyRankInfo.slice((page - 1) * 10, page * 10));
@@ -57,17 +57,16 @@ export const RankProvider = ({ children }) => {
             const updatePointHistory = async () => {
                 try {
                     const totalRank = await rank(0);
-                    console.log(totalRank.length);
-                    setLength(totalRank.length);
+                    setLength(Math.ceil(totalRank.length / 10));
                     setTotalRankInfo(totalRank);
-                    setPagedToalRank(totalRank.slice(0, 10));
+                    setPagedTotalRank(totalRank.slice(0, 10));
 
                     const weeklyRank = await rank(1);
-                    console.log(weeklyRank.length);
-                    setWeeklyLength(weeklyRank.length);
-                    console.log(weeklyRank);
+                    setWeeklyLength(Math.ceil(weeklyRank.length / 10));
                     setWeeklyRankInfo(weeklyRank);
                     setPagedWeeklyRank(weeklyRank.slice(0, 10));
+
+                    // console.log(pagedWeeklyRank);
                 } catch (err) {
                     console.log(err);
                 }
@@ -79,7 +78,7 @@ export const RankProvider = ({ children }) => {
 
     return (
         <RankContext.Provider value={{
-            pagedToalRank,
+            pagedTotalRank,
             pagedWeeklyRank,
             length,
             weeklyLength,

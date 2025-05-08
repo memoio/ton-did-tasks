@@ -12,7 +12,7 @@ export default function Profile() {
     const router = useRouter()
     const [ic, setIc] = useState(false)
     // const { address } = useAccount();
-    const { userInfo, address } = useAuth();
+    const { userInfo, userProfile, address } = useAuth();
     const { didInfo } = useDIDInfo();
     const [isCopied, setIsCopied] = useState(false);
 
@@ -55,9 +55,9 @@ export default function Profile() {
                     </div>
 
                     <div className="flex flex-wrap gap-2 mt-4">
-                        <LinkProfileCard name={"Twitter"} status={1} />
-                        <LinkProfileCard name={"Telegram"} status={1} />
-                        <LinkProfileCard name={"Discord"} status={0} />
+                        <LinkProfileCard name={"Twitter"} status={userProfile.linkedX} />
+                        <LinkProfileCard name={"Telegram"} status={userProfile.linkedTG} />
+                        <LinkProfileCard name={"Discord"} status={userProfile.linkedDiscord} />
                     </div>
                 </div>
 

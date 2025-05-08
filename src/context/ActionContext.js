@@ -14,7 +14,7 @@ export const ActionProvider = ({ children }) => {
     const [questAction, setQuestAction] = useState(new Set());
     // const address = useTonAddress();
     // const { isConnected, address } = useAccount();
-    const {address} = useAuth();
+    const { address } = useAuth();
     const finishDailyCheck = () => setDays(days + 1);
     const setDaily = (index) => setDailyAction((prev) => new Set(prev).add(index));
     const setQuest = (index) => setQuestAction((prev) => new Set(prev).add(index));
@@ -27,7 +27,6 @@ export const ActionProvider = ({ children }) => {
     useEffect(() => {
         if (address && address != "" && !initialed) {
             const HandleDailyAction = async () => {
-                setInitialed(true);
                 try {
                     clear();
                     const records = await recordList(address, 1)
@@ -70,6 +69,7 @@ export const ActionProvider = ({ children }) => {
                 }
             };
 
+            setInitialed(true);
             HandleDailyAction();
         }
     }, [address]);

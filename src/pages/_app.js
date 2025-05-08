@@ -12,7 +12,7 @@ import {
     tokenPocketWallet,
 } from '@rainbow-me/rainbowkit/wallets';
 import { mainnet } from "wagmi/chains";
-import { SessionProvider } from "next-auth/react";
+// import { SessionProvider } from "next-auth/react";
 import "@rainbow-me/rainbowkit/styles.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { DIDProvider } from "@/context/DIDContext";
@@ -55,17 +55,17 @@ export default function App({ Component, pageProps }) {
                     borderRadius: 'medium'
                 })}
                 >
-                    <SessionProvider session={pageProps.session} refetchInterval={0}>
-                        <AuthProvider>
-                            <DIDProvider>
-                                <ActionProvider>
-                                    <RankProvider>
-                                        <Component {...pageProps} />
-                                    </RankProvider>
-                                </ActionProvider>
-                            </DIDProvider>
-                        </AuthProvider>
-                    </SessionProvider>
+                    {/* <SessionProvider session={pageProps.session} refetchInterval={0}> */}
+                    <AuthProvider>
+                        <DIDProvider>
+                            <ActionProvider>
+                                <RankProvider>
+                                    <Component {...pageProps} />
+                                </RankProvider>
+                            </ActionProvider>
+                        </DIDProvider>
+                    </AuthProvider>
+                    {/* </SessionProvider> */}
                 </RainbowKitProvider>
             </QueryClientProvider>
         </WagmiProvider>

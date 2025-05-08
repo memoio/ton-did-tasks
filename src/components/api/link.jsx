@@ -1,9 +1,9 @@
-import { API_URL } from "../config/config";
+import { API_URL_V2 } from "../config/config";
 import axios from 'axios';
 // const state = "This "
 
 export async function profile(address) {
-    const response = await axios.get(API_URL.AIRPROP_USER_PROFILE, {
+    const response = await axios.get(API_URL_V2.AIRPROP_USER_PROFILE, {
         params: {
             "address": address,
         },
@@ -21,7 +21,7 @@ export async function profile(address) {
 }
 
 export async function xOauthInfo() {
-    const response = await axios.get(API_URL.AIRPROP_X_OAUTH_INFO);
+    const response = await axios.get(API_URL_V2.AIRPROP_X_OAUTH_INFO);
 
     if (response.status !== 200) {
         throw new Error(`API request failed with status ${response.status}: ${response.data}`);
@@ -39,32 +39,7 @@ export async function xOauthInfo() {
 
 export async function linkXAccount(address, code, callbackUrl) {
     const response = await axios.post(
-        API_URL.AIRDROP_LINK_X_ACCOUNT,
-        {
-            address: address,
-            code: code,
-            callbackUrl: callbackUrl
-        },
-        {
-            headers: {
-                accept: "application/hal+json",
-                "Content-Type": "application/json",
-            },
-        }
-    );
-
-    if (response.status !== 200) {
-        throw new Error(`API request failed with status ${response.status}: ${response.data}`);
-    }
-
-    if (response.data.result === -1) {
-        throw new Error(`API return error: ${response.data.error}`);
-    }
-}
-
-export async function linkXAccount(address, code, callbackUrl) {
-    const response = await axios.post(
-        API_URL.AIRDROP_LINK_X_ACCOUNT,
+        API_URL_V2.AIRDROP_LINK_X_ACCOUNT,
         {
             address: address,
             code: code,
@@ -89,10 +64,35 @@ export async function linkXAccount(address, code, callbackUrl) {
 
 export async function linkXAccountByTweet(address, tweetID) {
     const response = await axios.post(
-        API_URL.AIRDROP_LINK_X_ACCOUNT_BY_TWEET,
+        API_URL_V2.AIRDROP_LINK_X_ACCOUNT_BY_TWEET,
         {
             address: address,
             tweetid: tweetID
+        },
+        {
+            headers: {
+                accept: "application/hal+json",
+                "Content-Type": "application/json",
+            },
+        }
+    );
+
+    if (response.status !== 200) {
+        throw new Error(`API request failed with status ${response.status}: ${response.data}`);
+    }
+
+    if (response.data.result === -1) {
+        throw new Error(`API return error: ${response.data.error}`);
+    }
+}
+
+export async function linkDiscordAccount(address, code, callbackUrl) {
+    const response = await axios.post(
+        API_URL_V2.AIRDROP_LINK_DISCORD_ACCOUNT,
+        {
+            address: address,
+            code: code,
+            callbackUrl: callbackUrl
         },
         {
             headers: {

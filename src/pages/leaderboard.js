@@ -1,8 +1,7 @@
-import { Footer } from "@/components/footer";
-import { InvitationDetails, PointsDetails, SubHeader } from "@/components/accessories";
-import { useRef } from "react";
+import { SubHeader } from "@/components/accessories";
+import { useRef, useState } from "react";
 import Image from "next/image";
-import { LeaderboardCard } from "@/components/cards";
+import { LeaderboardCard, Pagination } from "@/components/cards";
 import { useAuth } from "@/context/AuthContext";
 import { useRank } from "@/context/RankContext";
 
@@ -11,8 +10,10 @@ export default function InvitationDetailsPage() {
     const monthly = useRef(null)
     const all_time = useRef(null)
 
+    const [isWeekly, setIsWeekly] = useState(true);
+
     const { userInfo } = useAuth();
-    const { pagedToalRank, pagedWeeklyRank, length, weeklyLength, page, weeklyPage, setRankPage } = useRank();
+    const { pagedTotalRank, pagedWeeklyRank, length, weeklyLength, page, weeklyPage, setRankPage } = useRank();
 
     const modeList = [weekly, monthly, all_time]
     const toggleModes = (mode) => {
@@ -47,6 +48,19 @@ export default function InvitationDetailsPage() {
         mode.current.classList.add('dark:bg-dao-green')
         mode.current.classList.add('dark:border-none')
         mode.current.classList.add('dark:text-white')
+        if (mode === weekly) {
+            setIsWeekly(true);
+        } else {
+            setIsWeekly(false);
+        }
+    }
+
+    const handleChanged = (page) => {
+        if (isWeekly) {
+            setRankPage(page, 1);
+        } else {
+            setRankPage(page, 0);
+        }
     }
 
     return (
@@ -70,18 +84,30 @@ export default function InvitationDetailsPage() {
                     </div>
 
                     <p className="text-white font-semibold text-sm">{userInfo.points} Points</p>
-                    <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm">3</p>
+                    <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm">1000+</p>
                 </div>
 
                 <hr />
 
                 <div className="flex flex-col gap-4">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i, key) => {
-                        return (
-                            <LeaderboardCard key={key} name={"Cathy"} point={1000} count={key + 1} />
-                        )
-                    })}
+                    {
+                        isWeekly ?
+                            pagedWeeklyRank.map((rankInfo, key) => {
+                                const rankAddress = rankInfo.address;
+                                return (
+                                    <LeaderboardCard key={key} name={`${rankAddress.slice(0, 4)}...${rankAddress.slice(40)}`} point={rankInfo.points} count={key + 1} />
+                                )
+                            }) :
+                            pagedTotalRank.map((rankInfo, key) => {
+                                const rankAddress = rankInfo.address;
+                                return (
+                                    <LeaderboardCard key={key} name={`${rankAddress.slice(0, 4)}...${rankAddress.slice(40)}`} point={rankInfo.points} count={key + 1} />
+                                )
+                            })
+                    }
                 </div>
+
+                <Pagination currentPage={isWeekly ? weeklyPage : page} totalPages={isWeekly ? weeklyLength : length} onPageChange={handleChanged} />
             </div>
         </>
     )

@@ -64,7 +64,7 @@ export function HomeTripleCard({ icon, title, text, link, amount, funcAction }) 
 export function CheckInCard({ day, status, checkInFunc }) {
     return (
         <div className="bg-main-blue/8 border border-solid border-main-blue/21 p-2 rounded-lg flex flex-col items-center gap-2 dark:bg-fill-bright/19 dark:border-white/6 dark:border-2">
-            <p className="font-semibold text-black dark:text-white">+10</p>
+            <p className="font-semibold text-black dark:text-white">+20</p>
             {status == 1 && <div className="size-6 border border-solid border-dao-green rounded-full flex items-center justify-center"><Image src={"/check.svg"} className="w-3" width={6} height={5} alt="" /></div>}
             {status == 0 && <div className="size-6 border border-solid border-dao-yellow rounded-full flex items-center justify-center"><Image src={"/material-symbols-light_lock-outline.svg"} className="w-4" width={10} height={10} alt="" /></div>}
             {status == 2 && <button onClick={checkInFunc} className="bg-dao-green text-[10px] text-white p-1 w-full rounded">Check</button>}
@@ -111,15 +111,96 @@ export function LinkProfileCard({ name, status }) {
     return (
         <div className="border-2 border-solid border-white bg-white/24 h-10 px-1.5 rounded-md flex items-center gap-4 text-white">
             <p className="text-xs">{name}</p>
-            {status == 0 ?
-                <button className="bg-dao-yellow px-2 py-1 text-sm border-2 border-solid border-white rounded text-[10px]">+ Add</button> :
-                <Image src={"/aaFrame.svg"} width={16} height={16} />
+            {status ?
+                <Image src={"/aaFrame.svg"} width={16} height={16} /> :
+                <button className="bg-dao-yellow px-2 py-1 text-sm border-2 border-solid border-white rounded text-[10px]">+ Add</button>
             }
         </div>
     )
 }
 
+export function Pagination({ currentPage, totalPages, onPageChange }) {
+    const renderPageNumbers = () => {
+        const pageNumbers = [];
+        const maxVisiblePages = 2;
 
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+        if (endPage - startPage + 1 < maxVisiblePages) {
+            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+
+        if (startPage > 1) {
+            pageNumbers.push(
+                <button
+                    key={1}
+                    onClick={() => onPageChange(1)}
+                    className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-[#05F292] text-black' : 'bg-[#05F29220]'
+                        }`}
+                >
+                    1
+                </button>
+            );
+            if (startPage > 2) {
+                pageNumbers.push(<span className="page-link">...</span>);
+            }
+        }
+
+        for (let page = startPage; page <= endPage; page++) {
+            pageNumbers.push(
+                <button
+                    key={page}
+                    onClick={() => onPageChange(page)}
+                    className={`px-4 py-2 rounded-md ${currentPage === page ? 'bg-[#05F292] text-black' : 'bg-[#05F29220]'
+                        }`}
+                >
+                    {page}
+                </button>
+            );
+        }
+
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                pageNumbers.push(<span>...</span>);
+            }
+            pageNumbers.push(
+                <button
+                    key={totalPages}
+                    onClick={() => onPageChange(totalPages)}
+                    className={`px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-[#05F292] text-black' : 'bg-[#05F29220]'
+                        }`}
+                >
+                    {totalPages}
+                </button>
+            );
+        }
+
+        return pageNumbers;
+    };
+
+    return (
+        <div className="flex justify-center mt-6 gap-2">
+            <button
+                onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-md bg-[#05F29220] disabled:opacity-50"
+            >
+                Prev
+            </button>
+
+            {renderPageNumbers()}
+
+            <button
+                onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-md bg-[#05F29220] disabled:opacity-50"
+            >
+                Next
+            </button>
+        </div>
+    );
+};
 
 export function LeaderboardCard({ name, point, count }) {
     return (
