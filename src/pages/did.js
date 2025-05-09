@@ -70,7 +70,8 @@ export default function Home() {
             updateDID();
             addPoint(1000);
         } catch (err) {
-            setIsFailed()
+            console.log(err);
+            setIsFailed(true);
         }
     }
 

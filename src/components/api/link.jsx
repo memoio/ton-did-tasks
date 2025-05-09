@@ -3,7 +3,7 @@ import axios from 'axios';
 // const state = "This "
 
 export async function profile(address) {
-    const response = await axios.get(API_URL_V2.AIRPROP_USER_PROFILE, {
+    const response = await axios.get(API_URL_V2.AIRDROP_USER_PROFILE, {
         params: {
             "address": address,
         },
@@ -21,7 +21,7 @@ export async function profile(address) {
 }
 
 export async function xOauthInfo() {
-    const response = await axios.get(API_URL_V2.AIRPROP_X_OAUTH_INFO);
+    const response = await axios.get(API_URL_V2.AIRDROP_X_OAUTH_INFO);
 
     if (response.status !== 200) {
         throw new Error(`API request failed with status ${response.status}: ${response.data}`);

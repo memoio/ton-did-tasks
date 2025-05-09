@@ -66,35 +66,39 @@ export default function Earnings() {
 
     const finishTask = async (action, point, txt, failText, url) => {
         if (didInfo.exist && address) {
-            setPoints(point);
-            setText(txt);
-            setIsFailedText(failText);
+            if (userProfile.linkedX && userProfile.linkedDiscord && userProfile.linkedTG) {
+                setPoints(point);
+                setText(txt);
+                setIsFailedText(failText);
 
-            if (window.Telegram?.WebApp?.openTelegramLink && index == 0) {
-                window.Telegram.WebApp.openTelegramLink(url);
-            }
-            else {
-                window.open(url, '_blank');
-            }
-
-            try {
-                await recordAdd(address, action);
-                addPoint(point);
-                if (action >= 70) {
-                    setDaily(action - 70);
-                    if (action == 70) {
-                        finishDailyCheck();
-                    }
-                } else {
-                    setQuest(action - 50);
+                if (window.Telegram?.WebApp?.openTelegramLink && index == 0) {
+                    window.Telegram.WebApp.openTelegramLink(url);
                 }
-                setIsVisible(true);
-            } catch (err) {
-                setIsFailedText(err);
+                else {
+                    window.open(url, '_blank');
+                }
+
+                try {
+                    await recordAdd(address, action);
+                    addPoint(point);
+                    if (action >= 70) {
+                        setDaily(action - 70);
+                        if (action == 70) {
+                            finishDailyCheck();
+                        }
+                    } else {
+                        setQuest(action - 50);
+                    }
+                    setIsVisible(true);
+                } catch (err) {
+                    console.log(err);
+                    setIsFailed(true);
+                }
+            } else {
+                setIsFailedText("Please Link Your X/TG/Discord Account First");
                 setIsFailed(true);
             }
-        }
-        else {
+        } else {
             alert("Please Create DID First");
         }
     }

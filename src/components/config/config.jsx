@@ -1,8 +1,7 @@
-export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be.metamemo.one"
-export const TEST_AIRDROP_BACKEND_URL = "http://47.251.113.228:8084"
+export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be-v2.metamemo.one"
 
 export const TON_DID_WEB = "https://t.me/memodid_bot/datadid"
-export const AIRDROP_BACKEND_URL = TEST_AIRDROP_BACKEND_URL
+export const AIRDROP_BACKEND_URL = PRODUCT_AIRDROP_BACKEND_URL
 
 const API_URL_V1 = {
     "AIRDROP_USER_WALLET_BIND": AIRDROP_BACKEND_URL + "/airdrop/bind",
@@ -19,8 +18,8 @@ const API_URL_V1 = {
 }
 
 export const API_URL_V2 = {
-    "AIRPROP_USER_PROFILE": AIRDROP_BACKEND_URL + "/v2/link/user/profile",
-    "AIRPROP_X_OAUTH_INFO": AIRDROP_BACKEND_URL + "/v2/link/x/oauth",
+    "AIRDROP_USER_PROFILE": AIRDROP_BACKEND_URL + "/v2/link/user/profile",
+    "AIRDROP_X_OAUTH_INFO": AIRDROP_BACKEND_URL + "/v2/link/x/oauth",
     "AIRDROP_LINK_X_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/x/link",
     "AIRDROP_LINK_X_ACCOUNT_BY_TWEET": AIRDROP_BACKEND_URL + "/v2/link/x/link/tweet",
     "AIRDROP_LINK_TELEGRAM_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/telegram/link",
@@ -37,6 +36,11 @@ export const API_URL_V2 = {
     "AIRDROP_CREATE_DID": AIRDROP_BACKEND_URL + "/v2/did/createadmin",
     "AIRDROP_CREATE_TON_DID": AIRDROP_BACKEND_URL + "/v2/did/createtondid",
     "AIRDROP_DID_INFO": AIRDROP_BACKEND_URL + "/v2/did/info",
+
+    "AIRDROP_SET_NAME": AIRDROP_BACKEND_URL + "/v2/user/set-name",
+    "AIRDROP_SET_PHOTO": AIRDROP_BACKEND_URL + "/v2/user/set-photo",
+    "AIRDROP_BIND_EX_INFO": AIRDROP_BACKEND_URL + "/v2/user/bind-exchange-info",
+    "AIRDROP_USER_PROFILE_V2": AIRDROP_BACKEND_URL + "/v2/user/info",
 }
 
 export const API_URL = API_URL_V2;
