@@ -53,7 +53,7 @@ export default function AddAddress() {
                     <div className="absolute inset-0 bg-black/20"></div>
 
                     <div className="flex gap-2 items-center relative z-10">
-                        <Image src={`/${page.toLowerCase()}.svg`} width={42} height={42} alt="" />
+                        <Image src={`/${page}.svg`} width={42} height={42} alt="" />
                         <p className="">{page}</p>
                     </div>
                     <Link className="relative z-10" href={`/how-to-register/${page}`}>How To Register</Link>
