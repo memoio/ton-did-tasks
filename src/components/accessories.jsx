@@ -56,10 +56,10 @@ export function WalletAccessories({ title, image, address, name }) {
                 <Image src={image} className="aspect-square object-contain" width={42} height={42} alt="" />
                 <div className="flex flex-col">
                     <h2 className="text-dao-gray dark:text-light-gray">{title}</h2>
-                    {address ? <p className="text-dark-stroke dark:text-white font-semibold -mt-1 flex items-center gap-2">{address} <button onClick={() => copyToClipboard(address)} className=""><Image src={isCopied ? "/check.svg" : "/copy-icon.svg"} width={16} height={16} alt="" /></button></p> : <p className="text-dark-stroke dark:text-white font-semibold -mt-1">Add Address</p>}
+                    {address ? <p className="text-dark-stroke dark:text-white font-semibold -mt-1 flex items-center gap-2">{`${address.slice(0, 6)}...${address.slice(38)}`} <button onClick={() => copyToClipboard(address)} className=""><Image src={isCopied ? "/check.svg" : "/copy-icon.svg"} width={16} height={16} alt="" /></button></p> : <p className="text-dark-stroke dark:text-white font-semibold -mt-1">Add Address</p>}
                 </div>
             </div>
-            {address ? <Link href={`/add-address/${title}`}><ArrowRightGreen /></Link> : <Link href={`/add-address/${title}`}><ArrowRight /></Link>}
+            {address ? <Image className="p-1 rounded-full size-10 fill-dao-green dark:fill-white" src={"/check.svg"} width={24} height={24} alt="" /> : <Link href={`/add-address/${title}`}><ArrowRightGreen /></Link>}
         </div>
     )
 }

@@ -16,12 +16,26 @@ export default function Earnings() {
 
     const currentUrl = `${TON_DID_WEB}?startapp=${userInfo?.inviteCode}`;
 
+    const tgText = `🎉 Welcome to the MEMO data ecosystem, a platform where you can own, manage and monetize your data! 💰
+
+🌟 You can easily earn points by completing tasks within the platform, and you can also unlock exclusive tasks with multiple partners to get points!
+·Create DID 📝
+·Link Social Media Accounts🔗
+·Daily Check-in📅
+·Joint Activities🤝
+·Invite friends👫
+
+🚀 Click ${currentUrl} to start your data value-added journey!
+`
+
+    const shareUrl = 'https://t.me/share/url?url=' + encodeURIComponent(currentUrl) + '&text=' + encodeURIComponent(tgText)
+
     const handleInviteTG = () => {
         if (window.Telegram?.WebApp?.openTelegramLink) {
-            window.Telegram.WebApp.openTelegramLink(currentUrl);
+            window.Telegram.WebApp.openTelegramLink(shareUrl);
         }
         else {
-            window.open(currentUrl, '_blank');
+            window.open(shareUrl, '_blank');
         }
     };
 
