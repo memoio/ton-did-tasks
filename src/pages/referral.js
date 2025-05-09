@@ -1,31 +1,35 @@
 import { AlertCard, ReferralCard } from "@/components/cards";
 import { Footer } from "@/components/footer";
+import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
+import { TON_DID_WEB } from "@/components/config/config";
 
-export default function Earnings () {
+export default function Earnings() {
     const popup = useRef(null)
-    const [isSuccess, setIsSuccess] = useState(false)
-
+    const [isCopied, setIsCopied] = useState(false)
+    const { userInfo } = useAuth()
 
     const router = useRouter();
 
-    const closeFunc = () => {
-        if ( isSuccess ) {
-            setIsSuccess(false)
-        } else {
-            setIsSuccess(true)
+    const currentUrl = `${TON_DID_WEB}?startapp=${userInfo?.inviteCode}`;
+
+    const handleInviteTG = () => {
+        if (window.Telegram?.WebApp?.openTelegramLink) {
+            window.Telegram.WebApp.openTelegramLink(currentUrl);
         }
-    }
+        else {
+            window.open(currentUrl, '_blank');
+        }
+    };
 
     const copyToClipboard = (text) => {
         if (navigator?.clipboard?.writeText) {
             navigator.clipboard.writeText(text)
-              .then(() => pcFunc('flex'))
-              .then(() => setIsSuccess(true))
-              .catch(() => copyToClipboardFallback());
+                .then(() => setIsCopied(true))
+                .then(() => setTimeout(() => setIsCopied(false), 1500))
         } else {
             const textArea = document.createElement("textarea");
             textArea.value = text;
@@ -34,14 +38,15 @@ export default function Earnings () {
             document.execCommand("copy");
             document.body.removeChild(textArea);
 
-            setIsSuccess(true)
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 1500);
         }
     };
 
     return (
         <>
-            { isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"Copy success"} size={87} closeFunc={ closeFunc } /> }
-            <div ref={ popup } className="bg-black/60 fixed inset-0 z-50 hidden" onClick={ () => {
+            {/* {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"Copy success"} size={87} closeFunc={closeFunc} />} */}
+            <div ref={popup} className="bg-black/60 fixed inset-0 z-50 hidden" onClick={() => {
                 popup.current.classList.toggle('hidden')
                 popup.current.classList.toggle('block')
             }}>
@@ -55,7 +60,7 @@ export default function Earnings () {
                 <div className="bg-dao-green p-4 rounded-lg text-white flex flex-col gap-2">
                     <div className="flex justify-between">
                         <p className="flex gap-2"><Image src={"/connection 1.svg"} width={24} height={24} alt="" />Referral</p>
-                        <p className="font-semibold">1000</p>
+                        <p className="font-semibold">{userInfo.inviteCount}</p>
                     </div>
 
                     <div className="flex justify-between text-sm">
@@ -66,26 +71,28 @@ export default function Earnings () {
 
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke text-black dark:text-white p-4 rounded-lg flex flex-col gap-2">
                     <h2 className="text-lg font-bold">Referral Link</h2>
-                    <p className="bg-[#1D1F1D]/8 p-4 rounded-md dark:bg-[#1D1F1D]">https://t.me/aZennetwork1_bot?start=IZZZA9</p>
+                    <p className="bg-[#1D1F1D]/8 p-4 rounded-md dark:bg-[#1D1F1D]">{
+                        currentUrl
+                    }</p>
                     <div className="flex gap-2 items-center justify-center mt-1">
-                        <button className="bg-dao-green w-full text-white rounded-full p-1.5">Share Link</button>
-                        <button onClick={ () => copyToClipboard("https://t.me/aZennetwork1_bot?start=IZZZA9") } className=""><Image src={"/meteor-icons_copy.svg"} width={35} height={35} alt="" /></button>
+                        <button onClick={handleInviteTG} className="bg-dao-green w-full text-white rounded-full p-1.5">Share Link</button>
+                        <button onClick={() => copyToClipboard(currentUrl)} className=""><Image src={isCopied ? "/check.svg" : "/meteor-icons_copy.svg"} width={35} height={35} alt="" /></button>
                     </div>
                 </div>
 
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px] flex flex-col gap-2">
-                    <h2 className="flex gap-1 items-center font-semibold text-lg text-black dark:text-white">Invite friends to get benefits <Image src={"/jam_alert.svg"} width={20} height={20} alt="" onClick={ () => {
+                    <h2 className="flex gap-1 items-center font-semibold text-lg text-black dark:text-white">Invite friends to get benefits <Image src={"/jam_alert.svg"} width={20} height={20} alt="" onClick={() => {
                         popup.current.classList.toggle('hidden')
                         popup.current.classList.toggle('block')
                     }} /></h2>
 
                     <div className="flex flex-col gap-2 mt-2 dark:hidden">
-                        <ReferralCard icon={"/Frame 34630.svg"} text={"Friends successfully bound your invitation code."} points={20} />
+                        <ReferralCard icon={"/Frame 34630.svg"} text={"Friends successfully bound your invitation code."} points={200} />
                         <ReferralCard icon={"/Frame 34630-b.svg"} text={"Friends successfully created their data DID."} points={200} />
                     </div>
 
                     <div className="hidden flex-col gap-2 mt-2 dark:flex">
-                        <ReferralCard icon={"/Frame 34630-w.svg"} text={"Friends successfully bound your invitation code."} points={20} />
+                        <ReferralCard icon={"/Frame 34630-w.svg"} text={"Friends successfully bound your invitation code."} points={200} />
                         <ReferralCard icon={"/Frame 34630-b-w.svg"} text={"Friends successfully created their data DID."} points={200} />
                     </div>
                 </div>

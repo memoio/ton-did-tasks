@@ -2,15 +2,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 @custom-variant dark (&:where(.dark, .dark *, .box));
@@ -21,12 +21,13 @@
         --foreground: #ededed;
     }
 
-    
+
     body {
         color: var(--foreground);
         font-family: "Roboto", sans-serif;
     }
-/*
+
+    /*
     .box {
         border: none !important;
         background-color: #0A1913 !important;
@@ -54,9 +55,9 @@
 
     --color-light-stroke: #CDCDCD;
     --color-dark-stroke: #1C1C1C;
-    
+
     --color-main-blue: #286AF6;
-    
+
     --color-sec-bg: #0A1913;
     --color-dark-bg: #060706;
 }
@@ -67,7 +68,8 @@ body {
 }
 
 
-.roboto, * {
+.roboto,
+* {
     font-family: "Roboto", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
@@ -95,6 +97,11 @@ body {
 }
 
 .button_primary {
+    padding: 8px 0px;
+}
+
+.button_done {
+    background-color: lightgray;
     padding: 8px 0px;
 }
 
