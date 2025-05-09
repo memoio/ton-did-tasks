@@ -46,6 +46,41 @@ export default function Profile() {
         router.push('/')
     }
 
+    const handleXOauth = async () => {
+        const { method, codeChallenge } = await xOauthInfo();
+
+        const params = new URLSearchParams({
+            response_type: 'code',
+            client_id: TWITTER_CLIENT_ID,
+            redirect_uri: TWITTER_CALLBACK_URL,
+            scope: 'tweet.read users.read offline.access',
+            state: TWITTER_OAUTH_STATE,
+            code_challenge: codeChallenge,
+            code_challenge_method: method,
+        });
+
+        const loginUrl = `https://twitter.com/i/oauth2/authorize?${params.toString()}`;
+
+        // window.open(loginUrl);
+        console.log(loginUrl);
+        window.location.href = loginUrl;
+    }
+
+    const handleDiscordOauth = () => {
+        const params = new URLSearchParams({
+            client_id: DISCORD_CLIENT_ID,
+            redirect_uri: DISCORD_CALLBACK_URL,
+            response_type: 'code',
+            scope: 'identify email',
+            state: DISCORD_OAUTH_STATE
+        });
+
+        const loginUrl = `https://discord.com/oauth2/authorize?${params.toString()}`;
+
+        console.log(loginUrl);
+        window.location.href = loginUrl;
+    }
+
     return (
         <>
             <div className="flex flex-col gap-4 p-8 pb-32">
@@ -54,7 +89,7 @@ export default function Profile() {
                         <div className="flex gap-2 w-fit items-center">
                             <Image src={"/Ellipse 223.png"} className="aspect-auto object-contain" width={55} height={55} alt="" />
                             <div className="flex flex-col gap-0 relative top-0.5">
-                                <p className="font-semibold text-xl leading-4">Cathy</p>
+                                <p className="font-semibold text-xl leading-4">{userProfile.name}</p>
                                 <p className="text-white">{didInfo.exist ? `${didInfo.did.slice(0, 8)}...${didInfo.did.slice(66)}` : `${address?.slice(0, 6)}...${address?.slice(38)}`}</p>
                             </div>
                         </div>
@@ -62,9 +97,9 @@ export default function Profile() {
                     </div>
 
                     <div className="flex flex-wrap gap-2 mt-4">
-                        <LinkProfileCard name={"Twitter"} status={userProfile.linkedX} />
+                        <LinkProfileCard name={"Twitter"} status={userProfile.linkedX} handleFunc={handleXOauth} />
                         <LinkProfileCard name={"Telegram"} status={userProfile.linkedTG} />
-                        <LinkProfileCard name={"Discord"} status={userProfile.linkedDiscord} />
+                        <LinkProfileCard name={"Discord"} status={userProfile.linkedDiscord} handleFunc={handleDiscordOauth} />
                     </div>
                 </div>
 

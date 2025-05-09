@@ -87,7 +87,7 @@ export function DailyTask({ icon, text, updateFunc, checked, todo, done }) {
             </div>
 
             <button disabled={checked} onClick={updateFunc} className={`${checked ? "button_done" : "button_primary"} h-fit rounded-full text-white min-w-16 text-sm`}>{checked ? done : todo}</button>
-        </div >
+        </div>
     )
 }
 
@@ -107,13 +107,13 @@ export function ReferralCard({ icon, text, points }) {
 }
 
 
-export function LinkProfileCard({ name, status }) {
+export function LinkProfileCard({ name, status, handleFunc }) {
     return (
         <div className="border-2 border-solid border-white bg-white/24 h-10 px-1.5 rounded-md flex items-center gap-4 text-white">
             <p className="text-xs">{name}</p>
             {status ?
                 <Image src={"/aaFrame.svg"} width={16} height={16} /> :
-                <button className="bg-dao-yellow px-2 py-1 text-sm border-2 border-solid border-white rounded text-[10px]">+ Add</button>
+                <button onClick={handleFunc} className="bg-dao-yellow px-2 py-1 text-sm border-2 border-solid border-white rounded text-[10px]">+ Add</button>
             }
         </div>
     )

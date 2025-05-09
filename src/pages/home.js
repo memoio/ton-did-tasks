@@ -15,7 +15,7 @@ export default function Home() {
     const router = useRouter();
     // const { address } = useAccount();
     const { didInfo } = useDIDInfo();
-    const { userInfo, address } = useAuth();
+    const { userInfo, userProfile, address } = useAuth();
     const [isDark, setIsDark] = useState(false);
 
     useEffect(() => {
@@ -54,7 +54,7 @@ export default function Home() {
                     <div className="flex gap-2 w-fit items-center">
                         <Image src={"/Frame 34635.png"} className="aspect-auto object-contain" width={41} height={40} alt="" />
                         <div className="flex flex-col gap-0 relative top-0.5">
-                            <p className="font-semibold text-dark-bg text-xl leading-4 dark:text-white">Cathy</p>
+                            <p className="font-semibold text-dark-bg text-xl leading-4 dark:text-white">{userProfile.name}</p>
                             <p className="text-dao-gray">{didInfo.Exist ? `${didInfo.did.slice(0, 12)}...${didInfo.did.slice(71)}` : `${address?.slice(0, 8)}...${address?.slice(36)}`}</p>
                         </div>
                     </div>

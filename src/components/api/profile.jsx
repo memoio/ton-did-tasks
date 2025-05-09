@@ -1,8 +1,8 @@
-import { API_URL_V2 } from "../config/config";
+import { API_URL } from "../config/config";
 import axios from 'axios';
 
-export async function setName(address, name) {
-    const response = await axios.post(API_URL_V2.AIRDROP_SET_NAME,
+export async function changeName(address, name) {
+    const response = await axios.post(API_URL.AIRDROP_SET_NAME,
         {
             "address": address,
             "name": name,
@@ -24,8 +24,8 @@ export async function setName(address, name) {
     }
 }
 
-export async function setPhoto(address, photo) {
-    const response = await axios.post(API_URL_V2.AIRDROP_SET_PHOTO,
+export async function changePhoto(address, photo) {
+    const response = await axios.post(API_URL.AIRDROP_SET_PHOTO,
         {
             "address": address,
             "photo": photo,
@@ -48,7 +48,7 @@ export async function setPhoto(address, photo) {
 }
 
 export async function bindEXInfo(did, name, uid, evmAddress) {
-    const response = await axios.post(API_URL_V2.AIRDROP_BIND_EX_INFO,
+    const response = await axios.post(API_URL.AIRDROP_BIND_EX_INFO,
         {
             "did": did,
             "name": name,
@@ -72,8 +72,8 @@ export async function bindEXInfo(did, name, uid, evmAddress) {
     }
 }
 
-export async function userProfile(address) {
-    const response = await axios.get(API_URL_V2.AIRDROP_USER_PROFILE_V2, {
+export async function getUserProfile(address) {
+    const response = await axios.get(API_URL.AIRDROP_USER_PROFILE_V2, {
         params: {
             "address": address,
         },
@@ -86,4 +86,6 @@ export async function userProfile(address) {
     if (response.data.result === -1) {
         throw new Error(`API return error: ${response.data.error}`);
     }
+
+    return response.data.data;
 }

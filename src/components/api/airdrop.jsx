@@ -1,4 +1,4 @@
-import { API_URL } from "../config/config";
+import { API_URL, API_URL_V1 } from "../config/config";
 import axios from 'axios';
 
 export async function getUserInfo(address) {
@@ -115,7 +115,7 @@ export async function inviteList(address) {
 export async function recordAdd(address, actionId) {
     console.log(address, actionId);
     const response = await axios.post(
-        API_URL.AIRDROP_RECORD_ADD,
+        API_URL_V1.AIRDROP_RECORD_ADD,
         {
             address: address,
             actionid: actionId

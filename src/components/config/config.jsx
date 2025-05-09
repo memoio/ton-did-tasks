@@ -3,7 +3,7 @@ export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be-v2.metamemo.one"
 export const TON_DID_WEB = "https://t.me/memodid_bot/datadid"
 export const AIRDROP_BACKEND_URL = PRODUCT_AIRDROP_BACKEND_URL
 
-const API_URL_V1 = {
+export const API_URL_V1 = {
     "AIRDROP_USER_WALLET_BIND": AIRDROP_BACKEND_URL + "/airdrop/bind",
     "AIRDROP_USER_INFO": AIRDROP_BACKEND_URL + "/airdrop/info",
     "AIRDROP_POINTS_RANK": AIRDROP_BACKEND_URL + "/airdrop/rank",
