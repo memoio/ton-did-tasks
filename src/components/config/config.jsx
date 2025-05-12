@@ -1,4 +1,4 @@
-export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be-v2.metamemo.one"
+export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be.metamemo.one"
 
 export const TON_DID_WEB = "https://t.me/memodid_bot/datadid"
 export const AIRDROP_BACKEND_URL = PRODUCT_AIRDROP_BACKEND_URL

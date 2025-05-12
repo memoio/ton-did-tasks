@@ -20,7 +20,8 @@ export async function getUserInfo(address) {
         inviteCode: response.data.data.inviteCode,
         inviteCount: response.data.data.inviteCount,
         points: response.data.data.points,
-        bindedCode: response.data.data.parentUid !== null,
+        bindedCode: response.data.data.parentCode?.length === 6,
+        invitedCode: response.data.data.parentCode,
         pointsRank: response.data.data.pointsRank,
     };
 }

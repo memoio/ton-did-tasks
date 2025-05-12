@@ -9,13 +9,14 @@ import { useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useDIDInfo } from "@/context/DIDContext";
 import { useDisconnect } from 'wagmi';
+import { useAction } from "@/context/ActionContext";
 
 export default function Profile() {
     const router = useRouter()
-    const [ic, setIc] = useState(false)
-    // const { address } = useAccount();
-    const { userInfo, userProfile, address } = useAuth();
-    const { didInfo } = useDIDInfo();
+    const { userInfo, userProfile, address, clear: clearAuth } = useAuth();
+    const { didInfo, clear: clearDID } = useDIDInfo();
+    const { clear: clearAction } = useAction();
+    const { clear: clearRank } = useRank()
     const [isCopied, setIsCopied] = useState(false);
     const { disconnectAsync } = useDisconnect();
 
@@ -43,6 +44,11 @@ export default function Profile() {
         if (window.okxwallet) {
             await window.okxwallet.disconnect()
         }
+        clearRank();
+        clearAction();
+        clearDID();
+        clearAuth();
+
         router.push('/')
     }
 

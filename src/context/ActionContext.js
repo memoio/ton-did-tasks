@@ -22,13 +22,17 @@ export const ActionProvider = ({ children }) => {
     const clear = () => {
         setDailyAction(new Set());
         setQuestAction(new Set());
+        setDays(0);
+        setInitialed(false);
     }
 
     useEffect(() => {
         if (address && address != "" && !initialed) {
             const HandleDailyAction = async () => {
                 try {
-                    clear();
+                    setDailyAction(new Set());
+                    setQuestAction(new Set());
+                    setDays(0);
                     const records = await recordList(address, 1)
 
                     records.map((element) => {

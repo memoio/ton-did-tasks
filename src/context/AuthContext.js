@@ -36,7 +36,37 @@ export const AuthProvider = ({ children }) => {
 
         discordName: "",
         linkedDiscord: false,
+
+        name: "Unkonw",
     });
+
+    const clear = () => {
+        setXCode("");
+        setDiscordCode("");
+        setUserInfo({
+            inviteCode: "",
+            invitedCode: "",
+            inviteCount: "",
+            points: 0,
+
+            pointsRank: "",
+            bindedCode: false,
+        });
+        setUserProfile({
+            xName: "",
+            linkedX: false,
+
+            telegramName: "",
+            linkedTG: true,
+
+            discordName: "",
+            linkedDiscord: false,
+
+            name: "Unkonw",
+        });
+
+        setAddress("");
+    }
 
     const setBindWallet = () => {
         if (walletAddress && walletAddress !== "" && address !== walletAddress) {
@@ -47,15 +77,17 @@ export const AuthProvider = ({ children }) => {
 
                     await bindUserWallet(walletAddress, ip);
 
-                    const userInfo = await getUserInfo(walletAddress);
+                    const res = await getUserInfo(walletAddress);
                     setUserInfo({
-                        inviteCode: userInfo.inviteCode,
-                        inviteCount: userInfo.inviteCount,
-                        points: userInfo.points,
-                        pointsRank: userInfo.pointsRank,
-                        bindedCode: userInfo.parentCode?.length === 6,
-                        invitedCode: userInfo.parentCode,
+                        inviteCode: res.inviteCode,
+                        inviteCount: res.inviteCount,
+                        points: res.points,
+                        pointsRank: res.pointsRank,
+                        bindedCode: res.bindedCode,
+                        invitedCode: res.invitedCode,
                     });
+
+                    console.log(res);
 
                     await getProfile(walletAddress);
                 } catch (error) {
@@ -70,7 +102,7 @@ export const AuthProvider = ({ children }) => {
     const getProfile = async (addr) => {
         try {
             // const res = await profile(addr);
-            const res = await getUserProfile(walletAddress);
+            const res = await getUserProfile(addr);
             console.log(res);
             console.log(res.name !== "" ? res.name : "Unkonw");
             setUserProfile({
@@ -148,6 +180,28 @@ export const AuthProvider = ({ children }) => {
         )
     }
 
+    const setInvitedCode = (code) => {
+        setUserInfo(prevUserInfo => {
+            if (!prevUserInfo) {
+                return null;
+            }
+            if (!prevUserInfo.points) {
+                return {
+                    ...prevUserInfo,
+                    points: 500,
+                    invitedCode: code,
+                    bindedCode: true,
+                }
+            }
+            return {
+                ...prevUserInfo,
+                points: prevUserInfo.points + 500,
+                invitedCode: code,
+                bindedCode: true,
+            }
+        })
+    }
+
     const setCode = (code, platform = "x") => {
         if (platform === "x") {
             setXCode(code);
@@ -180,7 +234,7 @@ export const AuthProvider = ({ children }) => {
     }, [walletAddress]);
 
     return (
-        <AuthContext.Provider value={{ userInfo, userProfile, address, setUserName, setCode, setBindWallet, setPoints, addPoint }}>
+        <AuthContext.Provider value={{ userInfo, userProfile, address, setUserName, setCode, setBindWallet, setInvitedCode, setPoints, addPoint, clear }}>
             {children}
         </AuthContext.Provider>
     );

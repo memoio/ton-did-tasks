@@ -2,7 +2,9 @@ import { AlertCard } from "@/components/cards";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { bindInviteCode } from "@/components/api/airdrop";
+import { useAuth } from "@/context/AuthContext";
 
 
 export default function InvitationCode() {
@@ -11,6 +13,8 @@ export default function InvitationCode() {
     const [failedText, setFaileText] = useState("")
     const [isSuccess, setIsSuccess] = useState(false)
     const [isFailed, setIsFailed] = useState(false)
+
+    const { address, userInfo, setInvitedCode } = useAuth();
 
     const closeFunc = () => {
         if (isSuccess) {
@@ -31,10 +35,12 @@ export default function InvitationCode() {
         console.log(inputValue);
         if (inputValue.length == 6) {
             try {
-                await bindInviteCode(address, code);
+                await bindInviteCode(address, inputValue);
                 setIsSuccess(true);
+
+                setInvitedCode(inputValue);
             } catch (err) {
-                setFaileText(err);
+                setFaileText(err.message);
                 setIsFailed(true)
             }
         } else {
@@ -42,6 +48,14 @@ export default function InvitationCode() {
             setIsFailed(true);
         }
     }
+
+    useEffect(() => {
+        if (userInfo !== null) {
+            if (userInfo.bindedCode === true) {
+                router.push('/home');
+            }
+        }
+    }, [userInfo]);
 
     return (
         <>
@@ -56,7 +70,7 @@ export default function InvitationCode() {
                         <button onClick={bindCode} className="bg-dao-green w-full py-2 rounded-full dark:border-y-2 dark:border-dao-green dark:bg-transparent text-white">Ok</button>
                         <button onClick={() => { router.push("/home") }} className="bg-white border-2 border-solid border-dark-stroke text-dark-stroke w-full py-2 rounded-full dark:bg-transparent dark:border-white dark:text-white dark:border-x-0 dark:rounded-[32px]">Skip</button>
                     </div>
-                    <p className="text-black dark:text-white">No Invitation Code? Go to <Link href={"#"} className="text-dao-yellow underline underline-offset-2">Telegram</Link> and <Link href={"#"} className="text-dao-yellow underline underline-offset-2">X</Link>.</p>
+                    <p className="text-black dark:text-white">No Invitation Code? Go to <Link href={"https://t.me/memolabsio"} className="text-dao-yellow underline underline-offset-2">Telegram</Link> and <Link href={"https://x.com/MemoLabsOrg"} className="text-dao-yellow underline underline-offset-2">X</Link>.</p>
                 </div>
             </div>
         </>
