@@ -49,15 +49,17 @@ export const AuthProvider = ({ children }) => {
 
                     await bindUserWallet(walletAddress, ip);
 
-                    const userInfo = await getUserInfo(walletAddress);
+                    const res = await getUserInfo(walletAddress);
                     setUserInfo({
-                        inviteCode: userInfo.inviteCode,
-                        inviteCount: userInfo.inviteCount,
-                        points: userInfo.points,
-                        pointsRank: userInfo.pointsRank,
-                        bindedCode: userInfo.parentCode?.length === 6,
-                        invitedCode: userInfo.parentCode,
+                        inviteCode: res.inviteCode,
+                        inviteCount: res.inviteCount,
+                        points: res.points,
+                        pointsRank: res.pointsRank,
+                        bindedCode: res.bindedCode,
+                        invitedCode: res.invitedCode,
                     });
+
+                    console.log(res);
 
                     await getProfile(walletAddress);
                 } catch (error) {
@@ -150,6 +152,28 @@ export const AuthProvider = ({ children }) => {
         )
     }
 
+    const setInvitedCode = (code) => {
+        setUserInfo(prevUserInfo => {
+            if (!prevUserInfo) {
+                return null;
+            }
+            if (!prevUserInfo.points) {
+                return {
+                    ...prevUserInfo,
+                    points: 500,
+                    invitedCode: code,
+                    bindedCode: true,
+                }
+            }
+            return {
+                ...prevUserInfo,
+                points: prevUserInfo.points + 500,
+                invitedCode: code,
+                bindedCode: true,
+            }
+        })
+    }
+
     const setCode = (code, platform = "x") => {
         if (platform === "x") {
             setXCode(code);
@@ -182,7 +206,7 @@ export const AuthProvider = ({ children }) => {
     }, [walletAddress]);
 
     return (
-        <AuthContext.Provider value={{ userInfo, userProfile, address, setUserName, setCode, setBindWallet, setPoints, addPoint }}>
+        <AuthContext.Provider value={{ userInfo, userProfile, address, setUserName, setCode, setBindWallet, setInvitedCode, setPoints, addPoint }}>
             {children}
         </AuthContext.Provider>
     );

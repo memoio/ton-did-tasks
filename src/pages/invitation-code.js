@@ -14,7 +14,7 @@ export default function InvitationCode() {
     const [isSuccess, setIsSuccess] = useState(false)
     const [isFailed, setIsFailed] = useState(false)
 
-    const { address } = useAuth();
+    const { address, setInvitedCode } = useAuth();
 
     const closeFunc = () => {
         if (isSuccess) {
@@ -35,8 +35,10 @@ export default function InvitationCode() {
         console.log(inputValue);
         if (inputValue.length == 6) {
             try {
-                await bindInviteCode(address, code);
+                await bindInviteCode(address, inputValue);
                 setIsSuccess(true);
+
+                setInvitedCode(inputValue);
             } catch (err) {
                 setFaileText(err.message);
                 setIsFailed(true)
