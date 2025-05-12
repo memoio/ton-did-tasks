@@ -15,6 +15,17 @@ export const DIDProvider = ({ children }) => {
     const [initialed, setInitialed] = useState(false);
     const { address } = useAuth();
 
+    const clear = () => {
+        setDIDInfo(
+            {
+                did: "",
+                number: "000000",
+                exist: false,
+            }
+        );
+        setInitialed(false);
+    }
+
     const setDID = (did, number, exist) => {
         setDIDInfo({
             did: did,
@@ -46,7 +57,8 @@ export const DIDProvider = ({ children }) => {
     return (
         <DIDContext.Provider value={{
             didInfo,
-            updateDID
+            updateDID,
+            clear
         }}>
             {children}
         </DIDContext.Provider>

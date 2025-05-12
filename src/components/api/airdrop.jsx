@@ -16,13 +16,11 @@ export async function getUserInfo(address) {
         throw new Error(`API return error: ${response.data.error}`);
     }
 
-    console.log(response.data.data);
-
     return {
         inviteCode: response.data.data.inviteCode,
         inviteCount: response.data.data.inviteCount,
         points: response.data.data.points,
-        bindedCode: response.data.data.parentUid !== null,
+        bindedCode: response.data.data.parentCode?.length === 6,
         invitedCode: response.data.data.parentCode,
         pointsRank: response.data.data.pointsRank,
     };
@@ -74,7 +72,6 @@ export async function rank(type) {
 }
 
 export async function bindInviteCode(address, code) {
-    console.log(address, code);
     const response = await axios.post(
         API_URL.AIRDROP_INVITE_BIND,
         {

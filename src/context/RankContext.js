@@ -42,6 +42,21 @@ export const RankProvider = ({ children }) => {
         }
     ]);
 
+    const clear = () => {
+        // setLength(1);
+        // setWeeklyLength(1);
+        // setPage(1);
+        // setWeeklyPage(1);
+        // setTotalRankInfo([]);
+        // setWeeklyRankInfo([]);
+        // setPagedTotalRank([]);
+        // setPagedWeeklyRank([]);
+
+        // setInitialed(false);
+        setRankPage(1, 0);
+        setRankPage(1, 1);
+    }
+
     const setRankPage = (page, type) => {
         if (type == 0) {
             setPage(page);
@@ -84,7 +99,8 @@ export const RankProvider = ({ children }) => {
             weeklyLength,
             page,
             weeklyPage,
-            setRankPage
+            setRankPage,
+            clear
         }}>
             {children}
         </RankContext.Provider>

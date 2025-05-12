@@ -40,6 +40,34 @@ export const AuthProvider = ({ children }) => {
         name: "Unkonw",
     });
 
+    const clear = () => {
+        setXCode("");
+        setDiscordCode("");
+        setUserInfo({
+            inviteCode: "",
+            invitedCode: "",
+            inviteCount: "",
+            points: 0,
+
+            pointsRank: "",
+            bindedCode: false,
+        });
+        setUserProfile({
+            xName: "",
+            linkedX: false,
+
+            telegramName: "",
+            linkedTG: true,
+
+            discordName: "",
+            linkedDiscord: false,
+
+            name: "Unkonw",
+        });
+
+        setAddress("");
+    }
+
     const setBindWallet = () => {
         if (walletAddress && walletAddress !== "" && address !== walletAddress) {
             const bindWallet = async () => {
@@ -206,7 +234,7 @@ export const AuthProvider = ({ children }) => {
     }, [walletAddress]);
 
     return (
-        <AuthContext.Provider value={{ userInfo, userProfile, address, setUserName, setCode, setBindWallet, setInvitedCode, setPoints, addPoint }}>
+        <AuthContext.Provider value={{ userInfo, userProfile, address, setUserName, setCode, setBindWallet, setInvitedCode, setPoints, addPoint, clear }}>
             {children}
         </AuthContext.Provider>
     );
