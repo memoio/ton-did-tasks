@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { bindInviteCode } from "@/components/api/airdrop";
+import { useAuth } from "@/context/AuthContext";
 
 
 export default function InvitationCode() {
@@ -11,6 +13,8 @@ export default function InvitationCode() {
     const [failedText, setFaileText] = useState("")
     const [isSuccess, setIsSuccess] = useState(false)
     const [isFailed, setIsFailed] = useState(false)
+
+    const { address } = useAuth();
 
     const closeFunc = () => {
         if (isSuccess) {
@@ -34,7 +38,7 @@ export default function InvitationCode() {
                 await bindInviteCode(address, code);
                 setIsSuccess(true);
             } catch (err) {
-                setFaileText(err);
+                setFaileText(err.message);
                 setIsFailed(true)
             }
         } else {

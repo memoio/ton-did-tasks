@@ -36,6 +36,8 @@ export const AuthProvider = ({ children }) => {
 
         discordName: "",
         linkedDiscord: false,
+
+        name: "Unkonw",
     });
 
     const setBindWallet = () => {
@@ -70,7 +72,7 @@ export const AuthProvider = ({ children }) => {
     const getProfile = async (addr) => {
         try {
             // const res = await profile(addr);
-            const res = await getUserProfile(walletAddress);
+            const res = await getUserProfile(addr);
             console.log(res);
             console.log(res.name !== "" ? res.name : "Unkonw");
             setUserProfile({

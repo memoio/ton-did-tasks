@@ -41,7 +41,7 @@ export default function InviteCode() {
                 setUserName(name);
             } catch (err) {
                 console.log(err);
-                setFailedText("Call API failed, please retry");
+                setFailedText(err.message);
                 setIsFailed(true);
             }
         } else {

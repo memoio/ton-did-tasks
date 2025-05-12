@@ -1,36 +1,62 @@
 import { SubHeaderTri } from "@/components/accessories";
-import { DidMint } from "@/components/accessories";
-import { AlertCard, CheckInCard } from "@/components/cards";
-import { Footer } from "@/components/footer";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { AlertCard } from "@/components/cards";
 import { useState } from "react";
-import { DailyTask } from "@/components/cards";
-import { TelegramLogoIconBW, TwitterLogoIcon } from "@/components/icons";
+import { useRouter } from "next/router";
+import { bindInviteCode } from "@/components/api/airdrop";
+import { useAuth } from "@/context/AuthContext";
 
-export default function InviteCode () {
+export default function InviteCode() {
+    const router = useRouter()
     const [isSuccess, setIsSuccess] = useState(false)
+    const [inputValue, setInputValue] = useState("")
+    const [failedText, setFaileText] = useState("")
+    const [isFailed, setIsFailed] = useState(false)
+
+    const { address } = useAuth();
 
     const closeFunc = () => {
-        if ( isSuccess ) {
-            setIsSuccess(false)
+        if (isSuccess) {
+            setIsFailed(false);
+            setIsSuccess(false);
+            router.back();
         } else {
-            setIsSuccess(true)
+            setIsFailed(false);
+            setIsSuccess(false);
+        }
+    }
+
+    const handleChange = (e) => {
+        setInputValue(e.target.value);
+    }
+
+    const bindCode = async () => {
+        console.log(inputValue);
+        if (inputValue.length == 6) {
+            try {
+                await bindInviteCode(address, code);
+                setIsSuccess(true);
+            } catch (err) {
+                setFaileText(err.message);
+                setIsFailed(true)
+            }
+        } else {
+            setFaileText("Please Input Correct Invite Code");
+            setIsFailed(true);
         }
     }
 
     return (
         <>
-            { isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"+200 Points"} text={"Invitation code binding successful"} size={87} closeFunc={ closeFunc } btn={"Ok"} /> }
-            
+            {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"+500 Points"} text={"Invitation code binding successful"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
+            {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Failed"} text={failedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
+
             <div className="px-8 py-4 flex flex-col gap-4 pb-28">
                 <SubHeaderTri title={"Invite Code"} />
 
                 <div className="flex flex-col gap-4 mt-6">
                     <label for="code" className="text-black text-lg dark:text-white">Enter your invite Code</label>
-                    <input id="code" type="text" className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke placeholder:text-dao-gray px-4 py-2 rounded-[10px]" placeholder="Enter" />
-                    <button onClick={ () => setIsSuccess(true) } className="bg-dao-green w-full p-2 text-white rounded-full dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green">Submit</button>
+                    <input value={inputValue} onChange={handleChange} id="code" type="text" className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke placeholder:text-dao-gray px-4 py-2 rounded-[10px]" />
+                    <button onClick={bindCode} className="bg-dao-green w-full p-2 text-white rounded-full dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green">Submit</button>
                 </div>
             </div>
         </>
