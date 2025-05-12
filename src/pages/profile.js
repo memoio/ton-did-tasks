@@ -10,6 +10,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useDIDInfo } from "@/context/DIDContext";
 import { useDisconnect } from 'wagmi';
 import { useAction } from "@/context/ActionContext";
+import { useRank } from "@/context/RankContext";
 
 export default function Profile() {
     const router = useRouter()
