@@ -1,6 +1,5 @@
 import { AlertCard, LinkProfileCard, ReferralCard } from "@/components/cards";
 import { Footer } from "@/components/footer";
-import { CopyIconYellow } from "@/components/icons";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -42,9 +41,9 @@ export default function Profile() {
 
     const logOutFunc = async () => {
         await disconnectAsync();
-        if (window.okxwallet) {
-            await window.okxwallet.disconnect()
-        }
+        // if (window.okxwallet) {
+        //     await window.okxwallet.disconnect()
+        // }
         clearRank();
         clearAction();
         clearDID();

@@ -44,7 +44,7 @@ export default function InvitationDetail() {
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit'
-          });
+        });
     };
 
     const totalPages = Math.ceil(allInvites.length / pageSize);
@@ -79,17 +79,17 @@ export default function InvitationDetail() {
                         <button
                             onClick={handlePrev}
                             disabled={page === 1}
-                            className="px-3 py-1 border rounded disabled:opacity-50"
+                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-light"
                         >
                             Previous
                         </button>
 
-                        <span>Page {page} of {totalPages}</span>
+                        <span className="dark:text-light">Page {page} of {totalPages}</span>
 
                         <button
                             onClick={handleNext}
                             disabled={page === totalPages}
-                            className="px-3 py-1 border rounded disabled:opacity-50"
+                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-light"
                         >
                             Next
                         </button>

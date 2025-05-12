@@ -75,14 +75,14 @@ export function CheckInCard({ day, status, checkInFunc }) {
 }
 
 
-export function DailyTask({ icon, text, updateFunc, checked, todo, done }) {
+export function DailyTask({ icon, text, point, updateFunc, checked, todo, done }) {
     return (
         <div className="flex justify-between gap-4 max-w-full">
             <div className="flex gap-2 w-3/4">
                 <div className="border border-solid border-white dark:border-fill-bright/19 rounded h-fit">{icon}</div>
                 <div className="">
                     <p className="text-dao-gray line-clamp-1">{text}</p>
-                    <p className="text-dao-green font-semibold text-sm">+20</p>
+                    <p className="text-dao-green font-semibold text-sm">+{point ? point : "20"}</p>
                 </div>
             </div>
 

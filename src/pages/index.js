@@ -13,15 +13,9 @@ export default function Home() {
 
     useEffect(() => {
         if (isConnected) {
-            console.log(isConnected);
-            console.log(address);
             router.push('/invitation-code');
         }
     }, [isConnected, router])
-
-    const wccFX = (e) => {
-        setElState(e)
-    }
 
     // const handleFaucetClick = useCallback(() => {
     //     if (openConnectModal && !isConnected) {

@@ -55,7 +55,7 @@ export default function InvitationCode() {
                 router.push('/home');
             }
         }
-    }, [userInfo]);
+    }, [userInfo, router]);
 
     return (
         <>
