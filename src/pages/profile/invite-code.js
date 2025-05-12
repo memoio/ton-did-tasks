@@ -56,7 +56,7 @@ export default function InviteCode() {
                 <SubHeaderTri title={"Invite Code"} />
 
                 <div className="flex flex-col gap-4 mt-6">
-                    <label for="code" className="text-black text-lg dark:text-white">Enter your invite Code</label>
+                    <label htmlFor="code" className="text-black text-lg dark:text-white">Enter your invite Code</label>
                     <input value={inputValue} onChange={handleChange} id="code" type="text" className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke placeholder:text-dao-gray px-4 py-2 rounded-[10px]" />
                     <button onClick={bindCode} className="bg-dao-green w-full p-2 text-white rounded-full dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green">Submit</button>
                 </div>

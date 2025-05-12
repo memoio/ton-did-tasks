@@ -55,7 +55,7 @@ export default function PointsDetail() {
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit'
-          });
+        });
     };
 
     const handlePrev = () => setPage((prev) => Math.max(prev - 1, 1));
@@ -66,12 +66,12 @@ export default function PointsDetail() {
             <SubHeader title={"Points Details"} />
 
             {loading ? (
-                <p>Loading...</p>
+                <p className="dark:text-light">Loading...</p>
             ) : records.length === 0 ? (
-                <p>No records found.</p>
+                <p className="dark:text-light">No records found.</p>
             ) : (
                 <>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col dark:border-b-2">
                         {records.map((record, index) => (
                             <PointsDetails
                                 key={index}
@@ -86,19 +86,19 @@ export default function PointsDetail() {
                         <button
                             onClick={handlePrev}
                             disabled={page === 1}
-                            className="px-3 py-1 border rounded disabled:opacity-50"
+                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-light"
                         >
                             Previous
                         </button>
 
-                        <span>
+                        <span className="dark:text-light">
                             Page {page} of {totalPages}
                         </span>
 
                         <button
                             onClick={handleNext}
                             disabled={page === totalPages}
-                            className="px-3 py-1 border rounded disabled:opacity-50"
+                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-light"
                         >
                             Next
                         </button>

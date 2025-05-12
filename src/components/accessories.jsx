@@ -84,16 +84,18 @@ export function PointsDetails({ title, date, amount }) {
 }
 
 
-export function InvitationDetails ({ name, timestamp, address, did }) {
+export function InvitationDetails({ name, timestamp, address, did }) {
     return (
-        <div className="bg-main-blue/10 dark:bg-sec-bg border border-solid border-main-blue/20 dark:border-0 rounded-[10px] p-4 flex justify-between text-dark-bg dark:text-white">
-            <div className="">
-                <p className="font-semibold">{ name }</p>
-                <p className="text-sm text-main-blue break-all">{address}</p> 
-            </div>
-            <div className="w-fit">
-                <p className="text-xs dark:text-light-gray">{timestamp}</p>
-                <p className="flex gap-1 text-sm mt-2">{did ? <Image src={"/ion_checkbox-outline.svg"} width={16} height={16} alt={" "} /> : <Image src={"/ion_checkbox-outline-null.svg"} width={16} height={16} alt={""} />}Create DID</p>
+        <div>
+            <div className="bg-main-blue/10 dark:bg-sec-bg border border-solid border-main-blue/20 dark:border-0 rounded-[10px] p-4 flex justify-between">
+                <div className="">
+                    <p className="font-semibold dark:text-white">{name ? name : `${address.slice(0, 4)}...${address.slice(40)}`}</p>
+                    <p className="flex gap-1 text-sm dark:text-light-gray">{<Image src={"/ion_checkbox-outline.svg"} width={16} height={16} alt={" "} />}Bind Invitation Code</p>
+                </div>
+                <div className="w-fit">
+                    <p className="text-xs dark:text-light-gray">{timestamp}</p>
+                    <p className="flex gap-1 text-sm mt-2 dark:text-light-gray">{did ? <Image src={"/ion_checkbox-outline.svg"} width={16} height={16} alt={" "} /> : <Image src={"/ion_checkbox-outline-null.svg"} width={16} height={16} alt={""} />}Create DID</p>
+                </div>
             </div>
         </div>
     )

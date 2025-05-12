@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function HowToRegister () {
+export default function HowToRegister() {
     const router = useRouter()
     const { page } = router.query;
 
@@ -16,12 +16,12 @@ export default function HowToRegister () {
                 <div className="text-dao-gray dark:text-white">
                     <div className="flex items-center gap-4"><p className="min-w-8 max-w-8 size-8 font-semibold bg-dao-yellow/15 text-dao-yellow rounded-full flex items-center justify-center">1</p> Log in to the MEMO TGE Launchpad</div>
                     <ul className="list-disc list-inside pl-4 text-dao-gray dark:text-white">
-                        <li>Click the “Register Now” 👍 Tip: Use the exclusive link for future more airdrop opportunities from other projects. Existing <span className="">{ page }</span> users can use their current account.</li>
+                        <li>Click the “Register Now” 👍 Tip: Use the exclusive link for future more airdrop opportunities from other projects. Existing <span className="">{page}</span> users can use their current account.</li>
                     </ul>
                 </div>
 
                 <div className="">
-                    <div className="flex items-center gap-4"><p className="min-w-8 max-w-8 size-8 font-semibold bg-dao-yellow/15 text-dao-yellow rounded-full flex items-center justify-center">2</p> Open Your { page } Account</div>
+                    <div className="flex items-center gap-4"><p className="min-w-8 max-w-8 size-8 font-semibold bg-dao-yellow/15 text-dao-yellow rounded-full flex items-center justify-center">2</p> Open Your {page} Account</div>
                     <ul className="list-disc list-inside pl-4 text-dao-gray dark:text-white">
                         <li>Copy Your Unique Identifier (UID) number</li>
                         <li>Copy Your Ethereum (ETH) address</li>
