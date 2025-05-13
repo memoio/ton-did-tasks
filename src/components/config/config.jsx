@@ -1,7 +1,7 @@
 export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be.metamemo.one"
 
 export const TON_DID_WEB = "https://t.me/memodid_bot/datadid"
-export const AIRDROP_BACKEND_URL = process.env.AIRDROP_BACKEND_URL
+export const AIRDROP_BACKEND_URL = PRODUCT_AIRDROP_BACKEND_URL
 
 export const API_URL_V1 = {
     "AIRDROP_USER_WALLET_BIND": AIRDROP_BACKEND_URL + "/airdrop/bind",
@@ -47,8 +47,8 @@ export const API_URL = API_URL_V2;
 
 export const TWITTER_OAUTH_STATE = "twitter auth for data-did-v2";
 export const TWITTER_CLIENT_ID = "Y1g3SVlIN0E1cUpRM2dNaHBrYUc6MTpjaQ";
-export const TWITTER_CALLBACK_URL = "http://127.0.0.1:3000/callback/twitter";
+export const TWITTER_CALLBACK_URL = "https://ton-did.vercel.app/callback/twitter";
 
 export const DISCORD_OAUTH_STATE = "discord auth for data-did-v2";
 export const DISCORD_CLIENT_ID = "1369582017217298483";
-export const DISCORD_CALLBACK_URL = "http://127.0.0.1:3000/callback/discord";
+export const DISCORD_CALLBACK_URL = "https://ton-did.vercel.app/callback/discord";

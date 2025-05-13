@@ -111,25 +111,26 @@ export async function linkDiscordAccount(address, code, callbackUrl) {
     }
 }
 
-// export async function linkTelegramAccount(address) {
-//     const response = await axios.post(
-//         API_URL.AIRDROP_LINK_TELEGRAM_ACCOUNT,
-//         {
-//             address: address
-//         },
-//         {
-//             headers: {
-//                 accept: "application/hal+json",
-//                 "Content-Type": "application/json",
-//             },
-//         }
-//     );
+export async function linkTGAccount(address, data) {
+    const response = await axios.post(
+        API_URL.AIRDROP_LINK_TELEGRAM_ACCOUNT,
+        {
+            address: address,
+            data: data,
+        },
+        {
+            headers: {
+                accept: "application/hal+json",
+                "Content-Type": "application/json",
+            },
+        }
+    );
 
-//     if (response.status !== 200) {
-//         throw new Error(`API request failed with status ${response.status}: ${response.data}`);
-//     }
+    if (response.status !== 200) {
+        throw new Error(`API request failed with status ${response.status}: ${response.data}`);
+    }
 
-//     if (response.data.result === -1) {
-//         throw new Error(`API return error: ${response.data.error}`);
-//     }
-// }
+    if (response.data.result === -1) {
+        throw new Error(`API return error: ${response.data.error}`);
+    }
+}

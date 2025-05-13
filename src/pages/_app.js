@@ -20,9 +20,9 @@ import { AuthProvider } from "@/context/AuthContext";
 import { DIDProvider } from "@/context/DIDContext";
 import { ActionProvider } from "@/context/ActionContext";
 import { RankProvider } from "@/context/RankContext";
-// import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
-// const manifestUrl = 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json';
+const manifestUrl = 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json';
 export default function App({ Component, pageProps }) {
     const [isDark, setIsDark] = useState(false);
 
@@ -62,28 +62,28 @@ export default function App({ Component, pageProps }) {
     const queryClient = new QueryClient();
 
     return (
-        // <TonConnectUIProvider manifestUrl={manifestUrl}>
-        <WagmiProvider config={config}>
-            <QueryClientProvider client={queryClient}>
-                <RainbowKitProvider coolMode locale="en-US" modalSize="compact" theme={darkTheme({
-                    accentColor: '#4f46e5',
-                    borderRadius: 'medium'
-                })}
-                >
-                    {/* <SessionProvider session={pageProps.session} refetchInterval={0}> */}
-                    <AuthProvider>
-                        <DIDProvider>
-                            <ActionProvider>
-                                <RankProvider>
-                                    <Component {...pageProps} />
-                                </RankProvider>
-                            </ActionProvider>
-                        </DIDProvider>
-                    </AuthProvider>
-                    {/* </SessionProvider> */}
-                </RainbowKitProvider>
-            </QueryClientProvider>
-        </WagmiProvider>
-        // </TonConnectUIProvider>
+        <TonConnectUIProvider manifestUrl={manifestUrl}>
+            <WagmiProvider config={config}>
+                <QueryClientProvider client={queryClient}>
+                    <RainbowKitProvider coolMode locale="en-US" modalSize="compact" theme={darkTheme({
+                        accentColor: '#4f46e5',
+                        borderRadius: 'medium'
+                    })}
+                    >
+                        {/* <SessionProvider session={pageProps.session} refetchInterval={0}> */}
+                        <AuthProvider>
+                            <DIDProvider>
+                                <ActionProvider>
+                                    <RankProvider>
+                                        <Component {...pageProps} />
+                                    </RankProvider>
+                                </ActionProvider>
+                            </DIDProvider>
+                        </AuthProvider>
+                        {/* </SessionProvider> */}
+                    </RainbowKitProvider>
+                </QueryClientProvider>
+            </WagmiProvider>
+        </TonConnectUIProvider>
     )
 }

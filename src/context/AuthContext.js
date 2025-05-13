@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, createContext, useContext, useState } from "react";
-// import { useTonAddress } from '@tonconnect/ui-react';
-import { useAccount } from "wagmi";
+import { useTonAddress } from '@tonconnect/ui-react';
+// import { useAccount } from "wagmi";
 import { getIP } from "@/components/api/ip";
 import { bindUserWallet, getUserInfo } from "@/components/api/airdrop";
-import { linkXAccount, linkDiscordAccount, profile } from "@/components/api/link";
+import { linkXAccount, linkDiscordAccount, linkTGAccount, profile } from "@/components/api/link";
 import { DISCORD_CALLBACK_URL, TWITTER_CALLBACK_URL } from '@/components/config/config';
 import { getUserProfile } from "@/components/api/profile";
 
@@ -12,7 +12,9 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [address, setAddress] = useState("");
-    const { address: walletAddress } = useAccount();
+    const [rawAddress, setRawAddress] = useState("");
+    const walletAddress = useTonAddress();
+    const walletRawAddress = useTonAddress(false);
 
     const [xCode, setXCode] = useState("");
     const [discordCode, setDiscordCode] = useState("");
@@ -72,6 +74,9 @@ export const AuthProvider = ({ children }) => {
         if (walletAddress && walletAddress !== "" && address !== walletAddress) {
             const bindWallet = async () => {
                 setAddress(walletAddress);
+                console.log(walletRawAddress);
+                const splitted = walletRawAddress.split(":");
+                setRawAddress(splitted[1]);
                 try {
                     const ip = await getIP();
 
@@ -117,8 +122,29 @@ export const AuthProvider = ({ children }) => {
 
                 name: res.name !== "" ? res.name : "Unkonw",
             })
+
+            bindTGAccount(addr);
         } catch (err) {
             console.log(err)
+        }
+    }
+
+    const bindTGAccount = async (addr) => {
+        if (window.Telegram?.WebApp?.initData) {
+            try {
+                console.log(window.Telegram?.WebApp?.initData);
+                // await linkTGAccount(address, window.Telegram?.WebApp?.initData);
+
+                // setUserProfile(prev => {
+                //     return {
+                //         ...prev,
+                //         linkedTG: true,
+                //         telegramName: window.Telegram.WebApp.initDataUnsafe.user.first_name,
+                //     }
+                // });
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
 
@@ -131,7 +157,7 @@ export const AuthProvider = ({ children }) => {
 
             await getProfile(address);
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     }
 
@@ -234,7 +260,7 @@ export const AuthProvider = ({ children }) => {
     }, [walletAddress]);
 
     return (
-        <AuthContext.Provider value={{ userInfo, userProfile, address, setUserName, setCode, setBindWallet, setInvitedCode, setPoints, addPoint, clear }}>
+        <AuthContext.Provider value={{ userInfo, userProfile, address, rawAddress, setUserName, setCode, setBindWallet, setInvitedCode, setPoints, addPoint, clear }}>
             {children}
         </AuthContext.Provider>
     );

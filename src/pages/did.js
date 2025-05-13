@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 // import { useAccount } from "wagmi";
-import { createDID } from "@/components/api/did";
+import { createDIDTon } from "@/components/api/did";
 
 export default function Home() {
     const [isVisible, setIsVisible] = useState(false)
@@ -17,7 +17,7 @@ export default function Home() {
 
     // const { address } = useAccount();
     const { didInfo, updateDID } = useDIDInfo();
-    const { addPoint, address } = useAuth();
+    const { addPoint, address, rawAddress } = useAuth();
 
     const router = useRouter();
 
@@ -61,7 +61,7 @@ export default function Home() {
         setIsVisible(true);
 
         try {
-            await createDID(address);
+            await createDIDTon(rawAddress, address);
             console.log("create did success!");
 
             setIsVisible(false);
@@ -100,7 +100,7 @@ export default function Home() {
 
                     <div className="flex flex-col">
                         <DidMint title={"Network"} text={"Memo"} />
-                        <DidMint title={"Mint To"} text={`${address?.slice(0, 6)}...${address?.slice(38)}`} />
+                        <DidMint title={"Mint To"} text={`${address?.slice(0, 6)}...${address?.slice(42)}`} />
                         <DidMint title={"Pay With"} text={"0.0 memo"} />
                         <DidMint title={"Total"} text={"0.0 memo+0.0 gas"} />
 

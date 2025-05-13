@@ -1,1 +1,2 @@
 src/components/config/config.js merge=ours
+src/context/AuthContext.js merge=ours

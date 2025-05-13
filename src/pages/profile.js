@@ -1,10 +1,9 @@
-import { AlertCard, LinkProfileCard, ReferralCard } from "@/components/cards";
+import { LinkProfileCard } from "@/components/cards";
 import { Footer } from "@/components/footer";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
-// import { useAccount } from "wagmi";
 import { useAuth } from "@/context/AuthContext";
 import { useDIDInfo } from "@/context/DIDContext";
 import { useDisconnect } from 'wagmi';
@@ -41,9 +40,9 @@ export default function Profile() {
 
     const logOutFunc = async () => {
         await disconnectAsync();
-        // if (window.okxwallet) {
-        //     await window.okxwallet.disconnect()
-        // }
+        if (window.okxwallet && window.okxwallet.disconnect) {
+            await window.okxwallet.disconnect();
+        }
         clearRank();
         clearAction();
         clearDID();
@@ -96,7 +95,7 @@ export default function Profile() {
                             <Image src={"/Ellipse 223.png"} className="aspect-auto object-contain" width={55} height={55} alt="" />
                             <div className="flex flex-col gap-0 relative top-0.5">
                                 <p className="font-semibold text-xl leading-4">{userProfile.name}</p>
-                                <p className="text-white">{didInfo.exist ? `${didInfo.did.slice(0, 8)}...${didInfo.did.slice(66)}` : `${address?.slice(0, 6)}...${address?.slice(38)}`}</p>
+                                <p className="text-white">{didInfo.exist ? `${didInfo.did.slice(0, 8)}...${didInfo.did.slice(66)}` : `${address?.slice(0, 6)}...${address?.slice(42)}`}</p>
                             </div>
                         </div>
                         <Link href={"/profile/edit"}><Image src={"/mage_electricity-fill.svg"} className="rounded-full" width={36} height={36} alt="" /></Link>
@@ -113,8 +112,9 @@ export default function Profile() {
                     <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke flex gap-4 p-4 justify-between rounded-lg">
                         <p className="">Wallet</p>
                         <div className="flex gap-2">
-                            <p className="">{`${address?.slice(0, 6)}...${address?.slice(38)}`}</p>
+                            <p className="">{`${address?.slice(0, 6)}...${address?.slice(42)}`}</p>
                             <button onClick={() => copyToClipboard(address)} ><Image src={isCopied ? "/check.svg" : "/copy-icon.svg"} className="" width={18} height={18} alt="" /></button>
+                            {/* <button onClick={() => logOutFunc()} ><Image src={isCopied ? "/check.svg" : "/copy-icon.svg"} className="" width={18} height={18} alt="" /></button> */}
                         </div>
                     </div>
 
