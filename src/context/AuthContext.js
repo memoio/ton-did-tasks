@@ -133,6 +133,7 @@ export const AuthProvider = ({ children }) => {
         if (window.Telegram?.WebApp?.initData) {
             try {
                 console.log(window.Telegram?.WebApp?.initData);
+                alert(window.Telegram?.WebApp?.initData);
                 // await linkTGAccount(address, window.Telegram?.WebApp?.initData);
 
                 // setUserProfile(prev => {
