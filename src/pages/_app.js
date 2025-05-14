@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 
 import { WagmiProvider } from 'wagmi';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-
+import { GoogleAnalytics } from '@/components/googleanalytics';
 import { RainbowKitProvider, getDefaultConfig, darkTheme, connectorsForWallets } from "@rainbow-me/rainbowkit";
 import {
     metaMaskWallet,
@@ -76,6 +76,7 @@ export default function App({ Component, pageProps }) {
                             <ActionProvider>
                                 <RankProvider>
                                     <Component {...pageProps} />
+                                    <GoogleAnalytics />
                                 </RankProvider>
                             </ActionProvider>
                         </DIDProvider>
