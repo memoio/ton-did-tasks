@@ -22,7 +22,7 @@ import { ActionProvider } from "@/context/ActionContext";
 import { RankProvider } from "@/context/RankContext";
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
-const manifestUrl = 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json';
+const manifestUrl = 'https://datadid-ton_v2.memolabs.net/api/tonconnect-manifest';
 export default function App({ Component, pageProps }) {
     const [isDark, setIsDark] = useState(false);
 
