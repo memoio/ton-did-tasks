@@ -114,7 +114,6 @@ export default function Profile() {
                         <div className="flex gap-2">
                             <p className="">{`${address?.slice(0, 6)}...${address?.slice(42)}`}</p>
                             <button onClick={() => copyToClipboard(address)} ><Image src={isCopied ? "/check.svg" : "/copy-icon.svg"} className="" width={18} height={18} alt="" /></button>
-                            {/* <button onClick={() => logOutFunc()} ><Image src={isCopied ? "/check.svg" : "/copy-icon.svg"} className="" width={18} height={18} alt="" /></button> */}
                         </div>
                     </div>
 

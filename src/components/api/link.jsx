@@ -113,10 +113,10 @@ export async function linkDiscordAccount(address, code, callbackUrl) {
 
 export async function linkTGAccount(address, data) {
     const response = await axios.post(
-        API_URL.AIRDROP_LINK_TELEGRAM_ACCOUNT,
+        API_URL_V2.AIRDROP_LINK_TELEGRAM_ACCOUNT,
         {
             address: address,
-            data: data,
+            initdata: data,
         },
         {
             headers: {

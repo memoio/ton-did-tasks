@@ -117,10 +117,10 @@ export const AuthProvider = ({ children }) => {
                 discordName: res.discord_info.discord_name,
                 linkedDiscord: res.discord_info.discord_id !== "",
 
-                telegramName: "Cathy",
-                linkedTG: true,
+                telegramName: res.telegram_info.telegram_first_name,
+                linkedTG: res.telegram_info.telegram_id !== "",
 
-                name: res.name !== "" ? res.name : "Unkonw",
+                name: res.name !== "" ? res.name : res.telegram_info.telegram_first_name,
             })
 
             bindTGAccount(addr);
@@ -132,17 +132,16 @@ export const AuthProvider = ({ children }) => {
     const bindTGAccount = async (addr) => {
         if (window.Telegram?.WebApp?.initData) {
             try {
-                console.log(window.Telegram?.WebApp?.initData);
-                alert(window.Telegram?.WebApp?.initData);
-                // await linkTGAccount(address, window.Telegram?.WebApp?.initData);
+                await linkTGAccount(addr, window.Telegram?.WebApp?.initData);
 
-                // setUserProfile(prev => {
-                //     return {
-                //         ...prev,
-                //         linkedTG: true,
-                //         telegramName: window.Telegram.WebApp.initDataUnsafe.user.first_name,
-                //     }
-                // });
+                setUserProfile(prev => {
+                    return {
+                        ...prev,
+                        linkedTG: true,
+                        telegramName: window.Telegram.WebApp.initDataUnsafe.user.first_name,
+                        name: prev.name ? prev.name : window.Telegram.WebApp.initDataUnsafe.user.first_name,
+                    }
+                });
             } catch (err) {
                 console.log(err);
             }
