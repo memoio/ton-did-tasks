@@ -21,8 +21,9 @@ import { DIDProvider } from "@/context/DIDContext";
 import { ActionProvider } from "@/context/ActionContext";
 import { RankProvider } from "@/context/RankContext";
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import { TON_DID_WEB_RAW } from "@/components/config/config";
 
-const manifestUrl = 'https://datadid-ton_v2.memolabs.net/api/tonconnect-manifest';
+const manifestUrl = `${TON_DID_WEB_RAW}/api/tonconnect-manifest`;
 export default function App({ Component, pageProps }) {
     const [isDark, setIsDark] = useState(false);
 

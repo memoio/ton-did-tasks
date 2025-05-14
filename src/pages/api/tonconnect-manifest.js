@@ -1,9 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { TON_DID_WEB_RAW } from "@/components/config/config";
 
 export default function handler(req, res) {
     res.status(200).json({
-        url: "https://datadid-ton-v2.memolabs.net",
+        url: TON_DID_WEB_RAW,
         name: "Memo DID",
-        iconUrl: "https://datadid-ton-v2.memolabs.net/memo.png"
+        iconUrl: `${TON_DID_WEB_RAW}/memo.png`
     });
 }
