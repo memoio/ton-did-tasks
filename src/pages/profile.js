@@ -6,9 +6,9 @@ import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useDIDInfo } from "@/context/DIDContext";
-import { useDisconnect } from 'wagmi';
 import { useAction } from "@/context/ActionContext";
 import { useRank } from "@/context/RankContext";
+import { useTonConnectUI } from '@tonconnect/ui-react';
 
 export default function Profile() {
     const router = useRouter()
@@ -17,7 +17,7 @@ export default function Profile() {
     const { clear: clearAction } = useAction();
     const { clear: clearRank } = useRank()
     const [isCopied, setIsCopied] = useState(false);
-    const { disconnectAsync } = useDisconnect();
+    const [tonConnectUI] = useTonConnectUI();
 
     const copyToClipboard = (text) => {
         console.log(userInfo);
@@ -39,7 +39,7 @@ export default function Profile() {
     };
 
     const logOutFunc = async () => {
-        await disconnectAsync();
+        await tonConnectUI.disconnect();
         if (window.okxwallet && window.okxwallet.disconnect) {
             await window.okxwallet.disconnect();
         }
