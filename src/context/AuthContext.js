@@ -7,6 +7,7 @@ import { bindUserWallet, getUserInfo } from "@/components/api/airdrop";
 import { linkXAccount, linkDiscordAccount, profile } from "@/components/api/link";
 import { DISCORD_CALLBACK_URL, TWITTER_CALLBACK_URL } from '@/components/config/config';
 import { getUserProfile } from "@/components/api/profile";
+import {useRef} from "react";
 
 const AuthContext = createContext();
 
@@ -16,6 +17,9 @@ export const AuthProvider = ({ children }) => {
 
     const [xCode, setXCode] = useState("");
     const [discordCode, setDiscordCode] = useState("");
+
+    const [isWalletBound, setIsWalletBound] = useState(false);
+    const isBinding = useRef(false);
 
     const [userInfo, setUserInfo] = useState({
         inviteCode: "",
@@ -69,9 +73,9 @@ export const AuthProvider = ({ children }) => {
     }
 
     const setBindWallet = () => {
-        if (walletAddress && walletAddress !== "" && address !== walletAddress) {
+        if (walletAddress && walletAddress !== "" && address !== walletAddress && !isBinding.current) {
+            isBinding.current = true;
             const bindWallet = async () => {
-                setAddress(walletAddress);
                 try {
                     const ip = await getIP();
 
@@ -90,12 +94,20 @@ export const AuthProvider = ({ children }) => {
                     console.log(res);
 
                     await getProfile(walletAddress);
+
+                    setIsWalletBound(true);
+
+                    setAddress(walletAddress);
                 } catch (error) {
                     alert(`Error binding wallet: ${error}`);
+                    setIsWalletBound(false);
+                } finally {
+                    isBinding.current = false;
                 }
             };
 
             bindWallet();
+
         }
     }
 
@@ -234,7 +246,7 @@ export const AuthProvider = ({ children }) => {
     }, [walletAddress]);
 
     return (
-        <AuthContext.Provider value={{ userInfo, userProfile, address, setUserName, setCode, setBindWallet, setInvitedCode, setPoints, addPoint, clear }}>
+        <AuthContext.Provider value={{ userInfo, userProfile, address, setUserName, setCode, setBindWallet, setInvitedCode, setPoints, addPoint, clear, isWalletBound }}>
             {children}
         </AuthContext.Provider>
     );

@@ -24,9 +24,7 @@ export default function PointsDetail() {
             try {
                 console.log("Begin fetch records list");
 
-                const didRecord = await recordList(address, 1);
-                const activityRecords = await recordList(address, 2);
-                const data = [...activityRecords, ...didRecord];
+                const data = await recordList(address, 0);
 
                 console.log("Fetched data:", data);
 
@@ -60,6 +58,7 @@ export default function PointsDetail() {
 
     const handlePrev = () => setPage((prev) => Math.max(prev - 1, 1));
     const handleNext = () => setPage((prev) => Math.min(prev + 1, totalPages));
+    const pagedRecords = records.slice((page - 1) * size, page * size);
 
     return (
         <div className="px-8 py-4 flex flex-col gap-4">
@@ -72,7 +71,7 @@ export default function PointsDetail() {
             ) : (
                 <>
                     <div className="flex flex-col dark:border-b-2">
-                        {records.map((record, index) => (
+                        {pagedRecords.map((record, index) => (
                             <PointsDetails
                                 key={index}
                                 title={`Action  ${record.actionName}`}
