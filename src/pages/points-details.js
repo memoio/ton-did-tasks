@@ -24,9 +24,7 @@ export default function PointsDetail() {
             try {
                 console.log("Begin fetch records list");
 
-                const didRecord = await recordList(address, 1);
-                const activityRecords = await recordList(address, 2);
-                const data = [...activityRecords, ...didRecord];
+                const data = await recordList(address, 0);
 
                 console.log("Fetched data:", data);
 
@@ -60,22 +58,23 @@ export default function PointsDetail() {
 
     const handlePrev = () => setPage((prev) => Math.max(prev - 1, 1));
     const handleNext = () => setPage((prev) => Math.min(prev + 1, totalPages));
+    const pagedRecords = records.slice((page - 1) * size, page * size);
 
     return (
         <div className="px-8 py-4 flex flex-col gap-4">
             <SubHeader title={"Points Details"} />
 
             {loading ? (
-                <p className="dark:text-light">Loading...</p>
+                <p className="dark:text-white">Loading...</p>
             ) : records.length === 0 ? (
-                <p className="dark:text-light">No records found.</p>
+                <p className="dark:text-white">No records found.</p>
             ) : (
                 <>
                     <div className="flex flex-col dark:border-b-2">
-                        {records.map((record, index) => (
+                        {pagedRecords.map((record, index) => (
                             <PointsDetails
                                 key={index}
-                                title={`Action  ${record.actionName}`}
+                                title={`${record.actionName}`}
                                 date={formatDate(record.time)}
                                 amount={record.points}
                             />
@@ -86,19 +85,19 @@ export default function PointsDetail() {
                         <button
                             onClick={handlePrev}
                             disabled={page === 1}
-                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-light"
+                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-white"
                         >
                             Previous
                         </button>
 
-                        <span className="dark:text-light">
+                        <span className="dark:text-white">
                             Page {page} of {totalPages}
                         </span>
 
                         <button
                             onClick={handleNext}
                             disabled={page === totalPages}
-                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-light"
+                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-white"
                         >
                             Next
                         </button>
