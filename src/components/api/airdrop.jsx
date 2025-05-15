@@ -116,7 +116,7 @@ export async function inviteList(address) {
 export async function recordAdd(address, actionId) {
     console.log(address, actionId);
     const response = await axios.post(
-        API_URL_V1.AIRDROP_RECORD_ADD,
+        API_URL.AIRDROP_RECORD_ADD,
         {
             address: address,
             actionid: actionId
