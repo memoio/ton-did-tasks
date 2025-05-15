@@ -109,7 +109,6 @@ export const AuthProvider = ({ children }) => {
             // const res = await profile(addr);
             const res = await getUserProfile(addr);
             console.log(res);
-            console.log(res.name !== "" ? res.name : "Unkonw");
             setUserProfile({
                 xName: res.twitter_info.twitter_name,
                 linkedX: res.twitter_info.twitter_id !== "",
@@ -118,12 +117,14 @@ export const AuthProvider = ({ children }) => {
                 linkedDiscord: res.discord_info.discord_id !== "",
 
                 telegramName: res.telegram_info.telegram_first_name,
-                linkedTG: res.telegram_info.telegram_id !== "",
+                linkedTG: res.telegram_info.telegram_id !== 0,
 
                 name: res.name !== "" ? res.name : res.telegram_info.telegram_first_name,
             })
 
-            bindTGAccount(addr);
+            if (res.telegram_info.telegram_id !== 0) {
+                bindTGAccount(addr);
+            }
         } catch (err) {
             console.log(err)
         }
@@ -139,7 +140,7 @@ export const AuthProvider = ({ children }) => {
                         ...prev,
                         linkedTG: true,
                         telegramName: window.Telegram.WebApp.initDataUnsafe.user.first_name,
-                        name: prev.name ? prev.name : window.Telegram.WebApp.initDataUnsafe.user.first_name,
+                        name: prev.name !== "" ? prev.name : window.Telegram.WebApp.initDataUnsafe.user.first_name,
                     }
                 });
             } catch (err) {
