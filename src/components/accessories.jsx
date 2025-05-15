@@ -78,7 +78,7 @@ export function PointsDetails({ title, date, amount }) {
                 <p className="text-black font-semibold dark:text-white">{title}</p>
                 <p className="text-dao-gray dark:text-light-gray dark:font-normal">{date}</p>
             </div >
-            <p className="text-black font-semibold dark:text-white">+{amount}</p>
+            <p className="text-black font-semibold dark:text-green">+{amount}</p>
         </div >
     )
 }

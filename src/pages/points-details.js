@@ -65,16 +65,16 @@ export default function PointsDetail() {
             <SubHeader title={"Points Details"} />
 
             {loading ? (
-                <p className="dark:text-light">Loading...</p>
+                <p className="dark:text-white">Loading...</p>
             ) : records.length === 0 ? (
-                <p className="dark:text-light">No records found.</p>
+                <p className="dark:text-white">No records found.</p>
             ) : (
                 <>
                     <div className="flex flex-col dark:border-b-2">
                         {pagedRecords.map((record, index) => (
                             <PointsDetails
                                 key={index}
-                                title={`Action  ${record.actionName}`}
+                                title={`${record.actionName}`}
                                 date={formatDate(record.time)}
                                 amount={record.points}
                             />
@@ -85,19 +85,19 @@ export default function PointsDetail() {
                         <button
                             onClick={handlePrev}
                             disabled={page === 1}
-                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-light"
+                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-white"
                         >
                             Previous
                         </button>
 
-                        <span className="dark:text-light">
+                        <span className="dark:text-white">
                             Page {page} of {totalPages}
                         </span>
 
                         <button
                             onClick={handleNext}
                             disabled={page === totalPages}
-                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-light"
+                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-white"
                         >
                             Next
                         </button>
