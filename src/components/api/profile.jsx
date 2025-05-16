@@ -47,7 +47,7 @@ export async function changePhoto(address, photo) {
     }
 }
 
-export async function bindEXInfo(did, name, uid, evmAddress) {
+export async function bindEXInfo(did, name, evmAddress, uid) {
     const response = await axios.post(API_URL.AIRDROP_BIND_EX_INFO,
         {
             "did": did,
@@ -70,6 +70,38 @@ export async function bindEXInfo(did, name, uid, evmAddress) {
     if (response.data.result === -1) {
         throw new Error(`API return error: ${response.data.error}`);
     }
+}
+
+export async function getEXInfo(did) {
+    const response = await axios.get(API_URL.AIRDROP_GET_EX_INFO, {
+        params: {
+            "did": did,
+        }
+    });
+
+    if (response.status !== 200) {
+        throw new Error(`API request failed with status ${response.status}: ${response.data}`);
+    }
+
+    if (response.data.result === -1) {
+        throw new Error(`API return error: ${response.data.error}`);
+    }
+
+    return response.data.data;
+}
+
+export async function getMessage() {
+    const response = await axios.get(API_URL.AIRDROP_MESSAGE);
+
+    if (response.status !== 200) {
+        throw new Error(`API request failed with status ${response.status}: ${response.data}`);
+    }
+
+    if (response.data.result === -1) {
+        throw new Error(`API return error: ${response.data.error}`);
+    }
+
+    return response.data.data;
 }
 
 export async function getUserProfile(address) {

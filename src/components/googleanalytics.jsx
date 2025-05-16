@@ -1,10 +1,9 @@
 "use client";
 import Script from "next/script";
 
-
 const ga_tracking_id = "G-4XMJ5PE28R";
 
-const GoogleAnalytics = () => {
+export const GoogleAnalytics = () => {
     return (
         <>
             <Script
@@ -23,5 +22,3 @@ const GoogleAnalytics = () => {
         </>
     );
 };
-
-export default GoogleAnalytics;

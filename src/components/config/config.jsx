@@ -40,7 +40,10 @@ export const API_URL_V2 = {
     "AIRDROP_SET_NAME": AIRDROP_BACKEND_URL + "/v2/user/set-name",
     "AIRDROP_SET_PHOTO": AIRDROP_BACKEND_URL + "/v2/user/set-photo",
     "AIRDROP_BIND_EX_INFO": AIRDROP_BACKEND_URL + "/v2/user/bind-exchange-info",
+    "AIRDROP_GET_EX_INFO": AIRDROP_BACKEND_URL + "/v2/user/get-exchange-info",
     "AIRDROP_USER_PROFILE_V2": AIRDROP_BACKEND_URL + "/v2/user/info",
+
+    "AIRDROP_MESSAGE": AIRDROP_BACKEND_URL + "/v2/activity/message/list",
 }
 
 export const API_URL = API_URL_V2;

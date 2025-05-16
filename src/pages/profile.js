@@ -10,13 +10,15 @@ import { useDIDInfo } from "@/context/DIDContext";
 import { useDisconnect } from 'wagmi';
 import { useAction } from "@/context/ActionContext";
 import { useRank } from "@/context/RankContext";
+import { useTGE } from "@/context/TGEContext";
 
 export default function Profile() {
     const router = useRouter()
     const { userInfo, userProfile, address, clear: clearAuth } = useAuth();
     const { didInfo, clear: clearDID } = useDIDInfo();
     const { clear: clearAction } = useAction();
-    const { clear: clearRank } = useRank()
+    const { clear: clearRank } = useRank();
+    const { clear: clearTGE } = useTGE();
     const [isCopied, setIsCopied] = useState(false);
     const { disconnectAsync } = useDisconnect();
 
@@ -44,6 +46,7 @@ export default function Profile() {
         // if (window.okxwallet) {
         //     await window.okxwallet.disconnect()
         // }
+        clearTGE();
         clearRank();
         clearAction();
         clearDID();
