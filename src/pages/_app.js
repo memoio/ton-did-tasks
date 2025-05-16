@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import { useState, useEffect } from "react";
-
+import { GoogleAnalytics } from "@/components/googleanalytics";
 import { AuthProvider } from "@/context/AuthContext";
 import { DIDProvider } from "@/context/DIDContext";
 import { ActionProvider } from "@/context/ActionContext";
@@ -32,6 +32,7 @@ export default function App({ Component, pageProps }) {
                     <ActionProvider>
                         <RankProvider>
                             <Component {...pageProps} />
+                            <GoogleAnalytics />
                         </RankProvider>
                     </ActionProvider>
                 </DIDProvider>
