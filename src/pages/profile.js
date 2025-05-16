@@ -9,13 +9,15 @@ import { useDIDInfo } from "@/context/DIDContext";
 import { useAction } from "@/context/ActionContext";
 import { useRank } from "@/context/RankContext";
 import { useTonConnectUI } from '@tonconnect/ui-react';
+import { useTGE } from "@/context/TGEContext";
 
 export default function Profile() {
     const router = useRouter()
     const { userInfo, userProfile, address, clear: clearAuth } = useAuth();
     const { didInfo, clear: clearDID } = useDIDInfo();
     const { clear: clearAction } = useAction();
-    const { clear: clearRank } = useRank()
+    const { clear: clearRank } = useRank();
+    const { clear: clearTGE } = useTGE();
     const [isCopied, setIsCopied] = useState(false);
     const [tonConnectUI] = useTonConnectUI();
 
@@ -39,10 +41,11 @@ export default function Profile() {
     };
 
     const logOutFunc = async () => {
-        await tonConnectUI.disconnect();
+        await disconnectAsync();
         if (window.okxwallet && window.okxwallet.disconnect) {
-            await window.okxwallet.disconnect();
+            await window.okxwallet.disconnect()
         }
+        clearTGE();
         clearRank();
         clearAction();
         clearDID();

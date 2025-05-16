@@ -1,6 +1,5 @@
 'use client';
 import { createContext, useContext, useState, useEffect } from 'react';
-// import { useAccount } from "wagmi";
 import { getDIDInfo } from '@/components/api/did';
 import { useAuth } from './AuthContext';
 
@@ -40,7 +39,7 @@ export const DIDProvider = ({ children }) => {
             setDID(did.did, did.number, did.exist);
             console.log(did);
         } catch (error) {
-            alert(`Error binding wallet: ${error}`);
+            alert(`Error get did info: ${error}`);
             return
         }
     };
@@ -52,7 +51,7 @@ export const DIDProvider = ({ children }) => {
             setInitialed(true);
             HandleDID();
         }
-    }, [rawAddress]);
+    }, [rawAddress, initialed]);
 
     return (
         <DIDContext.Provider value={{
