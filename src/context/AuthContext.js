@@ -120,7 +120,7 @@ export const AuthProvider = ({ children }) => {
                 name: res.name !== "" ? res.name : res.telegram_info.telegram_first_name,
             })
 
-            if (res.telegram_info.telegram_id !== 0) {
+            if (res.telegram_info.telegram_id === 0) {
                 bindTGAccount(addr);
             }
         } catch (err) {
