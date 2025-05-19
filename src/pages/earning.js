@@ -66,12 +66,12 @@ export default function Earnings() {
 
     const finishTask = async (action, point, txt, failText, url) => {
         if (didInfo.exist && address) {
-            if (userProfile.linkedX && userProfile.linkedDiscord && userProfile.linkedTG) {
+            if ((userProfile.linkedX && userProfile.linkedDiscord && userProfile.linkedTG) || action === 70) {
                 setPoints(point);
                 setText(txt);
                 setIsFailedText(failText);
 
-                if (window.Telegram?.WebApp?.openTelegramLink && index == 0) {
+                if (window.Telegram?.WebApp?.openTelegramLink) {
                     window.Telegram.WebApp.openTelegramLink(url);
                 }
                 else {
@@ -91,7 +91,7 @@ export default function Earnings() {
                     }
                     setIsVisible(true);
                 } catch (err) {
-                    console.log(err);
+                    setIsFailedText(err.message);
                     setIsFailed(true);
                 }
             } else {
@@ -99,7 +99,8 @@ export default function Earnings() {
                 setIsFailed(true);
             }
         } else {
-            alert("Please Create DID First");
+            setIsFailedText("Please Create DID First");
+            setIsFailed(true);
         }
     }
 
