@@ -97,7 +97,7 @@ export const AuthProvider = ({ children }) => {
 
                     setAddress(walletAddress);
                 } catch (error) {
-                    alert(`Error binding wallet: ${error}`);
+                    alert(`Error binding wallet: ${error}\nPlease Refresh This Page`);
                     setIsWalletBound(false);
                 } finally {
                     isBinding.current = false;
@@ -244,7 +244,19 @@ export const AuthProvider = ({ children }) => {
     }, [walletAddress]);
 
     return (
-        <AuthContext.Provider value={{ userInfo, userProfile, address, setUserName, setCode, setBindWallet, setInvitedCode, setPoints, addPoint, clear, isWalletBound }}>
+        <AuthContext.Provider value={{
+            userInfo,
+            userProfile,
+            address,
+            setUserName,
+            setCode,
+            setBindWallet,
+            setInvitedCode,
+            setPoints,
+            addPoint,
+            clear,
+            isWalletBound,
+        }}>
             {children}
         </AuthContext.Provider>
     );

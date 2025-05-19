@@ -84,7 +84,7 @@ export default function Home() {
                         <Image src={"/Frame 34635.png"} className="aspect-auto object-contain" width={41} height={40} alt="" />
                         <div className="flex flex-col gap-0 relative top-0.5">
                             <p className="font-semibold text-dark-bg text-xl leading-4 dark:text-white">{userProfile.name}</p>
-                            <p className="text-dao-gray">{didInfo.Exist ? `${didInfo.did.slice(0, 12)}...${didInfo.did.slice(71)}` : `${address?.slice(0, 6)}...${address?.slice(42)}`}</p>
+                            <p className="text-dao-gray">{didInfo.Exist ? `${didInfo.did.slice(0, 12)}...${didInfo.did.slice(71)}` : `${address?.slice(0, 6)}...${address?.slice(38)}`}</p>
                         </div>
                     </div>
 
