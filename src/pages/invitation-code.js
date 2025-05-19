@@ -14,7 +14,7 @@ export default function InvitationCode() {
     const [isSuccess, setIsSuccess] = useState(false)
     const [isFailed, setIsFailed] = useState(false)
 
-    const { address, userInfo, setInvitedCode, isWalletBound } = useAuth();
+    const { address, userInfo, setInvitedCode } = useAuth();
 
     const closeFunc = () => {
         if (isSuccess) {
@@ -50,12 +50,10 @@ export default function InvitationCode() {
     }
 
     useEffect(() => {
-        if (isWalletBound) {
-            if (userInfo.bindedCode === true) {
-                router.push('/home');
-            }
+        if (userInfo.bindedCode === true) {
+            router.push('/home');
         }
-    }, [isWalletBound, userInfo, router]);
+    }, [userInfo, router]);
 
     return (
         <>

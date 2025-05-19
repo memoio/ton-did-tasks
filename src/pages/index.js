@@ -1,17 +1,17 @@
 import Image from "next/image";
-import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
+import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 export default function ConnectWallet() {
-    const wallet = useTonWallet();
+    const address = useTonAddress();
     const router = useRouter();
 
     useEffect(() => {
-        if (wallet) {
+        if (address) {
             router.replace('/invitation-code')
         }
-    }, [wallet, router])
+    }, [address, router])
 
     return (
         <>
@@ -25,8 +25,8 @@ export default function ConnectWallet() {
                         </section>
 
                         <section className="p-8 flex flex-col gap-12">
-                            <h1 className="text-white nunito text-3xl font-normal uppercase text-center">Connect<br /><span className="text-dao-green">Your wallet</span></h1>
-                            <p className="text-center inter text-xs px-12">Connect your Ton wallet to create your unique CARV Identity</p>
+                            <h1 className="text-white nunito text-3xl font-normal uppercase text-center">Connect<br /><span className="text-dao-green">Your Wallet</span></h1>
+                            <p className="text-center inter text-xs px-12">Connect Your Ton Wallet To Create Your Unique MEMO Identity</p>
 
                             <div className="relative mx-auto">
                                 <TonConnectButton className="absolute h-full w-full mx-auto inset-0 opacity-0" />

@@ -68,23 +68,25 @@ export const TGEProvider = ({ children }) => {
         try {
             const tgeInfo = await getEXInfo(didInfo.did);
 
-            console.log(tgeInfo);
-            const result = tgeInfo.reduce((acc, { name, uid, evm_address }) => {
-                acc[name] = {
-                    uid: uid,
-                    evm_address: evm_address,
-                    bind: uid !== "" ? true : false,
-                };
-                return acc;
-            })
-            console.log(result);
+            if (tgeInfo) {
+                console.log(tgeInfo);
+                const result = tgeInfo.reduce((acc, { name, uid, evm_address }) => {
+                    acc[name] = {
+                        uid: uid,
+                        evm_address: evm_address,
+                        bind: uid !== "" ? true : false,
+                    };
+                    return acc;
+                })
+                console.log(result);
 
-            setTGEInfo(prev => {
-                return {
-                    ...prev,
-                    result
-                }
-            });
+                setTGEInfo(prev => {
+                    return {
+                        ...prev,
+                        result
+                    }
+                });
+            }
         } catch (err) {
             console.log(err)
         }

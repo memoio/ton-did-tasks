@@ -66,12 +66,12 @@ export default function Earnings() {
 
     const finishTask = async (action, point, txt, failText, url) => {
         if (didInfo.exist && address) {
-            if (userProfile.linkedX && userProfile.linkedDiscord && userProfile.linkedTG) {
+            if ((userProfile.linkedX && userProfile.linkedDiscord && userProfile.linkedTG) || action === 70) {
                 setPoints(point);
                 setText(txt);
                 setIsFailedText(failText);
 
-                if (window.Telegram?.WebApp?.openTelegramLink && index == 0) {
+                if (window.Telegram?.WebApp?.openTelegramLink) {
                     window.Telegram.WebApp.openTelegramLink(url);
                 }
                 else {
@@ -91,7 +91,7 @@ export default function Earnings() {
                     }
                     setIsVisible(true);
                 } catch (err) {
-                    console.log(err);
+                    setIsFailedText(err.message);
                     setIsFailed(true);
                 }
             } else {
@@ -99,7 +99,8 @@ export default function Earnings() {
                 setIsFailed(true);
             }
         } else {
-            alert("Please Create DID First");
+            setIsFailedText("Please Create DID First");
+            setIsFailed(true);
         }
     }
 
@@ -158,7 +159,7 @@ export default function Earnings() {
     return (
         <>
             {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"Success"} text={"After your friend binds the invitation code & creates a DID, you will receive points as rewards!"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
-            {isCheckedIn && <AlertCard image={"/Frame 34643-celeb.svg"} title={"+10 Points"} text={"Daily check success"} size={87} closeFunc={closeFunc} btn={"Back Tomorrow"} />}
+            {isCheckedIn && <AlertCard image={"/Frame 34643-celeb.svg"} title={"+20 Points"} text={"Daily check success"} size={87} closeFunc={closeFunc} btn={"Back Tomorrow"} />}
             {isVisible && <AlertCard image={"/Frame 34643-celeb.svg"} title={`+${points} Points`} text={text} size={87} closeFunc={closeFunc} btn={"Back Tomorrow"} />}
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={'Failed'} text={isFailedText} size={87} closeFunc={closeFunc} btn={"Back Tomorrow"} />}
 

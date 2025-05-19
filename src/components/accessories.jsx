@@ -24,7 +24,7 @@ export function SubHeaderTri({ title }) {
         <nav className="flex justify-between gap-10 items-center">
             <button onClick={() => router.back()} className=""><Image src={"/vector-bb.svg"} className="w-8" width={24} height={24} alt="" /></button>
             <h1 className="text-xl font-semibold text-black text-center dark:text-white">{title}</h1>
-            <button className=""><Image src={"/mage_electricity-fill-bb.svg"} className="w-7" width={24} height={24} alt="" /></button>
+            {/* <button className=""><Image src={"/mage_electricity-fill-bb.svg"} className="w-7" width={24} height={24} alt="" /></button> */}
         </nav>
     )
 }
