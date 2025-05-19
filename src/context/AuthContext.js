@@ -1,12 +1,11 @@
 "use client";
 import { useEffect, createContext, useContext, useState } from "react";
 import { useTonAddress } from '@tonconnect/ui-react';
-// import { useAccount } from "wagmi";
-import { getIP } from "@/components/api/ip";
 import { bindUserWallet, getUserInfo } from "@/components/api/airdrop";
-import { linkXAccount, linkDiscordAccount, linkTGAccount, profile } from "@/components/api/link";
+import { linkXAccount, linkDiscordAccount, linkTGAccount } from "@/components/api/link";
 import { DISCORD_CALLBACK_URL, TWITTER_CALLBACK_URL } from '@/components/config/config';
 import { getUserProfile } from "@/components/api/profile";
+import { useRef } from "react";
 
 const AuthContext = createContext();
 

@@ -14,7 +14,7 @@ export default function InvitationCode() {
     const [isSuccess, setIsSuccess] = useState(false)
     const [isFailed, setIsFailed] = useState(false)
 
-    const { address, userInfo, setInvitedCode } = useAuth();
+    const { address, userInfo, setInvitedCode, isWalletBound } = useAuth();
 
     const closeFunc = () => {
         if (isSuccess) {
