@@ -16,6 +16,9 @@ export const AuthProvider = ({ children }) => {
     const walletAddress = useTonAddress();
     const walletRawAddress = useTonAddress(false);
 
+    const [isWalletBound, setIsWalletBound] = useState(false);
+    const isBinding = useRef(false);
+
     const [xCode, setXCode] = useState("");
     const [discordCode, setDiscordCode] = useState("");
 
@@ -71,7 +74,8 @@ export const AuthProvider = ({ children }) => {
     }
 
     const setBindWallet = () => {
-        if (walletAddress && walletAddress !== "" && address !== walletAddress) {
+        if (walletAddress && walletAddress !== "" && address !== walletAddress && !isBinding.current) {
+            isBinding.current = true;
             const bindWallet = async () => {
                 setAddress(walletAddress);
                 console.log(walletRawAddress);
@@ -92,9 +96,13 @@ export const AuthProvider = ({ children }) => {
 
                     console.log(res);
 
+                    setIsWalletBound(true);
                     await getProfile(walletAddress);
                 } catch (error) {
-                    alert(`Error binding wallet: ${error}`);
+                    alert(`Error binding wallet: ${error}\nPlease Refresh This Page`);
+                    setIsWalletBound(false);
+                } finally {
+                    isBinding.current = false;
                 }
             };
 
@@ -259,7 +267,19 @@ export const AuthProvider = ({ children }) => {
     }, [walletAddress]);
 
     return (
-        <AuthContext.Provider value={{ userInfo, userProfile, address, rawAddress, setUserName, setCode, setBindWallet, setInvitedCode, setPoints, addPoint, clear }}>
+        <AuthContext.Provider value={{
+            userInfo,
+            userProfile,
+            address,
+            setUserName,
+            setCode,
+            setBindWallet,
+            setInvitedCode,
+            setPoints,
+            addPoint,
+            clear,
+            isWalletBound,
+        }}>
             {children}
         </AuthContext.Provider>
     );
