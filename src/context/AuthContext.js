@@ -7,7 +7,7 @@ import { bindUserWallet, getUserInfo } from "@/components/api/airdrop";
 import { linkXAccount, linkDiscordAccount, profile } from "@/components/api/link";
 import { DISCORD_CALLBACK_URL, TWITTER_CALLBACK_URL } from '@/components/config/config';
 import { getUserProfile } from "@/components/api/profile";
-import {useRef} from "react";
+import { useRef } from "react";
 
 const AuthContext = createContext();
 
@@ -77,9 +77,7 @@ export const AuthProvider = ({ children }) => {
             isBinding.current = true;
             const bindWallet = async () => {
                 try {
-                    const ip = await getIP();
-
-                    await bindUserWallet(walletAddress, ip);
+                    await bindUserWallet(walletAddress);
 
                     const res = await getUserInfo(walletAddress);
                     setUserInfo({
