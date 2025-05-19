@@ -26,14 +26,13 @@ export async function getUserInfo(address) {
     };
 }
 
-export async function bindUserWallet(address, ip) {
+export async function bindUserWallet(address) {
     const response = await axios.post(
         API_URL.AIRDROP_USER_WALLET_BIND,
         {
             address: address,
             source: "Ton-DID",
             useragent: navigator.userAgent,
-            ip: ip,
         },
         {
             headers: {
