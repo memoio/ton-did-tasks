@@ -78,9 +78,7 @@ export const AuthProvider = ({ children }) => {
                 const splitted = walletRawAddress.split(":");
                 setRawAddress(splitted[1]);
                 try {
-                    const ip = await getIP();
-
-                    await bindUserWallet(walletAddress, ip);
+                    await bindUserWallet(walletAddress);
 
                     const res = await getUserInfo(walletAddress);
                     setUserInfo({

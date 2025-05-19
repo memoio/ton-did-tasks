@@ -41,9 +41,9 @@ export default function Profile() {
     };
 
     const logOutFunc = async () => {
-        await disconnectAsync();
+        await tonConnectUI.disconnect();
         if (window.okxwallet && window.okxwallet.disconnect) {
-            await window.okxwallet.disconnect()
+            await window.okxwallet.disconnect();
         }
         clearTGE();
         clearRank();
@@ -51,7 +51,7 @@ export default function Profile() {
         clearDID();
         clearAuth();
 
-        router.push('/')
+        router.push('/');
     }
 
     const handleXOauth = async () => {
