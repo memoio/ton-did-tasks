@@ -41,9 +41,7 @@ export function HomeDoubleCard({ icon, text, link, amount, shift, sze }) {
     )
 }
 
-export function HomeTripleCard({ icon, title, text, link, amount, funcAction }) {
-    const [isDid, setDid] = useState(true)
-
+export function HomeTripleCard({ icon, title, text, status, link, amount, funcAction }) {
     return (
         <div className="bg-main-blue/10 border border-solid border-main-blue/20 dark:bg-sec-bg dark:border-none p-4 py-3 flex justify-between gap-1 rounded-xl">
             <div className="">
@@ -53,9 +51,8 @@ export function HomeTripleCard({ icon, title, text, link, amount, funcAction }) 
                 </div>
                 <p className="font-semibold text-black text-lg dark:text-white">{amount}</p>
             </div>
-            {!isDid && <button className="bg-light-gray text-dao-gray px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-gray dark:text-dao-gray">{text}</button>}
-            {isDid && link ? <Link href={link} className="bg-dao-green text-white px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-green dark:text-white">{text}</Link> : <></>}
-            {isDid && funcAction ? <button onClick={funcAction} className="bg-dao-green text-white px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-green dark:text-white">{text}</button> : <></>}
+            {link ? <Link href={link} className="bg-dao-green w-[80px] text-white px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-green dark:text-white">{text}</Link> : <></>}
+            {funcAction && <button disabled={status} onClick={funcAction} className={`${status ? "bg-light-green" : "bg-[#00B66C]"} w-[80px] text-white px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-green dark:text-white`}>{status ? "Claimed" : "Claim"}</button>}
         </div >
     )
 }

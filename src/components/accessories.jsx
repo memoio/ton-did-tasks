@@ -24,7 +24,7 @@ export function SubHeaderTri({ title }) {
         <nav className="flex justify-between gap-10 items-center">
             <button onClick={() => router.back()} className=""><Image src={"/vector-bb.svg"} className="w-8" width={24} height={24} alt="" /></button>
             <h1 className="text-xl font-semibold text-black text-center dark:text-white">{title}</h1>
-            <button className=""><Image src={"/mage_electricity-fill-bb.svg"} className="w-7" width={24} height={24} alt="" /></button>
+            {/* <button className=""><Image src={"/mage_electricity-fill-bb.svg"} className="w-7" width={24} height={24} alt="" /></button> */}
         </nav>
     )
 }
@@ -78,7 +78,7 @@ export function PointsDetails({ title, date, amount }) {
                 <p className="text-black font-semibold dark:text-white">{title}</p>
                 <p className="text-dao-gray dark:text-light-gray dark:font-normal">{date}</p>
             </div >
-            <p className="text-black font-semibold dark:text-white">+{amount}</p>
+            <p className="text-black font-semibold dark:text-green">+{amount}</p>
         </div >
     )
 }
@@ -90,7 +90,7 @@ export function InvitationDetails({ name, timestamp, address, did }) {
             <div className="bg-main-blue/10 dark:bg-sec-bg border border-solid border-main-blue/20 dark:border-0 rounded-[10px] p-4 flex justify-between">
                 <div className="">
                     <p className="font-semibold dark:text-white">{name ? name : `${address.slice(0, 4)}...${address.slice(40)}`}</p>
-                    <p className="flex gap-1 text-sm dark:text-light-gray">{<Image src={"/ion_checkbox-outline.svg"} width={16} height={16} alt={" "} />}Bind Invitation Code</p>
+                    <p className="flex gap-1 text-sm dark:text-light-gray">{`${address.slice(0, 10)}...${address.slice(34)}`}</p>
                 </div>
                 <div className="w-fit">
                     <p className="text-xs dark:text-light-gray">{timestamp}</p>
@@ -113,7 +113,7 @@ export function MessageList({ image, title, message, timestamp, isClamp }) {
     return (
         <div className="bg-main-blue/8 border border-solid border-main-blue/21 rounded-lg p-4 dark:bg-sec-bg dark:border-none">
             <div className="flex gap-2">
-                <Image src={image} width={43} height={43} alt="" />
+                <Image className="w-[43px] h-[43px]" src={image} width={43} height={43} alt="" />
                 <div className="">
                     <p className="font-semibold text-black dark:text-white">{title}</p>
                     <p className="text-sm text-black dark:text-white">{timestamp}</p>

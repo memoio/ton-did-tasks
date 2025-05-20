@@ -20,6 +20,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { DIDProvider } from "@/context/DIDContext";
 import { ActionProvider } from "@/context/ActionContext";
 import { RankProvider } from "@/context/RankContext";
+import { TGEProvider } from "@/context/TGEContext";
 // import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 // const manifestUrl = 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json';
@@ -75,8 +76,10 @@ export default function App({ Component, pageProps }) {
                         <DIDProvider>
                             <ActionProvider>
                                 <RankProvider>
-                                    <Component {...pageProps} />
-                                    <GoogleAnalytics />
+                                    <TGEProvider>
+                                        <Component {...pageProps} />
+                                        <GoogleAnalytics />
+                                    </TGEProvider>
                                 </RankProvider>
                             </ActionProvider>
                         </DIDProvider>

@@ -36,7 +36,7 @@ export default function InvitationDetail() {
     }, [address]);
 
     const formatDate = (timestamp) => {
-        const date = new Date(timestamp);
+        const date = new Date(timestamp * 1000); // millisecond
         return date.toLocaleDateString(undefined, {
             year: 'numeric',
             month: '2-digit',
@@ -58,9 +58,9 @@ export default function InvitationDetail() {
             <SubHeader title={"Invitation Details"} />
 
             {loading ? (
-                <p>Loading...</p>
+                <p className="dark:text-white">Loading...</p>
             ) : allInvites.length === 0 ? (
-                <p>No invitations found.</p>
+                <p className="dark:text-white">No records found.</p>
             ) : (
                 <>
                     <div className="flex flex-col gap-4">
@@ -79,17 +79,17 @@ export default function InvitationDetail() {
                         <button
                             onClick={handlePrev}
                             disabled={page === 1}
-                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-light"
+                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-white"
                         >
                             Previous
                         </button>
 
-                        <span className="dark:text-light">Page {page} of {totalPages}</span>
+                        <span className="dark:text-white">Page {page} of {totalPages}</span>
 
                         <button
                             onClick={handleNext}
                             disabled={page === totalPages}
-                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-light"
+                            className="px-3 py-1 border rounded disabled:opacity-50 dark:text-white"
                         >
                             Next
                         </button>

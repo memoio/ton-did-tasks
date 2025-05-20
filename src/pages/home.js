@@ -1,21 +1,23 @@
 import { AlertCard, HomeDoubleCard, HomeTripleCard } from "@/components/cards";
 import { Footer } from "@/components/footer";
 import { Dark, Light } from "@/components/icons";
+import { useAction } from "@/context/ActionContext";
 import { useAuth } from "@/context/AuthContext";
 import { useDIDInfo } from "@/context/DIDContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-// import { useAccount } from "wagmi";
 
 export default function Home() {
-    const [isVisible, setIsVisible] = useState(false)
+    const [isVisible, setIsVisible] = useState(false);
+    const [isFailed, setIsFailed] = useState(false);
+    const [failedText, setFailedText] = useState("");
 
     const router = useRouter();
-    // const { address } = useAccount();
     const { didInfo } = useDIDInfo();
-    const { userInfo, userProfile, address } = useAuth();
+    const { userInfo, userProfile, address, addPoint } = useAuth();
+    const { dailyAction, setDaily, finishDailyCheck } = useAction();
     const [isDark, setIsDark] = useState(false);
 
     useEffect(() => {
@@ -41,13 +43,40 @@ export default function Home() {
 
     const closeFunc = () => {
         setIsVisible(false)
-        setChecked(true);
+        setIsFailed(true);
+    }
+
+    const finishDailyTask = async () => {
+        const url = "https://x.com/MemoLabsOrg";
+        if (didInfo.exist && address) {
+            if (window.Telegram?.WebApp?.openTelegramLink) {
+                window.Telegram.WebApp.openTelegramLink(url);
+            }
+            else {
+                window.open(url, '_blank');
+            }
+
+            try {
+                await recordAdd(address, 70);
+                addPoint(20);
+                setDaily(action - 70);
+                finishDailyCheck();
+                setIsVisible(true);
+            } catch (err) {
+                setFailedText(err.message);
+                setIsFailed(true);
+            }
+        } else {
+            setFailedText("Please Create DID First");
+            setIsFailed(true);
+        }
     }
 
     return (
         <>
             {/* {!didInfo.exist && !checked && <AlertCard image={"/Frame 34643.svg"} title={"Notice"} text={"Please Create DID First!"} size={87} closeFunc={closeFunc} btn={"Ok"} />} */}
-            {isVisible && <AlertCard image={"/Frame 34643-celeb.svg"} title={"+1000 Points"} text={"Daily Check Success"} size={87} closeFunc={closeFunc} btn={"Back Tomorrow"} />}
+            {isVisible && <AlertCard image={"/Frame 34643-celeb.svg"} title={`+20 Points`} text={"Daily check success"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
+            {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={'Failed'} text={failedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
 
             <div className="flex flex-col gap-4 p-8 pb-28">
                 <div className="flex justify-between items-center">
@@ -55,7 +84,7 @@ export default function Home() {
                         <Image src={"/Frame 34635.png"} className="aspect-auto object-contain" width={41} height={40} alt="" />
                         <div className="flex flex-col gap-0 relative top-0.5">
                             <p className="font-semibold text-dark-bg text-xl leading-4 dark:text-white">{userProfile.name}</p>
-                            <p className="text-dao-gray">{didInfo.Exist ? `${didInfo.did.slice(0, 12)}...${didInfo.did.slice(71)}` : `${address?.slice(0, 8)}...${address?.slice(36)}`}</p>
+                            <p className="text-dao-gray">{didInfo.Exist ? `${didInfo.did.slice(0, 12)}...${didInfo.did.slice(71)}` : `${address?.slice(0, 6)}...${address?.slice(38)}`}</p>
                         </div>
                     </div>
 
@@ -73,9 +102,9 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <HomeTripleCard icon={"/mdi_star-four-points-circle-outline.svg"} title={"Points Earned Today"} amount={1000} text={"See Details"} link={"/points-details"} />
-                    <HomeTripleCard icon={"/uil_calender.svg"} title={"Streak Check-In"} amount={20} text={"Claim Now"} link={"/earning"} />
-                    <HomeTripleCard icon={"/fa6-solid_ranking-star.svg"} title={"My Global Rank"} amount={1000} text={"See Details"} link={"/leaderboard"} />
+                    <HomeTripleCard icon={"/mdi_star-four-points-circle-outline.svg"} title={"Points Earned Today"} amount={1000} text={"Check"} link={"/points-details"} />
+                    <HomeTripleCard icon={"/uil_calender.svg"} title={"Streak Check-In"} amount={20} text={"Claim"} done={"Claimed"} status={dailyAction.has(0)} funcAction={finishDailyTask} />
+                    <HomeTripleCard icon={"/fa6-solid_ranking-star.svg"} title={"My Global Rank"} amount={1000} text={"Check"} link={"/leaderboard"} />
                 </div>
 
                 <div className="bg-main-blue/10 p-4 py-3 border border-solid border-main-blue/20 flex flex-col justify-between gap-1 rounded-xl dark:bg-sec-bg dark:border-none">

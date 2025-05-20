@@ -14,7 +14,7 @@ export default function InvitationCode() {
     const [isSuccess, setIsSuccess] = useState(false)
     const [isFailed, setIsFailed] = useState(false)
 
-    const { address, userInfo, setInvitedCode } = useAuth();
+    const { address, userInfo, setInvitedCode, isWalletBound } = useAuth();
 
     const closeFunc = () => {
         if (isSuccess) {
@@ -50,12 +50,20 @@ export default function InvitationCode() {
     }
 
     useEffect(() => {
-        if (userInfo !== null) {
+        if (isWalletBound) {
             if (userInfo.bindedCode === true) {
                 router.push('/home');
             }
         }
-    }, [userInfo, router]);
+    }, [isWalletBound, userInfo, router]);
+
+    if (!isWalletBound) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+        );
+    }
 
     return (
         <>

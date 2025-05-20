@@ -10,7 +10,7 @@ export default function ProfileEdit() {
     return (
         <>
             <div className="px-8 py-4">
-                <SubHeaderTri title={"Edit"} link={"/privacy-policy"} />
+                <SubHeaderTri title={"Edit"} />
 
                 <div className="flex flex-col gap-4 mt-6">
                     <div className="bg-dao-green p-4 rounded-xl flex flex-col gap-2 items-center justify-center mb-4">

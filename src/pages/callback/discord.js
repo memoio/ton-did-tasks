@@ -6,7 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 
 export default function CallbackPage() {
     const router = useRouter();
-    const { setCode } = useAuth();
+    const { setCode, isWalletBound } = useAuth();
     const { query } = router;
 
     useEffect(() => {
@@ -21,11 +21,8 @@ export default function CallbackPage() {
 
                 console.log(code);
                 setCode(code, "discord");
-
-                router.push('/earning');
             } catch (error) {
                 console.error('Callback error:', error);
-                router.push('/earning');
             }
         };
 
@@ -34,9 +31,15 @@ export default function CallbackPage() {
         }
     }, [query.code]);
 
+    useEffect(() => {
+        if (isWalletBound) {
+            router.push('/earning');
+        }
+    }, [isWalletBound, router]);
+
     return (
-        <div>
-            <p>Verifying...</p>
+        <div className="flex justify-center items-center h-screen">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
         </div>
     );
 }

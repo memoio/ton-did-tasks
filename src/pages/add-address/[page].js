@@ -1,16 +1,23 @@
 import { SubHeader } from "@/components/accessories";
 import { AlertCard } from "@/components/cards";
 import { Footer } from "@/components/footer";
+import { useDIDInfo } from "@/context/DIDContext";
+import { bindEXInfo } from "@/components/api/profile";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useTGE } from "@/context/TGEContext";
 
 export default function AddAddress() {
-    const router = useRouter()
+    const router = useRouter();
     const { page } = router.query;
-    const [isVisible, setIsVisible] = useState(false)
-    const [isFailed, setIsFailed] = useState(false)
+    const [isVisible, setIsVisible] = useState(false);
+    const [isFailed, setIsFailed] = useState(false);
+    const [isNotSupport, setIsNotSupport] = useState(false);
+    const [failedText, setFailedText] = useState(false);
+    const { didInfo } = useDIDInfo();
+    const { tgeInfo, addTGEInfo } = useTGE();
 
     const [info, setInfo] = useState({
         address: '',
@@ -20,6 +27,7 @@ export default function AddAddress() {
     const closeFunc = () => {
         setIsVisible(false)
         setIsFailed(false)
+        setIsNotSupport(false)
     }
 
     const handleChange = (e) => {
@@ -30,21 +38,53 @@ export default function AddAddress() {
         }));
     };
 
-    const handleAddEX = () => {
-        console.log(info.address);
-        console.log(info.uid);
+    const handleAddEX = async () => {
+        let exname = "unkonw";
+        if (page === "Binance") {
+            exname = "binance";
+        } else if (page === "OKX") {
+            exname = "okx";
+        } else if (page === "Gate.io") {
+            exname = "gateio";
+        } else {
+            setIsNotSupport(true);
+            return;
+        }
 
-        setIsFailed(true);
+        if (didInfo.exist) {
+            try {
+                await bindEXInfo(didInfo.did, exname, info.address, info.uid);
+
+                addTGEInfo(exname, info.address, info.uid);
+                setIsVisible(true);
+            } catch (err) {
+                console.log(err);
+                setFailedText(err.message);
+                setIsFailed(true);
+            }
+        } else {
+            setFailedText("Please Create DID First");
+            setIsFailed(true);
+        }
     }
 
     const handleRegister = () => {
-        setIsFailed(true);
+        if (page === "Binance") {
+            window.open("https://accounts.binance.com/en/register?registerChannel=&return_to=", "_blank");
+        } else if (page === "OKX") {
+            window.open("https://www.okx.com/account/register?action=header_register_btn", "_blank");
+        } else if (page === "Gate.io") {
+            window.open("https://www.gate.io/signup", "_blank");
+        } else {
+            setIsNotSupport(true);
+        }
     }
 
     return (
         <>
             {isVisible && <AlertCard image={"/Clip path group-check.svg"} title={"Add Successful"} size={87} closeFunc={closeFunc} />}
-            {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Not Support"} size={87} closeFunc={closeFunc} />}
+            {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Add Failed"} text={failedText} size={87} closeFunc={closeFunc} />}
+            {isNotSupport && <AlertCard image={"/Frame 34643-x.svg"} title={`Not Support: ${page}`} text={failedText} size={87} closeFunc={closeFunc} />}
 
             <div className="px-8 py-4 flex flex-col gap-4 pb-28">
                 <SubHeader title={"Add Address"} />
@@ -59,7 +99,6 @@ export default function AddAddress() {
                     <Link className="relative z-10" href={`/how-to-register/${page}`}>How To Register</Link>
                 </div>
 
-                {/* <Link href={"/register"} className="bg-dao-green rounded-full dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green w-full py-3 text-center text-white">Register Now</Link> */}
                 <button onClick={handleRegister} className="bg-dao-green rounded-full dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green w-full py-3 text-center text-white">Register Now</button>
                 {/* <button onClick={handleRegister} className="relative z-10" href={`/how-to-register/${page}`}>How To Register</button> */}
                 {/* <form className="text flex flex-col gap-4 mt-4" onSubmit={handleAddEX}> */}
