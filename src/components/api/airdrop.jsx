@@ -53,6 +53,38 @@ export async function bindUserWallet(address, ip) {
     console.log("bind address success")
 }
 
+export async function bindUserActivity(address, activity) {
+    const response = await axios.post(
+        API_URL_V1.BACKEND_ACTIVITY_BIND_ACTIVITY,
+        {
+            address: address,
+            activity: activity,
+        },
+    );
+
+    if (response.status !== 200) {
+        throw new Error(`API request failed with status ${response.status}: ${response.data}`);
+    }
+
+    console.log("bind activity success")
+}
+
+export async function bindUserChannel(address, channel) {
+    const response = await axios.post(
+        API_URL_V1.BACKEND_ACTIVITY_BIND_CHANNEL,
+        {
+            address: address,
+            channel: channel,
+        },
+    );
+
+    if (response.status !== 200) {
+        throw new Error(`API request failed with status ${response.status}: ${response.data}`);
+    }
+
+    console.log("bind channel success")
+}
+
 export async function rank(type) {
     const response = await axios.get(API_URL.AIRDROP_POINTS_RANK, {
         params: {
