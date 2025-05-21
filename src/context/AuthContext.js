@@ -215,7 +215,6 @@ export const AuthProvider = ({ children }) => {
                     ...prev,
                     xName: name,
                     linkedX: true,
-                    name: prev.name === "Unkonw" ? name : prev.name
                 }
             })
         } else if (platform === "discord") {
@@ -227,7 +226,6 @@ export const AuthProvider = ({ children }) => {
                     ...prev,
                     discordName: name,
                     linkedDiscord: true,
-                    name: prev.name === "Unkonw" ? name : prev.name
                 }
             })
         }
