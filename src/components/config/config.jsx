@@ -1,6 +1,6 @@
 export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be.metamemo.one"
 
-export const TON_DID_WEB = "https://t.me/memodid_bot/datadid"
+export const TON_DID_WEB = "https://t.me/tondid_bot/test"
 export const TON_DID_WEB_RAW = "https://datadid-ton-v2.memolabs.net"
 export const AIRDROP_BACKEND_URL = PRODUCT_AIRDROP_BACKEND_URL
 
@@ -17,8 +17,8 @@ export const API_URL_V1 = {
     "AIRDROP_CREATE_TON_DID": AIRDROP_BACKEND_URL + "/did/createtondid",
     "AIRDROP_DID_INFO": AIRDROP_BACKEND_URL + "/did/info",
 
-    "BACKEND_ACTIVITY_BIND_CHANNEL": BACKEND_URL + "/activity/bind/channel",
-    "BACKEND_ACTIVITY_BIND_ACTIVITY": BACKEND_URL + "/activity/bind/activity",
+    "BACKEND_ACTIVITY_BIND_CHANNEL": AIRDROP_BACKEND_URL + "/activity/bind/channel",
+    "BACKEND_ACTIVITY_BIND_ACTIVITY": AIRDROP_BACKEND_URL + "/activity/bind/activity",
 }
 
 export const API_URL_V2 = {

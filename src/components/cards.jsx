@@ -96,7 +96,7 @@ export function LinkTask({ icon, text, loginFunc, updateFunc, checked }) {
                 </div>
             </div>
 
-            {clickLink && <button onClick={handleClaim} className={`button_primary h-fit rounded-full text-white min-w-16 text-sm`}>claim</button>}
+            {clickLink && <button onClick={handleClaim} className={`button_claim h-fit rounded-full text-white min-w-16 text-sm`}>claim</button>}
             {!clickLink && <button disabled={checked} onClick={handleLink} className={`${checked ? "button_done" : "button_primary"} h-fit rounded-full text-white min-w-16 text-sm`}>{checked ? "linked" : "link"}</button>}
         </div>
     )
@@ -134,7 +134,7 @@ export function DailyTask({ icon, text, link, point, updateFunc, checked, todo, 
                 </div>
             </div>
 
-            {clickLink && <button onClick={handleClaim} className={`button_primary h-fit rounded-full text-white min-w-16 text-sm`}>claim</button>}
+            {clickLink && <button onClick={handleClaim} className={`button_claim h-fit rounded-full text-white min-w-16 text-sm`}>claim</button>}
             {!clickLink && <button disabled={checked} onClick={handleLink} className={`${checked ? "button_done" : "button_primary"} h-fit rounded-full text-white min-w-16 text-sm`}>{checked ? done : todo}</button>}
         </div>
     )

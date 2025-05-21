@@ -36,7 +36,7 @@ export default function InvitationDetail() {
     }, [address]);
 
     const formatDate = (timestamp) => {
-        const date = new Date(timestamp * 1000); // millisecond
+        const date = new Date(timestamp * 1000);
         return date.toLocaleDateString(undefined, {
             year: 'numeric',
             month: '2-digit',

@@ -4,6 +4,7 @@ import { Dark, Light } from "@/components/icons";
 import { useAction } from "@/context/ActionContext";
 import { useAuth } from "@/context/AuthContext";
 import { useDIDInfo } from "@/context/DIDContext";
+import { recordAdd } from "@/components/api/airdrop";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -43,7 +44,7 @@ export default function Home() {
 
     const closeFunc = () => {
         setIsVisible(false)
-        setIsFailed(true);
+        setIsFailed(false);
     }
 
     const finishDailyTask = async () => {

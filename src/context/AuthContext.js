@@ -42,8 +42,6 @@ export const AuthProvider = ({ children }) => {
     });
 
     const clear = () => {
-        setXCode("");
-        setDiscordCode("");
         setUserInfo({
             inviteCode: "",
             invitedCode: "",

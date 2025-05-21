@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { recordAdd } from "@/components/api/airdrop";
 import { xOauthInfo } from "@/components/api/link";
-// import { useRouter } from "next/router";
+import { getUserProfile } from "@/components/api/profile";
 import { useState } from "react";
 import { DiscordLogoIcon, TelegramLogoIconBW, TwitterLogoIcon } from "@/components/icons";
 import { useDIDInfo } from "@/context/DIDContext";
@@ -138,20 +138,27 @@ export default function Earnings() {
 
     const verifyXOauth = async () => {
         if (address) {
-            try {
-                const profile = await getUserProfile(address);
+            if (userProfile.linkedX) {
+                setText("Link X Account Success");
+                setPoints(100);
+                setIsVisible(true);
+            } else {
+                try {
+                    const profile = await getUserProfile(address);
 
-                if (profile.twitter_info.twitter_id !== "") {
-                    setName(profile.twitter_info.twitter_name);
-                    setIsFailedText("Link X Account Success");
-                    setIsFailed(true);
-                } else {
-                    setIsFailedText("Please Confirm You Have Linked Your X Account");
+                    if (profile.twitter_info.twitter_id !== "") {
+                        setName(profile.twitter_info.twitter_name);
+                        setText("Link X Account Success");
+                        setPoints(100);
+                        setIsVisible(true);
+                    } else {
+                        setIsFailedText("Please Confirm You Have Linked Your X Account");
+                        setIsFailed(true);
+                    }
+                } catch (err) {
+                    setIsFailedText(err.message);
                     setIsFailed(true);
                 }
-            } catch (err) {
-                setIsFailedText(err.message);
-                setIsFailed(true);
             }
         }
     }
@@ -179,20 +186,27 @@ export default function Earnings() {
 
     const verifyDiscordOauth = async () => {
         if (address) {
-            try {
-                const profile = await getUserProfile(address);
+            if (userProfile.linkedDiscord) {
+                setText("Link Discord Account Success");
+                setPoints(100);
+                setIsVisible(true);
+            } else {
+                try {
+                    const profile = await getUserProfile(address);
 
-                if (profile.discord_info.discord_id !== "") {
-                    setName(profile.discord_info.discord_name, "discord");
-                    setIsFailedText("Link Discord Account Success");
-                    setIsFailed(true);
-                } else {
-                    setIsFailedText("Please Confirm You Have Linked Your Discord Account");
+                    if (profile.discord_info.discord_id !== "") {
+                        setName(profile.discord_info.discord_name, "discord");
+                        setText("Link Discord Account Success");
+                        setPoints(100);
+                        setIsVisible(true);
+                    } else {
+                        setIsFailedText("Please Confirm You Have Linked Your Discord Account");
+                        setIsFailed(true);
+                    }
+                } catch (err) {
+                    setIsFailedText(err.message);
                     setIsFailed(true);
                 }
-            } catch (err) {
-                setIsFailedText(err.message);
-                setIsFailed(true);
             }
         }
     }
@@ -208,15 +222,9 @@ export default function Earnings() {
     return (
         <>
             {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"Success"} text={"After your friend binds the invitation code & creates a DID, you will receive points as rewards!"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
-<<<<<<< HEAD
-            {isCheckedIn && <AlertCard image={"/Frame 34643-celeb.svg"} title={"+20 Points"} text={"Daily check success"} size={87} closeFunc={closeFunc} btn={"Back Tomorrow"} />}
-            {isVisible && <AlertCard image={"/Frame 34643-celeb.svg"} title={`+${points} Points`} text={text} size={87} closeFunc={closeFunc} btn={"Back Tomorrow"} />}
-            {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={'Failed'} text={isFailedText} size={87} closeFunc={closeFunc} btn={"Back Tomorrow"} />}
-=======
-            {isCheckedIn && <AlertCard image={"/Frame 34643-celeb.svg"} title={"+10 Points"} text={"Daily check success"} size={87} closeFunc={closeFunc} btn={"Back Tomorrow"} />}
+            {/* {isCheckedIn && <AlertCard image={"/Frame 34643-celeb.svg"} title={"+10 Points"} text={"Daily check success"} size={87} closeFunc={closeFunc} btn={"Back Tomorrow"} />} */}
             {isVisible && <AlertCard image={"/Frame 34643-celeb.svg"} title={`+${points} Points`} text={text} size={87} closeFunc={closeFunc} btn={"Ok"} />}
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={'Failed'} text={isFailedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
->>>>>>> main
 
             <div className="flex flex-col gap-4 p-8 pb-32">
                 <div className="bg-dao-green p-4 rounded-lg text-white flex flex-col gap-2">
@@ -244,8 +252,8 @@ export default function Earnings() {
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px]">
                     <h2 className="font-semibold text-lg text-black dark:text-white">Beginner Quest</h2>
                     <div className="flex flex-col gap-4 mt-4">
-                        <LinkTask checked={userProfile.linkedX} loginFunc={verifyXOauth} updateFunc={() => handleXOauth()} text={"link X Account"} icon={<TwitterLogoIcon />} />
-                        <LinkTask checked={userProfile.linkedDiscord} loginFunc={verifyDiscordOauth} updateFunc={() => handleDiscordOauth()} text={"link Discord Account"} icon={<DiscordLogoIcon />} />
+                        <LinkTask checked={userProfile.linkedX} loginFunc={handleXOauth} updateFunc={verifyXOauth} text={"link X Account"} icon={<TwitterLogoIcon />} />
+                        <LinkTask checked={userProfile.linkedDiscord} loginFunc={handleDiscordOauth} updateFunc={verifyDiscordOauth} text={"link Discord Account"} icon={<DiscordLogoIcon />} />
                     </div >
                 </div >
 

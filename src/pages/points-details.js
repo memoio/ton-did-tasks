@@ -45,7 +45,7 @@ export default function PointsDetail() {
     }, [address, page]);
 
     const formatDate = (timestamp) => {
-        const date = new Date(timestamp);
+        const date = new Date(timestamp * 1000);
         return date.toLocaleDateString(undefined, {
             year: 'numeric',
             month: '2-digit',
@@ -60,13 +60,19 @@ export default function PointsDetail() {
     const handleNext = () => setPage((prev) => Math.min(prev + 1, totalPages));
     const pagedRecords = records.slice((page - 1) * size, page * size);
 
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+        );
+    }
+
     return (
         <div className="px-8 py-4 flex flex-col gap-4">
             <SubHeader title={"Points Details"} />
 
-            {loading ? (
-                <p className="dark:text-white">Loading...</p>
-            ) : records.length === 0 ? (
+            {records.length === 0 ? (
                 <p className="dark:text-white">No records found.</p>
             ) : (
                 <>

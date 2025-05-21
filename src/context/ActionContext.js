@@ -35,28 +35,31 @@ export const ActionProvider = ({ children }) => {
                     setDays(0);
                     const records = await recordList(address, 1)
 
+                    let questSet = new Set();
                     records.map((element) => {
-                        console.log(element);
+                        // console.log(element);
                         const action = element.action;
                         if (action >= 50 && action <= 53) {
-                            setQuestAction((prev) => new Set(prev).add(action - 50));
+                            questSet.add(action - 50);
                         }
                     });
 
                     const dailyRecords = await recordList(address, 2);
-                    let consequent = true
+                    let consequent = true;
+                    let dailySet = new Set();
+                    let day = 0;
                     dailyRecords.map((element) => {
-                        console.log(element);
+                        // console.log(element);
                         if (element.action <= 100) {
                             const action = element.action - 70;
                             const preDayTime = Date.now() - 86400000;
-                            if (element.time > preDayTime) {
-                                setDailyAction((prev) => new Set(prev).add(action));
+                            if (element.time * 1000 > preDayTime) {
+                                dailySet.add(action);
                             }
 
                             if (action === 0 && consequent) {
-                                if (element.time <= Date.now() - days * 86400000 && element.time > Date.now() - (days + 1) * 86400000) {
-                                    setDays(days + 1);
+                                if (element.time * 1000 <= Date.now() - day * 86400000 && element.time * 1000 > Date.now() - (days + 1) * 86400000) {
+                                    day++;
                                 } else {
                                     consequent = false;
                                 }
@@ -64,9 +67,12 @@ export const ActionProvider = ({ children }) => {
                         }
                     });
 
-                    console.log(days);
-                    console.log(questAction);
-                    console.log(dailyAction);
+                    console.log(day);
+                    console.log(dailySet);
+                    console.log(questSet);
+                    setDays(day);
+                    setDailyAction(dailySet);
+                    setQuestAction(questSet);
                 } catch (error) {
                     alert(`Error Get Action List: ${error}`);
                     return

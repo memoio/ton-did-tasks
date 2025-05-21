@@ -1,14 +1,13 @@
-import { TWITTER_CALLBACK_URL, TWITTER_OAUTH_STATE } from '@/components/config/config';
-import { useEffect } from 'react';
+import { TWITTER_CALLBACK_URL, TWITTER_OAUTH_STATE, TON_DID_WEB } from '@/components/config/config';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useAuth } from '@/context/AuthContext';
-import Link from "next/link";
 import { linkXAccount } from "@/components/api/link";
+import Link from "next/link";
 
 export default function CallbackPage() {
-    const router = useRouter();
-    const { setCode, isWalletBound } = useAuth();
-    const { query } = router;
+    const { query } = useRouter();
+    const [isFainal, setIsFainal] = useState(false);
+    const [text, setText] = useState("");
 
     useEffect(() => {
         const handleCallback = async () => {
@@ -40,12 +39,6 @@ export default function CallbackPage() {
             handleCallback();
         }
     }, [query.code]);
-
-    useEffect(() => {
-        if (isWalletBound) {
-            router.push("/earning");
-        }
-    }, [isWalletBound, router]);
 
     return (
         <div>
