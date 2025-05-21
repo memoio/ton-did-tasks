@@ -2,9 +2,8 @@
 import { useEffect, createContext, useContext, useState } from "react";
 // import { useTonAddress } from '@tonconnect/ui-react';
 import { useAccount } from "wagmi";
-import { getIP } from "@/components/api/ip";
 import { bindUserWallet, getUserInfo } from "@/components/api/airdrop";
-import { linkXAccount, linkDiscordAccount, profile } from "@/components/api/link";
+import { linkXAccount, linkDiscordAccount } from "@/components/api/link";
 import { DISCORD_CALLBACK_URL, TWITTER_CALLBACK_URL } from '@/components/config/config';
 import { getUserProfile } from "@/components/api/profile";
 import { useRef } from "react";
@@ -15,8 +14,8 @@ export const AuthProvider = ({ children }) => {
     const [address, setAddress] = useState("");
     const { address: walletAddress } = useAccount();
 
-    const [xCode, setXCode] = useState("");
-    const [discordCode, setDiscordCode] = useState("");
+    // const [xCode, setXCode] = useState("");
+    // const [discordCode, setDiscordCode] = useState("");
 
     const [isWalletBound, setIsWalletBound] = useState(false);
     const isBinding = useRef(false);
@@ -45,8 +44,8 @@ export const AuthProvider = ({ children }) => {
     });
 
     const clear = () => {
-        setXCode("");
-        setDiscordCode("");
+        // setXCode("");
+        // setDiscordCode("");
         setUserInfo({
             inviteCode: "",
             invitedCode: "",
@@ -132,31 +131,31 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const bindXAccount = async () => {
-        try {
-            console.log(address);
-            console.log(xCode);
-            await linkXAccount(address, xCode, TWITTER_CALLBACK_URL);
-            setXCode("");
+    // const bindXAccount = async () => {
+    //     try {
+    //         console.log(address);
+    //         console.log(xCode);
+    //         await linkXAccount(address, xCode, TWITTER_CALLBACK_URL);
+    //         setXCode("");
 
-            await getProfile(address);
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    //         await getProfile(address);
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
 
-    const bindDiscordAccount = async () => {
-        try {
-            console.log(address);
-            console.log(discordCode);
-            await linkDiscordAccount(address, discordCode, DISCORD_CALLBACK_URL);
-            setDiscordCode("");
+    // const bindDiscordAccount = async () => {
+    //     try {
+    //         console.log(address);
+    //         console.log(discordCode);
+    //         await linkDiscordAccount(address, discordCode, DISCORD_CALLBACK_URL);
+    //         setDiscordCode("");
 
-            await getProfile(address);
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    //         await getProfile(address);
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
 
     const setPoints = (points) => {
         setUserInfo(prevUserInfo => {
@@ -212,11 +211,39 @@ export const AuthProvider = ({ children }) => {
         })
     }
 
-    const setCode = (code, platform = "x") => {
+    // const setCode = (code, platform = "x") => {
+    //     if (platform === "x") {
+    //         setXCode(code);
+    //     } else if (platform === "discord") {
+    //         setDiscordCode(code);
+    //     }
+    // }
+
+    const setName = (name, platform = "x") => {
         if (platform === "x") {
-            setXCode(code);
+            setUserProfile(prev => {
+                if (!prev) {
+                    return null;
+                }
+                return {
+                    ...prev,
+                    xName: name,
+                    linkedX: true,
+                    name: prev.name === "Unkonw" ? name : prev.name
+                }
+            })
         } else if (platform === "discord") {
-            setDiscordCode(code);
+            setUserProfile(prev => {
+                if (!prev) {
+                    return null;
+                }
+                return {
+                    ...prev,
+                    discordName: name,
+                    linkedDiscord: true,
+                    name: prev.name === "Unkonw" ? name : prev.name
+                }
+            })
         }
     }
 
@@ -227,17 +254,17 @@ export const AuthProvider = ({ children }) => {
         }))
     }
 
-    useEffect(() => {
-        if (address !== "" && xCode !== "") {
-            bindXAccount();
-        }
-    }, [address, xCode]);
+    // useEffect(() => {
+    //     if (address !== "" && xCode !== "") {
+    //         bindXAccount();
+    //     }
+    // }, [address, xCode]);
 
-    useEffect(() => {
-        if (address !== "" && discordCode !== "") {
-            bindDiscordAccount();
-        }
-    }, [address, discordCode]);
+    // useEffect(() => {
+    //     if (address !== "" && discordCode !== "") {
+    //         bindDiscordAccount();
+    //     }
+    // }, [address, discordCode]);
 
     useEffect(() => {
         setBindWallet();
@@ -249,7 +276,8 @@ export const AuthProvider = ({ children }) => {
             userProfile,
             address,
             setUserName,
-            setCode,
+            // setCode,
+            setName,
             setBindWallet,
             setInvitedCode,
             setPoints,

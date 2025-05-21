@@ -49,8 +49,8 @@ export default function Home() {
     const finishDailyTask = async () => {
         const url = "https://x.com/MemoLabsOrg";
         if (didInfo.exist && address) {
-            if (window.Telegram?.WebApp?.openTelegramLink) {
-                window.Telegram.WebApp.openTelegramLink(url);
+            if (window.Telegram?.WebApp?.openLink) {
+                window.Telegram.WebApp.openLink(url, "_blank");
             }
             else {
                 window.open(url, '_blank');

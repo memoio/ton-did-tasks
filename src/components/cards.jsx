@@ -71,8 +71,59 @@ export function CheckInCard({ day, status, checkInFunc }) {
     )
 }
 
+export function LinkTask({ icon, text, loginFunc, updateFunc, checked }) {
+    const [clickLink, setClickLink] = useState(false);
 
-export function DailyTask({ icon, text, point, updateFunc, checked, todo, done }) {
+    const handleLink = async () => {
+        await loginFunc();
+
+        setClickLink(true);
+    }
+
+    const handleClaim = () => {
+        updateFunc();
+
+        setClickLink(false);
+    }
+
+    return (
+        <div className="flex justify-between gap-4 max-w-full">
+            <div className="flex gap-2 w-3/4">
+                <div className="border border-solid border-white dark:border-fill-bright/19 rounded h-fit">{icon}</div>
+                <div className="">
+                    <p className="text-dao-gray line-clamp-1">{text}</p>
+                    <p className="text-dao-green font-semibold text-sm">+100</p>
+                </div>
+            </div>
+
+            {clickLink && <button onClick={handleClaim} className={`button_primary h-fit rounded-full text-white min-w-16 text-sm`}>claim</button>}
+            {!clickLink && <button disabled={checked} onClick={handleLink} className={`${checked ? "button_done" : "button_primary"} h-fit rounded-full text-white min-w-16 text-sm`}>{checked ? "linked" : "link"}</button>}
+        </div>
+    )
+}
+
+export function DailyTask({ icon, text, link, point, updateFunc, checked, todo, done }) {
+    const [clickLink, setClickLink] = useState(false);
+
+    const handleLink = () => {
+        if (window.Telegram?.WebApp?.openTelegramLink && text == "Share Referral Link to TG") {
+            window.Telegram.WebApp.openTelegramLink(link);
+        }
+        else if (window.Telegram?.WebApp?.openLink) {
+            window.Telegram.WebApp.openLink(link, '_blank');
+        } else {
+            window.open(link, '_blank');
+        }
+
+        setClickLink(true);
+    }
+
+    const handleClaim = () => {
+        updateFunc();
+
+        setClickLink(false);
+    }
+
     return (
         <div className="flex justify-between gap-4 max-w-full">
             <div className="flex gap-2 w-3/4">
@@ -83,7 +134,8 @@ export function DailyTask({ icon, text, point, updateFunc, checked, todo, done }
                 </div>
             </div>
 
-            <button disabled={checked} onClick={updateFunc} className={`${checked ? "button_done" : "button_primary"} h-fit rounded-full text-white min-w-16 text-sm`}>{checked ? done : todo}</button>
+            {clickLink && <button onClick={handleClaim} className={`button_primary h-fit rounded-full text-white min-w-16 text-sm`}>claim</button>}
+            {!clickLink && <button disabled={checked} onClick={handleLink} className={`${checked ? "button_done" : "button_primary"} h-fit rounded-full text-white min-w-16 text-sm`}>{checked ? done : todo}</button>}
         </div>
     )
 }

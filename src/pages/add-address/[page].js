@@ -104,11 +104,11 @@ export default function AddAddress() {
                 {/* <form className="text flex flex-col gap-4 mt-4" onSubmit={handleAddEX}> */}
                 <div className="flex flex-col gap-1">
                     <label for="address" className="text-black dark:text-white">Wallet Address</label>
-                    <input onChange={handleChange} name="address" type="text" className="bg-main-blue/8 dark:bg-sec-bg text-dao-gray placeholder:text-dao-gray dark:text-white border border-solid border-main-blue/20 dark:border-none px-4 py-3 rounded-lg" placeholder="Input Wallet Address" />
+                    <input onChange={handleChange} name="address" type="text" className="bg-main-blue/8 dark:bg-sec-bg text-dao-gray placeholder:text-dao-gray dark:text-white border border-solid border-main-blue/20 dark:border-none px-4 py-3 rounded-lg" placeholder={`Input ${page} ETH Address`} />
                 </div>
                 <div className="flex flex-col gap-1">
                     <label for="uid" className="text-black dark:text-white">UID</label>
-                    <input onChange={handleChange} name="uid" type="text" className="bg-main-blue/8 dark:bg-sec-bg text-dao-gray placeholder:text-dao-gray dark:text-white border border-solid border-main-blue/20 dark:border-none px-4 py-3 rounded-lg" placeholder="Input Wallet Address" />
+                    <input onChange={handleChange} name="uid" type="text" className="bg-main-blue/8 dark:bg-sec-bg text-dao-gray placeholder:text-dao-gray dark:text-white border border-solid border-main-blue/20 dark:border-none px-4 py-3 rounded-lg" placeholder={`Input ${page} account UID`} />
                 </div>
 
                 <button onClick={handleAddEX} className="bg-dao-green rounded-full dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green w-full py-3 text-center text-white">Confirm</button>

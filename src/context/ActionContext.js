@@ -1,7 +1,5 @@
 'use client';
 import { createContext, useContext, useState, useEffect } from 'react';
-// import { useTonAddress } from '@tonconnect/ui-react';
-// import { useAccount } from "wagmi";
 import { recordList } from '@/components/api/airdrop';
 import { useAuth } from './AuthContext';
 
@@ -12,8 +10,9 @@ export const ActionProvider = ({ children }) => {
     const [days, setDays] = useState(0);
     const [dailyAction, setDailyAction] = useState(new Set());
     const [questAction, setQuestAction] = useState(new Set());
-    // const address = useTonAddress();
-    // const { isConnected, address } = useAccount();
+    const [actions, setActions] = useState([]);
+    const [actionsToday, setActionsToday] = useState([]);
+
     const { address } = useAuth();
     const finishDailyCheck = () => setDays(days + 1);
     const setDaily = (index) => setDailyAction((prev) => new Set(prev).add(index));
@@ -24,6 +23,10 @@ export const ActionProvider = ({ children }) => {
         setQuestAction(new Set());
         setDays(0);
         setInitialed(false);
+    }
+
+    const finishAction = (action) => {
+
     }
 
     useEffect(() => {

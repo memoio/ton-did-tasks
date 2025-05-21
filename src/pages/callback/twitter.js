@@ -2,6 +2,7 @@ import { TWITTER_OAUTH_STATE } from '@/components/config/config';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/context/AuthContext';
+import Link from "next/link";
 // import { linkXAccount } from "@/components/api/link";
 
 export default function CallbackPage() {
@@ -38,8 +39,15 @@ export default function CallbackPage() {
     }, [isWalletBound, router]);
 
     return (
-        <div className="flex justify-center items-center h-screen">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <div>
+            {
+                isFainal ?
+                    (<Link href={TON_DID_WEB} className="dark:text-white" > Back</Link>)
+                    :
+                    (< div className="flex justify-center items-center h-screen" >
+                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                    </div >)
+            }
         </div>
     );
 }
