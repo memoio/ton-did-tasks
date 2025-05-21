@@ -10,6 +10,12 @@ export const ActionProvider = ({ children }) => {
     const [days, setDays] = useState(0);
     const [dailyAction, setDailyAction] = useState(new Set());
     const [questAction, setQuestAction] = useState(new Set());
+<<<<<<< HEAD
+=======
+    const [actions, setActions] = useState([]);
+    const [actionsToday, setActionsToday] = useState([]);
+
+>>>>>>> main
     const { address } = useAuth();
     const finishDailyCheck = () => setDays(days + 1);
     const setDaily = (index) => setDailyAction((prev) => new Set(prev).add(index));
@@ -20,6 +26,10 @@ export const ActionProvider = ({ children }) => {
         setQuestAction(new Set());
         setDays(0);
         setInitialed(false);
+    }
+
+    const finishAction = (action) => {
+
     }
 
     useEffect(() => {
