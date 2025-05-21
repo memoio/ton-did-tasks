@@ -1,4 +1,4 @@
-import { DISCORD_OAUTH_STATE, TON_DID_WEB } from '@/components/config/config';
+import { DISCORD_CALLBACK_URL, DISCORD_OAUTH_STATE, TON_DID_WEB } from '@/components/config/config';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { linkDiscordAccount } from "@/components/api/link";
@@ -26,7 +26,7 @@ export default function CallbackPage() {
                     console.log(code);
                     console.log(elements[1]);
 
-                    await linkDiscordAccount();
+                    await linkDiscordAccount(elements[1], code, DISCORD_CALLBACK_URL);
                     setText("Bind Discord Account Success!");
                     setIsFainal(true);
                 }

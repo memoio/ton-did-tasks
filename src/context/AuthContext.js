@@ -18,9 +18,6 @@ export const AuthProvider = ({ children }) => {
     const [isWalletBound, setIsWalletBound] = useState(false);
     const isBinding = useRef(false);
 
-    const [xCode, setXCode] = useState("");
-    const [discordCode, setDiscordCode] = useState("");
-
     const [userInfo, setUserInfo] = useState({
         inviteCode: "",
         invitedCode: "",
@@ -154,32 +151,6 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const bindXAccount = async () => {
-        try {
-            console.log(address);
-            console.log(xCode);
-            await linkXAccount(address, xCode, TWITTER_CALLBACK_URL);
-            setXCode("");
-
-            await getProfile(address);
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    const bindDiscordAccount = async () => {
-        try {
-            console.log(address);
-            console.log(discordCode);
-            await linkDiscordAccount(address, discordCode, DISCORD_CALLBACK_URL);
-            setDiscordCode("");
-
-            await getProfile(address);
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
     const setPoints = (points) => {
         setUserInfo(prevUserInfo => {
             if (!prevUserInfo) {
@@ -234,11 +205,31 @@ export const AuthProvider = ({ children }) => {
         })
     }
 
-    const setCode = (code, platform = "x") => {
+    const setName = (name, platform = "x") => {
         if (platform === "x") {
-            setXCode(code);
+            setUserProfile(prev => {
+                if (!prev) {
+                    return null;
+                }
+                return {
+                    ...prev,
+                    xName: name,
+                    linkedX: true,
+                    name: prev.name === "Unkonw" ? name : prev.name
+                }
+            })
         } else if (platform === "discord") {
-            setDiscordCode(code);
+            setUserProfile(prev => {
+                if (!prev) {
+                    return null;
+                }
+                return {
+                    ...prev,
+                    discordName: name,
+                    linkedDiscord: true,
+                    name: prev.name === "Unkonw" ? name : prev.name
+                }
+            })
         }
     }
 
@@ -250,18 +241,6 @@ export const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        if (address !== "" && xCode !== "") {
-            bindXAccount();
-        }
-    }, [address, xCode]);
-
-    useEffect(() => {
-        if (address !== "" && discordCode !== "") {
-            bindDiscordAccount();
-        }
-    }, [address, discordCode]);
-
-    useEffect(() => {
         setBindWallet();
     }, [walletAddress]);
 
@@ -270,8 +249,9 @@ export const AuthProvider = ({ children }) => {
             userInfo,
             userProfile,
             address,
+            rawAddress,
             setUserName,
-            setCode,
+            setName,
             setBindWallet,
             setInvitedCode,
             setPoints,
