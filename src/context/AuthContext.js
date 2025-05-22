@@ -150,20 +150,6 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const setPoints = (points) => {
-        setUserInfo(prevUserInfo => {
-            if (!prevUserInfo) {
-                return null;
-            }
-            return {
-                ...prevUserInfo,
-                points: points,
-                todayPoints: points,
-            };
-        }
-        )
-    };
-
     const addPoint = (point) => {
         setUserInfo(prevUserInfo => {
             if (!prevUserInfo) {
@@ -190,17 +176,8 @@ export const AuthProvider = ({ children }) => {
             if (!prevUserInfo) {
                 return null;
             }
-            if (!prevUserInfo.points) {
-                return {
-                    ...prevUserInfo,
-                    points: 500,
-                    invitedCode: code,
-                    bindedCode: true,
-                }
-            }
             return {
                 ...prevUserInfo,
-                points: prevUserInfo.points + 500,
                 invitedCode: code,
                 bindedCode: true,
             }
@@ -252,9 +229,7 @@ export const AuthProvider = ({ children }) => {
             rawAddress,
             setUserName,
             setName,
-            setBindWallet,
             setInvitedCode,
-            setPoints,
             addPoint,
             clear,
             isWalletBound,

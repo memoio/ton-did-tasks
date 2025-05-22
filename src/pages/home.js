@@ -17,8 +17,8 @@ export default function Home() {
 
     const router = useRouter();
     const { didInfo } = useDIDInfo();
-    const { userInfo, userProfile, address, addPoint } = useAuth();
-    const { dailyAction, setDaily, finishDailyCheck } = useAction();
+    const { userInfo, userProfile, address } = useAuth();
+    const { dailyAction, finishAction } = useAction();
     const [isDark, setIsDark] = useState(false);
 
     useEffect(() => {
@@ -48,20 +48,11 @@ export default function Home() {
     }
 
     const finishDailyTask = async () => {
-        // const url = "https://x.com/MemoLabsOrg";
         if (didInfo.exist && address) {
-            // if (window.Telegram?.WebApp?.openLink) {
-            //     window.Telegram.WebApp.openLink(url, "_blank");
-            // }
-            // else {
-            //     window.open(url, '_blank');
-            // }
-
             try {
                 await recordAdd(address, 70);
-                addPoint(20);
-                setDaily(action - 70);
-                finishDailyCheck();
+
+                finishAction(70);
                 setIsVisible(true);
             } catch (err) {
                 setFailedText(err.message);

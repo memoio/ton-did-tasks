@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 // import { useAccount } from "wagmi";
 import { createDIDTon } from "@/components/api/did";
+import { useAction } from "@/context/ActionContext";
 
 export default function Home() {
     const [isVisible, setIsVisible] = useState(false)
@@ -16,8 +17,9 @@ export default function Home() {
     const [isCopied, setIsCopied] = useState(false)
 
     // const { address } = useAccount();
-    const { didInfo, updateDID } = useDIDInfo();
-    const { addPoint, address, rawAddress } = useAuth();
+    const { didInfo } = useDIDInfo();
+    const { address, rawAddress } = useAuth();
+    const { finishAction } = useAction();
 
     const router = useRouter();
 
@@ -67,8 +69,7 @@ export default function Home() {
             setIsVisible(false);
             setIsSuccess(true);
 
-            updateDID();
-            addPoint(1000);
+            finishAction(1);
         } catch (err) {
             console.log(err);
             setIsFailed(true);

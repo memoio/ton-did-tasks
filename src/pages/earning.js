@@ -24,8 +24,8 @@ export default function Earnings() {
     const [isFailedText, setIsFailedText] = useState(null)
 
     const { didInfo } = useDIDInfo();
-    const { userInfo, userProfile, address, addPoint, isWalletBound, setName } = useAuth();
-    const { days, dailyAction, questAction, setDaily, setQuest, finishDailyCheck } = useAction();
+    const { userInfo, userProfile, address, isWalletBound, setName } = useAuth();
+    const { days, dailyAction, questAction, finishAction } = useAction();
 
     // const router = useRouter();
 
@@ -71,15 +71,7 @@ export default function Earnings() {
 
                 try {
                     await recordAdd(address, action);
-                    addPoint(point);
-                    if (action >= 70) {
-                        setDaily(action - 70);
-                        if (action == 70) {
-                            finishDailyCheck();
-                        }
-                    } else {
-                        setQuest(action - 50);
-                    }
+                    finishAction(action);
                     setIsVisible(true);
                 } catch (err) {
                     setIsFailedText(err.message);
@@ -138,7 +130,7 @@ export default function Earnings() {
         if (address) {
             if (userProfile.linkedX) {
                 setText("Link X Account Success");
-                setPoints(100);
+                finishAction(54);
                 setIsVisible(true);
             } else {
                 try {
@@ -147,7 +139,7 @@ export default function Earnings() {
                     if (profile.twitter_info.twitter_id !== "") {
                         setName(profile.twitter_info.twitter_name);
                         setText("Link X Account Success");
-                        setPoints(100);
+                        finishAction(54);
                         setIsVisible(true);
                     } else {
                         setIsFailedText("Please Confirm You Have Linked Your X Account");
@@ -183,7 +175,7 @@ export default function Earnings() {
         if (address) {
             if (userProfile.linkedDiscord) {
                 setText("Link Discord Account Success");
-                setPoints(100);
+                finishAction(56);
                 setIsVisible(true);
             } else {
                 try {
@@ -192,7 +184,7 @@ export default function Earnings() {
                     if (profile.discord_info.discord_id !== "") {
                         setName(profile.discord_info.discord_name, "discord");
                         setText("Link Discord Account Success");
-                        setPoints(100);
+                        finishAction(56);
                         setIsVisible(true);
                     } else {
                         setIsFailedText("Please Confirm You Have Linked Your Discord Account");

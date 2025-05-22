@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { bindInviteCode } from "@/components/api/airdrop";
 import { useAuth } from "@/context/AuthContext";
+import { useAction } from "@/context/ActionContext";
 
 export default function InviteCode() {
     const router = useRouter()
@@ -12,7 +13,8 @@ export default function InviteCode() {
     const [failedText, setFaileText] = useState("")
     const [isFailed, setIsFailed] = useState(false)
 
-    const { address, setInvitedCode } = useAuth();
+    const { address } = useAuth();
+    const { finishAction } = useAction();
 
     const closeFunc = () => {
         if (isSuccess) {
@@ -36,7 +38,7 @@ export default function InviteCode() {
                 await bindInviteCode(address, inputValue);
                 setIsSuccess(true);
 
-                setInvitedCode(inputValue);
+                finishAction(111, inputValue);
             } catch (err) {
                 setFaileText(err.message);
                 setIsFailed(true)

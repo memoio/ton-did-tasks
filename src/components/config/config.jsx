@@ -59,3 +59,27 @@ export const TWITTER_CALLBACK_URL = "https://datadid-ton-v2.memolabs.net/callbac
 export const DISCORD_OAUTH_STATE = "DiscordAuthForDataDIDV2";
 export const DISCORD_CLIENT_ID = "1369582017217298483";
 export const DISCORD_CALLBACK_URL = "https://datadid-ton-v2.memolabs.net/callback/discord";
+
+export const Actions = {
+    1: { ActionID: 1, Name: "Create DID", Points: 1000, OneTime: true },
+    2: { ActionID: 2, Name: "Visit Faucet", Points: 500, OneTime: true },
+
+    50: { ActionID: 50, Name: "Follow MEMO On Twitter", Points: 50, OneTime: true },
+    51: { ActionID: 51, Name: "Join MEMO On Telegram", Points: 50, OneTime: true },
+    52: { ActionID: 52, Name: "Join MEMO On Discord", Points: 50, OneTime: true },
+    53: { ActionID: 53, Name: "Retweet MEMO's Tweet", Points: 50, OneTime: true },
+    54: { ActionID: 54, Name: "Bind Twitter", Points: 100, OneTime: true },
+    55: { ActionID: 55, Name: "Bind Telegram", Points: 100, OneTime: true },
+    56: { ActionID: 56, Name: "Bind Discord", Points: 100, OneTime: true },
+
+    70: { ActionID: 70, Name: "Daily Check In", Points: 20, OneTime: false },
+    71: { ActionID: 71, Name: "Daily Share To ChatGroup", Points: 20, OneTime: false },
+    72: { ActionID: 72, Name: "Daily Share To Friends", Points: 20, OneTime: false },
+    73: { ActionID: 73, Name: "Daily Share To Twitter", Points: 20, OneTime: false },
+
+    85: { ActionID: 85, Name: "Verify OAT", Points: 200, OneTime: true },
+    86: { ActionID: 86, Name: "Verify NFT", Points: 500, OneTime: true },
+
+    110: { ActionID: 110, Name: "Invite Friends", Points: 200, OneTime: false },
+    111: { ActionID: 111, Name: "Be Invited", Points: 500, OneTime: true },
+}

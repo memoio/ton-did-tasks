@@ -2,6 +2,8 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { recordList } from '@/components/api/airdrop';
 import { useAuth } from './AuthContext';
+import { Actions } from '@/components/config/config';
+import { useDIDInfo } from './DIDContext';
 
 export const ActionContext = createContext(null);
 
@@ -10,7 +12,8 @@ export const ActionProvider = ({ children }) => {
     const [days, setDays] = useState(0);
     const [dailyAction, setDailyAction] = useState(new Set());
     const [questAction, setQuestAction] = useState(new Set());
-    const { address } = useAuth();
+    const { address, addPoint, setInvitedCode } = useAuth();
+    const { updateDID } = useDIDInfo();
     const finishDailyCheck = () => setDays(days + 1);
     const setDaily = (index) => setDailyAction((prev) => new Set(prev).add(index));
     const setQuest = (index) => setQuestAction((prev) => new Set(prev).add(index));
@@ -22,8 +25,27 @@ export const ActionProvider = ({ children }) => {
         setInitialed(false);
     }
 
-    const finishAction = (action) => {
+    const finishAction = (action, inviteCode = '') => {
+        const actionInfo = Actions[action];
+        console.log(actionInfo);
+        if (actionInfo !== null) {
+            if (action >= 50 && action < 70) {
+                setQuest(action - 50);
+            } else if (action >= 70 && action < 80) {
+                setDaily(action - 70);
+                if (action === 70) {
+                    finishDailyCheck();
+                }
+            } else if (action === 111) {
+                setInvitedCode(inviteCode);
+            } else if (action === 1) {
+                updateDID();
+            }
 
+            addPoint(actionInfo.Points);
+        } else {
+            console.log(`unspport action id: ${action}`)
+        }
     }
 
     useEffect(() => {
@@ -87,11 +109,9 @@ export const ActionProvider = ({ children }) => {
     return (
         <ActionContext.Provider value={{
             days,
-            finishDailyCheck,
             dailyAction,
             questAction,
-            setDaily,
-            setQuest,
+            finishAction,
             clear,
         }}>
             {children}
