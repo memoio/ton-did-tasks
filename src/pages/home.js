@@ -103,7 +103,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <HomeTripleCard icon={"/mdi_star-four-points-circle-outline.svg"} title={"Points Earned Today"} amount={1000} text={"Check"} link={"/points-details"} />
+                    <HomeTripleCard icon={"/mdi_star-four-points-circle-outline.svg"} title={"Points Earned Today"} amount={userInfo.todayPoints} text={"Check"} link={"/points-details"} />
                     <HomeTripleCard icon={"/uil_calender.svg"} title={"Streak Check-In"} amount={20} text={"Claim"} done={"Claimed"} status={dailyAction.has(0)} funcAction={finishDailyTask} />
                     <HomeTripleCard icon={"/fa6-solid_ranking-star.svg"} title={"My Global Rank"} amount={1000} text={"Check"} link={"/leaderboard"} />
                 </div>
