@@ -24,7 +24,7 @@ export default function InvitationDetailsPage() {
                 <div className="flex flex-col gap-4">
                     {message.map((item, key) => {
                         return (
-                            <Link key={key} href={`/message/${key}`}><MessageList image={"/Ellipse 204.png"} title={item.title} message={item.message} timestamp={timestampToLocaleTime(item.create_at)} isClamp={true} /></Link>
+                            <Link key={key} href={`/message/${key}`}><MessageList image={"/messenger.png"} title={item.title} message={item.message} timestamp={timestampToLocaleTime(item.create_at)} isClamp={true} /></Link>
                         )
                     })}
                 </div>

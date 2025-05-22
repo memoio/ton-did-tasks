@@ -17,7 +17,7 @@ export default function AddAddress() {
     const [isNotSupport, setIsNotSupport] = useState(false);
     const [failedText, setFailedText] = useState(false);
     const { didInfo } = useDIDInfo();
-    const { tgeInfo, addTGEInfo } = useTGE();
+    const { addTGEInfo } = useTGE();
 
     const [info, setInfo] = useState({
         address: '',
@@ -38,6 +38,14 @@ export default function AddAddress() {
         }));
     };
 
+    const checkAddress = (address) => {
+        return /^0x[0-9A-Fa-f]+$/.test(address);
+    }
+
+    const checkUid = (uid, tgeName) => {
+        return true;
+    }
+
     const handleAddEX = async () => {
         let exname = "unkonw";
         if (page === "Binance") {
@@ -48,6 +56,12 @@ export default function AddAddress() {
             exname = "gateio";
         } else {
             setIsNotSupport(true);
+            return;
+        }
+
+        if (!checkAddress(info.address) || !checkUid(info.uid, page)) {
+            setFailedText("Please enter the correct address and uid.");
+            setIsFailed(true);
             return;
         }
 

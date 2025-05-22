@@ -89,8 +89,8 @@ export function InvitationDetails({ name, timestamp, address, did }) {
         <div>
             <div className="bg-main-blue/10 dark:bg-sec-bg border border-solid border-main-blue/20 dark:border-0 rounded-[10px] p-4 flex justify-between">
                 <div className="">
-                    <p className="font-semibold dark:text-white">{name ? name : `${address.slice(0, 4)}...${address.slice(40)}`}</p>
-                    <p className="flex gap-1 text-sm dark:text-light-gray">{`${address.slice(0, 10)}...${address.slice(34)}`}</p>
+                    <p className="font-semibold dark:text-white">{name ? name : `${address.slice(0, 4)}...${address.slice(44)}`}</p>
+                    <p className="flex gap-1 text-sm dark:text-light-gray">{`${address.slice(0, 4)}...${address.slice(44)}`}</p>
                 </div>
                 <div className="w-fit">
                     <p className="text-xs dark:text-light-gray">{timestamp}</p>

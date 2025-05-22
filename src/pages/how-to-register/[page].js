@@ -34,7 +34,7 @@ export default function HowToRegister() {
                 </div>
             </div>
 
-            <Footer active={"home"} />
+            {/* <Footer active={"home"} /> */}
         </>
     )
 }

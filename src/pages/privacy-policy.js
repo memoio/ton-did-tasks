@@ -1,10 +1,10 @@
-import { SubHeaderTri } from "@/components/accessories";
+import { SubHeader } from "@/components/accessories";
 
-export default function PrivacyPolicy () {
+export default function PrivacyPolicy() {
     return (
         <>
             <div className="px-8 py-4 flex flex-col gap-4 pb-28 text-dark-bg dark:text-white">
-                <SubHeaderTri title={"Privacy Policy"} />
+                <SubHeader title={"Privacy Policy"} />
 
                 <section className="flex flex-col gap-2">
                     <h1 className="text-dao-green font-bold">Privacy Policy</h1>
@@ -15,9 +15,9 @@ export default function PrivacyPolicy () {
 
                 <section className="mt-4 flex flex-col gap-2">
                     <h1 className="text-dao-green font-bold">Information Collection and Use</h1>
-                    <p className="">For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to aZen Profile Information, aZen Activity, Information From Third Party Services and Users, App, browser, device information. The information that we request will be retained by us and used as described in this privacy policy.</p>
+                    <p className="">For a better experience, while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to Telegram Profile Information, Telegram Activity, Information From Third Party Services and Users, App, browser, device information. The information that we request will be retained by us and used as described in this privacy policy.</p>
                     <ul className="list-disc list-inside">
-                        <li>aZen Profile Information: We collect the information you provide when you create your aZen profile, including your name, email address, and settings and preferences.</li>
+                        <li>MemoLabs Profile Information: We collect the information you provide when you create Memo DID, including your name, email address, and settings and preferences.</li>
                     </ul>
                 </section>
             </div>
