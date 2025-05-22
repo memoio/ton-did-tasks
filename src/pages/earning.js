@@ -173,15 +173,20 @@ export default function Earnings() {
         });
 
         const loginUrl = `https://discord.com/oauth2/authorize?${params.toString()}`;
+        const deepLoginUrl = `discord://oauth2/authorize?${params.toString()}`
 
-        console.log(loginUrl);
-        // if (window.Telegram?.WebApp?.openLink) {
-        //     window.Telegram.WebApp.openLink(loginUrl, "_blank");
-        // }
-        // else {
-        window.open(loginUrl, '_blank');
-        // }
-        // window.location.href = loginUrl;
+        window.location.href = deepLoginUrl;
+
+        setTimeout(function () {
+            if (!document.hidden) {
+                if (window.Telegram?.WebApp?.openLink) {
+                    window.Telegram.WebApp.openLink(loginUrl, "_blank");
+                }
+                else {
+                    window.open(loginUrl, '_blank');
+                }
+            }
+        }, 500);
     }
 
     const verifyDiscordOauth = async () => {
