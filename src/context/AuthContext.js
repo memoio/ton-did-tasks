@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
         invitedCode: "",
         inviteCount: "",
         points: 0,
-
+        todayPoints: 0,
         pointsRank: "",
         bindedCode: false,
     });
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
             invitedCode: "",
             inviteCount: "",
             points: 0,
-
+            todayPoints: 0,
             pointsRank: "",
             bindedCode: false,
         });
@@ -83,6 +83,7 @@ export const AuthProvider = ({ children }) => {
                         inviteCode: res.inviteCode,
                         inviteCount: res.inviteCount,
                         points: res.points,
+                        todayPoints: res.todayPoints,
                         pointsRank: res.pointsRank,
                         bindedCode: res.bindedCode,
                         invitedCode: res.invitedCode,
@@ -157,6 +158,7 @@ export const AuthProvider = ({ children }) => {
             return {
                 ...prevUserInfo,
                 points: points,
+                todayPoints: points,
             };
         }
         )
@@ -171,11 +173,13 @@ export const AuthProvider = ({ children }) => {
                 return {
                     ...prevUserInfo,
                     points: point,
+                    todayPoints: point,
                 }
             }
             return {
                 ...prevUserInfo,
                 points: prevUserInfo.points + point,
+                todayPoints: prevUserInfo.points + point,
             };
         }
         )
