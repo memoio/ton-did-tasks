@@ -50,7 +50,7 @@ export default function InvitationCode() {
     }
 
     useEffect(() => {
-        if (userInfo.bindedCode === true) {
+        if (userInfo.bindedCode === true && isSuccess !== true) {
             router.push('/home');
         }
     }, [userInfo, router]);

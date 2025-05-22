@@ -125,15 +125,13 @@ export default function Earnings() {
             code_challenge_method: method,
         });
 
-        const loginUrl = `https://twitter.com/i/oauth2/authorize?${params.toString()}`;
-        console.log(loginUrl);
+        const loginUrl = `https://x.com/i/oauth2/authorize?${params.toString()}`;
         if (window.Telegram?.WebApp?.openLink) {
             window.Telegram.WebApp.openLink(loginUrl, "_blank");
         }
         else {
             window.open(loginUrl, '_blank');
         }
-        // window.location.href = loginUrl;
     }
 
     const verifyXOauth = async () => {
@@ -173,20 +171,12 @@ export default function Earnings() {
         });
 
         const loginUrl = `https://discord.com/oauth2/authorize?${params.toString()}`;
-        const deepLoginUrl = `discord://oauth2/authorize?${params.toString()}`
-
-        window.location.href = deepLoginUrl;
-
-        setTimeout(function () {
-            if (!document.hidden) {
-                if (window.Telegram?.WebApp?.openLink) {
-                    window.Telegram.WebApp.openLink(loginUrl, "_blank");
-                }
-                else {
-                    window.open(loginUrl, '_blank');
-                }
-            }
-        }, 500);
+        if (window.Telegram?.WebApp?.openLink) {
+            window.Telegram.WebApp.openLink(loginUrl, "_blank");
+        }
+        else {
+            window.open(loginUrl, '_blank');
+        }
     }
 
     const verifyDiscordOauth = async () => {
