@@ -64,6 +64,7 @@ export const AuthProvider = ({ children }) => {
             name: "Unkonw",
         });
 
+        setRawAddress("");
         setAddress("");
     }
 

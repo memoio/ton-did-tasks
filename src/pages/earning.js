@@ -175,12 +175,12 @@ export default function Earnings() {
         const loginUrl = `https://discord.com/oauth2/authorize?${params.toString()}`;
 
         console.log(loginUrl);
-        if (window.Telegram?.WebApp?.openLink) {
-            window.Telegram.WebApp.openLink(loginUrl, "_blank");
-        }
-        else {
-            window.open(loginUrl, '_blank');
-        }
+        // if (window.Telegram?.WebApp?.openLink) {
+        //     window.Telegram.WebApp.openLink(loginUrl, "_blank");
+        // }
+        // else {
+        window.open(loginUrl, '_blank');
+        // }
         // window.location.href = loginUrl;
     }
 
