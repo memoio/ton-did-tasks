@@ -40,7 +40,7 @@ export default function MessageUID() {
             const id = convertToNumber(uid, message.length);
             setCurrentMessage(message[id]);
         }
-    }, [uid])
+    }, [uid, message])
 
     return (
         <>

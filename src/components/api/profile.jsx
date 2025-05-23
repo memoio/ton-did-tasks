@@ -24,19 +24,16 @@ export async function changeName(address, name) {
     }
 }
 
-export async function changePhoto(address, photo) {
-    const response = await axios.post(API_URL.AIRDROP_SET_PHOTO,
-        {
-            "address": address,
-            "photo": photo,
+export async function changeAvatar(address, file, uploadProgress) {
+    const formData = new FormData();
+    formData.append('avatar', file);
+    formData.append('address', address);
+    const response = await axios.post(API_URL.AIRDROP_SET_PHOTO, formData, {
+        onUploadProgress: uploadProgress,
+        headers: {
+            'Content-Type': 'multipart/form-data',
         },
-        {
-            headers: {
-                accept: "application/hal+json",
-                "Content-Type": "application/json",
-            },
-        }
-    );
+    });
 
     if (response.status !== 200) {
         throw new Error(`API request failed with status ${response.status}: ${response.data}`);

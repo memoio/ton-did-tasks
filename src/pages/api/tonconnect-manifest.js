@@ -5,6 +5,6 @@ export default function handler(req, res) {
     res.status(200).json({
         url: TON_DID_WEB_RAW,
         name: "Memo DID",
-        iconUrl: `${TON_DID_WEB_RAW}/memo.png`
+        iconUrl: `${TON_DID_WEB_RAW}/memo.jpg`
     });
 }
