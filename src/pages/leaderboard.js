@@ -5,15 +5,16 @@ import { LeaderboardCard, Pagination } from "@/components/cards";
 import { useAuth } from "@/context/AuthContext";
 import { useRank } from "@/context/RankContext";
 
-export default function InvitationDetailsPage() {
+export default function LeaderBoardDetailsPage() {
     const weekly = useRef(null)
     const monthly = useRef(null)
     const all_time = useRef(null)
 
-    const [isWeekly, setIsWeekly] = useState(true);
+    const [isWeekly, setIsWeekly] = useState(2);
 
-    const { userInfo } = useAuth();
-    const { pagedTotalRank, pagedWeeklyRank, length, weeklyLength, page, weeklyPage, setRankPage } = useRank();
+    const { userInfo, userProfile } = useAuth();
+    const { selfTotalRankInfo, selfMonthlyRankInfo, selfWeeklyRankInfo, pagedTotalRank, pagedMonthlyRank, pagedWeeklyRank, length, monthlyLength, weeklyLength, page, monthlyPage, weeklyPage, setRankPage } = useRank();
+    const [selfRankInfo, setSelfRankInfo] = useState(selfTotalRankInfo);
 
     const modeList = [weekly, monthly, all_time]
     const toggleModes = (mode) => {
@@ -38,19 +39,30 @@ export default function InvitationDetailsPage() {
 
         mode.current.classList.add('dark:text-white')
         if (mode === weekly) {
-            setIsWeekly(true);
+            setIsWeekly(2);
+        } else if (mode === monthly) {
+            setIsWeekly(1);
         } else {
-            setIsWeekly(false);
+            setIsWeekly(0);
         }
     }
 
     const handleChanged = (page) => {
-        if (isWeekly) {
+        if (isWeekly === 2) {
+            setSelfRankInfo(selfWeeklyRankInfo);
+            setRankPage(page, 2);
+        } else if (isWeekly === 1) {
+            setSelfRankInfo(selfMonthlyRankInfo);
             setRankPage(page, 1);
         } else {
+            setSelfRankInfo(selfTotalRankInfo);
             setRankPage(page, 0);
         }
     }
+
+    const currentRankList = isWeekly === 2 ? pagedWeeklyRank : isWeekly === 1 ? pagedMonthlyRank : pagedTotalRank;
+    const currentPage = isWeekly === 2 ? weeklyPage : isWeekly === 1 ? monthlyPage : page;
+    const currentTotalPages = isWeekly === 2 ? weeklyLength : isWeekly === 1 ? monthlyLength : length;
 
     return (
         <>
@@ -67,36 +79,28 @@ export default function InvitationDetailsPage() {
                     <div className="flex gap-2">
                         <Image src={"/Ellipse 224.png"} width={43} height={43} alt="" />
                         <div className="flex flex-col justify-center text-white">
-                            <p className="leading-tight text-sm font-semibold">Cathy</p>
+                            <p className="leading-tight text-sm font-semibold">{userProfile.name}</p>
                             <p className="leading-tight text-xs">Me</p>
                         </div>
                     </div>
 
-                    <p className="text-white font-semibold text-sm">{userInfo.points} Points</p>
-                    <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm">1000+</p>
+                    <p className="text-white font-semibold text-sm">{selfRankInfo.points} Points</p>
+                    <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm">{selfRankInfo.rank}</p>
                 </div>
 
                 <hr />
 
                 <div className="flex flex-col gap-4">
                     {
-                        isWeekly ?
-                            pagedWeeklyRank.map((rankInfo, key) => {
-                                const rankAddress = rankInfo.address;
-                                return (
-                                    <LeaderboardCard key={key} name={`${rankAddress.slice(0, 4)}...${rankAddress.slice(40)}`} point={rankInfo.points} count={key + 1} />
-                                )
-                            }) :
-                            pagedTotalRank.map((rankInfo, key) => {
-                                const rankAddress = rankInfo.address;
-                                return (
-                                    <LeaderboardCard key={key} name={`${rankAddress.slice(0, 4)}...${rankAddress.slice(40)}`} point={rankInfo.points} count={key + 1} />
-                                )
-                            })
+                        currentRankList.map((rankInfo, key) => {
+                            return (
+                                <LeaderboardCard key={key} name={rankInfo.name} point={rankInfo.points} count={key + 1} />
+                            )
+                        })
                     }
                 </div>
 
-                <Pagination currentPage={isWeekly ? weeklyPage : page} totalPages={isWeekly ? weeklyLength : length} onPageChange={handleChanged} />
+                <Pagination currentPage={currentPage} totalPages={currentTotalPages} onPageChange={handleChanged} />
             </div>
         </>
     )
