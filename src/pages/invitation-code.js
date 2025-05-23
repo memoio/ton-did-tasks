@@ -17,7 +17,6 @@ export default function InvitationCode() {
 
     const { address, userInfo, isWalletBound } = useAuth();
     const { finishAction } = useAction();
-    const referralCode = window.Telegram?.WebApp?.initDataUnsafe?.start_param;
 
     const closeFunc = () => {
         if (isSuccess) {
@@ -59,10 +58,11 @@ export default function InvitationCode() {
     }, [userInfo, router]);
 
     useEffect(() => {
+        const referralCode = window.Telegram?.WebApp?.initDataUnsafe?.start_param
         if (referralCode && referralCode !== "" && referralCode.length === 6) {
             setInputValue(referralCode);
         }
-    }, [referralCode]);
+    }, []);
 
     if (!isWalletBound) {
         return (
