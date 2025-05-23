@@ -85,9 +85,10 @@ export async function bindUserChannel(address, channel) {
     console.log("bind channel success")
 }
 
-export async function rank(type) {
+export async function rank(address, type) {
     const response = await axios.get(API_URL.AIRDROP_POINTS_RANK, {
         params: {
+            "address": address,
             "type": type,
         },
     });
