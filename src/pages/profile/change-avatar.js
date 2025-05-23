@@ -10,6 +10,7 @@ export default function InviteCode() {
     const [previewUrl, setPreviewUrl] = useState(null);
     const [isFailed, setIsFailed] = useState(false);
     const [failedText, setFailedText] = useState(false);
+    const fileInputRef = useRef(null);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -30,9 +31,11 @@ export default function InviteCode() {
 
     const handleClearFile = (e) => {
         e?.stopPropagation();
-        console.log("clear");
         setSelectedFile(null);
         setPreviewUrl(null);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
     }
 
     const closeFunc = () => {
@@ -51,7 +54,7 @@ export default function InviteCode() {
                 <div className="flex flex-col gap-4 mt-6">
                     <label for="file" className="text-black text-lg dark:text-white">Choose from my gallery</label>
                     <div className="relative border border-dashed border-dao-green w-full h-24 cursor-pointer flex items-center justify-center">
-                        <input id="file" name="file" type="file" disabled={previewUrl !== null} onChange={handleFileChange} className="absolute inset-0 z-10 opacity-0 cursor-pointer z-10" />
+                        <input id="file" name="file" type="file" disabled={previewUrl !== null} ref={fileInputRef} onChange={handleFileChange} className="absolute inset-0 z-10 opacity-0 cursor-pointer z-10" />
                         {previewUrl ? (
                             <div className="w-36 h-24 relative flex items-center justify-center">
                                 <Image src={previewUrl} className='max-h-full max-w-full object-contain' width={90} height={90} alt="Preview" />
