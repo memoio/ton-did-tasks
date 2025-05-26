@@ -24,12 +24,11 @@ export async function changeName(address, name) {
     }
 }
 
-export async function changeAvatar(address, file, uploadProgress) {
+export async function changeAvatar(address, file) {
     const formData = new FormData();
     formData.append('avatar', file);
     formData.append('address', address);
     const response = await axios.post(API_URL.AIRDROP_SET_PHOTO, formData, {
-        onUploadProgress: uploadProgress,
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -42,6 +41,8 @@ export async function changeAvatar(address, file, uploadProgress) {
     if (response.data.result === -1) {
         throw new Error(`API return error: ${response.data.error}`);
     }
+
+    return response.data.data;
 }
 
 export async function bindEXInfo(did, name, evmAddress, uid) {

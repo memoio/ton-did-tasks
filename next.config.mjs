@@ -9,7 +9,15 @@ const nextConfig = {
         return 'https://data-be.metamemo.one';
       }
     })()
-  }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'data-be.metamemo.one',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

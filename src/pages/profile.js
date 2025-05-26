@@ -95,7 +95,7 @@ export default function Profile() {
                 <div id="profile_header" className="rounded-md p-4 flex flex-col">
                     <div className="flex justify-between items-start rounded-md text-white w-full">
                         <div className="flex gap-2 w-fit items-center">
-                            <Image src={"/Ellipse 223.png"} className="aspect-auto object-contain" width={55} height={55} alt="" />
+                            <Image src={userProfile.avatar} className="rounded-full w-[55px] h-[55px] object-cover" width={55} height={55} alt="" />
                             <div className="flex flex-col gap-0 relative top-0.5">
                                 <p className="font-semibold text-xl leading-4">{userProfile.name}</p>
                                 <p className="text-white">{didInfo.exist ? `${didInfo.did.slice(0, 8)}...${didInfo.did.slice(66)}` : `${address?.slice(0, 6)}...${address?.slice(42)}`}</p>

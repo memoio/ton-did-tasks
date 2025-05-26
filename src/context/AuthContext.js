@@ -6,6 +6,8 @@ import { linkTGAccount } from "@/components/api/link";
 import { getUserProfile } from "@/components/api/profile";
 import { useRef } from "react";
 
+const defaultName = "Unkonw";
+const defaultAvatar = "/Frame 34635.png";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -37,7 +39,8 @@ export const AuthProvider = ({ children }) => {
         discordName: "",
         linkedDiscord: false,
 
-        name: "Unkonw",
+        name: defaultName,
+        avatar: defaultAvatar,
     });
 
     const clear = () => {
@@ -60,7 +63,8 @@ export const AuthProvider = ({ children }) => {
             discordName: "",
             linkedDiscord: false,
 
-            name: "Unkonw",
+            name: defaultName,
+            avatar: defaultAvatar,
         });
 
         setRawAddress("");
@@ -120,7 +124,8 @@ export const AuthProvider = ({ children }) => {
                 telegramName: res.telegram_info.telegram_first_name,
                 linkedTG: res.telegram_info.telegram_id !== 0,
 
-                name: res.name !== "" ? res.name : res.telegram_info.telegram_first_name,
+                name: res.name !== "" ? res.name : (res.telegram_info.telegram_first_name !== "" ? res.telegram_info.telegram_first_name : defaultName),
+                avatar: res.icon !== "" ? res.icon : (res.telegram_info.telegram_photo !== "" ? res.telegram_info.telegram_photo : defaultAvatar)
             })
 
             if (res.telegram_info.telegram_id === 0) {
@@ -141,7 +146,8 @@ export const AuthProvider = ({ children }) => {
                         ...prev,
                         linkedTG: true,
                         telegramName: window.Telegram.WebApp.initDataUnsafe.user.first_name,
-                        name: prev.name !== "" ? prev.name : window.Telegram.WebApp.initDataUnsafe.user.first_name,
+                        name: prev.name !== defaultName ? prev.name : window.Telegram.WebApp.initDataUnsafe.user.first_name,
+                        avatar: prev.avatar !== defaultAvatar ? prev.avatar : window.Telegram.WebApp.initDataUnsafe.user.photo_url,
                     }
                 });
             } catch (err) {
@@ -217,6 +223,13 @@ export const AuthProvider = ({ children }) => {
         }))
     }
 
+    const setUserAvatar = (avatar) => {
+        setUserProfile(preProfile => ({
+            ...preProfile,
+            avatar: avatar,
+        }))
+    }
+
     useEffect(() => {
         setBindWallet();
     }, [walletAddress]);
@@ -228,6 +241,7 @@ export const AuthProvider = ({ children }) => {
             address,
             rawAddress,
             setUserName,
+            setUserAvatar,
             setName,
             setInvitedCode,
             addPoint,

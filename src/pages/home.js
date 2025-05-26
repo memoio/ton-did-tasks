@@ -73,7 +73,7 @@ export default function Home() {
             <div className="flex flex-col gap-4 p-8 pb-28">
                 <div className="flex justify-between items-center">
                     <div className="flex gap-2 w-fit items-center">
-                        <Image src={"/Frame 34635.png"} className="aspect-auto object-contain" width={41} height={40} alt="" />
+                        <Image src={userProfile.avatar} className="rounded-full w-[40px] h-[40px] object-cover" width={40} height={40} alt="" />
                         <div className="flex flex-col gap-0 relative top-0.5">
                             <p className="font-semibold text-dark-bg text-xl leading-4 dark:text-white">{userProfile.name}</p>
                             <p className="text-dao-gray">{didInfo.Exist ? `${didInfo.did.slice(0, 12)}...${didInfo.did.slice(71)}` : `${address?.slice(0, 6)}...${address?.slice(42)}`}</p>

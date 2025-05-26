@@ -18,7 +18,7 @@ export default function Home() {
 
     // const { address } = useAccount();
     const { didInfo } = useDIDInfo();
-    const { address, rawAddress } = useAuth();
+    const { address, rawAddress, userProfile } = useAuth();
     const { finishAction } = useAction();
 
     const router = useRouter();
@@ -84,7 +84,7 @@ export default function Home() {
 
             <div className="flex flex-col gap-4 p-8 pb-32">
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 p-8 flex flex-col items-center justify-center text-center gap-2 rounded-2xl dark:bg-sec-bg dark:border-none">
-                    <Image src={"/Frame 34643-dp.png"} className="mx-auto" width={89} height={89} alt="" />
+                    <Image src={userProfile.avatar} className="rounded-full w-[89px] h-[89px] object-cover" width={89} height={89} alt="" />
                     <h2 className="text-dao-yellow text-2xl font-semibold">Data DID</h2>
                     <p className="text-xs text-dao-gray dark:text-white">Your all–in–one, privacy–preserving self–sovereign identity. Own, manage, and monetize your data!</p>
                 </div>
