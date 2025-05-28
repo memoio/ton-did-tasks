@@ -100,7 +100,7 @@ export default function Home() {
                 <div className="flex flex-col gap-4">
                     <HomeTripleCard icon={"/mdi_star-four-points-circle-outline.svg"} disabled={!didInfo.exist} title={"Points Earned Today"} amount={userInfo.todayPoints} text={"Check"} link={"/points-details"} />
                     <HomeTripleCard icon={"/uil_calender.svg"} disabled={!didInfo.exist} title={"Streak Check-In"} amount={20} text={"Claim"} done={"Claimed"} status={dailyAction.has(0)} funcAction={finishDailyTask} />
-                    <HomeTripleCard icon={"/fa6-solid_ranking-star.svg"} disabled={!didInfo.exist} title={"My Global Rank"} amount={1000} text={"Check"} link={"/leaderboard"} />
+                    <HomeTripleCard icon={"/fa6-solid_ranking-star.svg"} disabled={!didInfo.exist} title={"My Global Rank"} amount={parseInt(userInfo.pointsRank) <= 100 ? userInfo.pointsRank : "100+"} text={"Check"} link={"/leaderboard"} />
                 </div>
 
                 <div className="bg-main-blue/10 p-4 py-3 border border-solid border-main-blue/20 flex flex-col justify-between gap-1 rounded-xl dark:bg-sec-bg dark:border-none">
