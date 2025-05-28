@@ -85,7 +85,7 @@ export default function LeaderBoardDetailsPage() {
                     </div>
 
                     <p className="text-white font-semibold text-sm">{selfRankInfo.points} Points</p>
-                    <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm">{selfRankInfo.rank}</p>
+                    <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm">{selfRankInfo.rank <= 100 ? selfRankInfo.rank : "100+"}</p>
                 </div>
 
                 <hr />
