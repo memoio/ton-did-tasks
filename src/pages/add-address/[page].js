@@ -100,7 +100,7 @@ export default function AddAddress() {
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Add Failed"} text={failedText} size={87} closeFunc={closeFunc} />}
             {isNotSupport && <AlertCard image={"/Frame 34643-x.svg"} title={`Not Support: ${page}`} text={failedText} size={87} closeFunc={closeFunc} />}
 
-            <div className="px-8 py-4 flex flex-col gap-4 pb-28">
+            <div className="px-4 pt-8 flex flex-col gap-4 pb-28">
                 <SubHeader title={"Add Address"} />
 
                 <div className="bg-dao-green rounded-lg p-4 relative flex justify-between items-center text-white dark:text-light-gray dark:bg-sec-bg">
@@ -108,14 +108,12 @@ export default function AddAddress() {
 
                     <div className="flex gap-2 items-center relative z-10">
                         <Image src={`/${page}.svg`} width={42} height={42} alt="" />
-                        <p className="">{page}</p>
+                        <p className="px-2">{page}</p>
                     </div>
                     <Link className="relative z-10" href={`/how-to-register/${page}`}>How To Register</Link>
                 </div>
 
-                <button onClick={handleRegister} className="bg-dao-green rounded-full dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green w-full py-3 text-center text-white">Register Now</button>
-                {/* <button onClick={handleRegister} className="relative z-10" href={`/how-to-register/${page}`}>How To Register</button> */}
-                {/* <form className="text flex flex-col gap-4 mt-4" onSubmit={handleAddEX}> */}
+                <button onClick={handleRegister} className="button_primary text-dao-green rounded-full w-full py-3 text-center">Register Now</button>
                 <div className="flex flex-col gap-1">
                     <label for="address" className="text-black dark:text-white">Wallet Address</label>
                     <input onChange={handleChange} name="address" type="text" className="bg-main-blue/8 dark:bg-sec-bg text-dao-gray placeholder:text-dao-gray dark:text-white border border-solid border-main-blue/20 dark:border-none px-4 py-3 rounded-lg" placeholder={`Input ${page} ETH Address`} />
@@ -125,8 +123,7 @@ export default function AddAddress() {
                     <input onChange={handleChange} name="uid" type="text" className="bg-main-blue/8 dark:bg-sec-bg text-dao-gray placeholder:text-dao-gray dark:text-white border border-solid border-main-blue/20 dark:border-none px-4 py-3 rounded-lg" placeholder={`Input ${page} account UID`} />
                 </div>
 
-                <button onClick={handleAddEX} className="bg-dao-green rounded-full dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green w-full py-3 text-center text-white">Confirm</button>
-                {/* </form> */}
+                <button onClick={handleAddEX} className="button_primary text-dao-green rounded-full w-full py-3 text-center">Confirm</button>
             </div>
 
             <Footer active="home" />

@@ -70,7 +70,7 @@ export default function Earnings() {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-4 p-8 pb-32">
+            <div className="flex flex-col gap-4 px-4 pt-8 pb-32">
                 <div className="bg-dao-green p-4 rounded-lg text-white flex flex-col gap-2">
                     <div className="flex justify-between">
                         <p className="flex gap-2"><Image src={"/connection 1.svg"} width={24} height={24} alt="" />Referral</p>
@@ -89,7 +89,7 @@ export default function Earnings() {
                         currentUrl
                     }</p>
                     <div className="flex gap-2 items-center justify-center mt-1">
-                        <button onClick={handleInviteTG} className="bg-dao-green w-full text-white rounded-full p-1.5">Share Link</button>
+                        <button onClick={handleInviteTG} className="button_primary w-full text-dao-green rounded-full p-1.5">Share Link</button>
                         <button onClick={() => copyToClipboard(currentUrl)} className=""><Image src={isCopied ? "/check.svg" : "/meteor-icons_copy.svg"} width={35} height={35} alt="" /></button>
                     </div>
                 </div>

@@ -95,8 +95,8 @@ export const AuthProvider = ({ children }) => {
 
                     console.log(res);
 
-                    setIsWalletBound(true);
                     await getProfile(walletAddress);
+                    setIsWalletBound(true);
                 } catch (error) {
                     alert(`Error binding wallet: ${error}\nPlease Refresh This Page`);
                     setIsWalletBound(false);

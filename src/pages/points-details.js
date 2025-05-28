@@ -69,7 +69,7 @@ export default function PointsDetail() {
     }
 
     return (
-        <div className="px-8 py-4 flex flex-col gap-4">
+        <div className="gap-4 px-4 py-8 flex flex-col">
             <SubHeader title={"Points Details"} />
 
             {records.length === 0 ? (

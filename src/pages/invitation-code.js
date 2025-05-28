@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { bindInviteCode } from "@/components/api/airdrop";
 import { useAuth } from "@/context/AuthContext";
 import { useAction } from "@/context/ActionContext";
+import { useDIDInfo } from "@/context/DIDContext";
 
 
 export default function InvitationCode() {
@@ -15,7 +16,8 @@ export default function InvitationCode() {
     const [isSuccess, setIsSuccess] = useState(false)
     const [isFailed, setIsFailed] = useState(false)
 
-    const { address, userInfo, isWalletBound } = useAuth();
+    const { address, userInfo } = useAuth();
+    const { loaded } = useDIDInfo();
     const { finishAction } = useAction();
 
     const closeFunc = () => {
@@ -64,7 +66,7 @@ export default function InvitationCode() {
         }
     }, []);
 
-    if (!isWalletBound) {
+    if (!loaded) {
         return (
             <div className="flex justify-center items-center h-screen">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
@@ -77,7 +79,7 @@ export default function InvitationCode() {
             {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"+200 Points"} text={"Invitation code binding successful"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Failed"} text={failedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
 
-            <div className="min-h-screen max-h-[svh] pt-8 px-8 text-dao-yellow dark:text-white flex flex-col gap-6">
+            <div className="min-h-screen max-h-[svh] pt-8 px-4 text-dao-yellow dark:text-white flex flex-col gap-6">
                 <h1 className="flex items-center justify-center gap-4 font-bold text-xl pt-12 text-black dark:text-white"><Image src={"/si_wallet-line.svg"} width={24} height={24} alt="" />Get a Referral Code?</h1>
                 <div className="flex flex-col gap-4">
                     <input type="text" value={inputValue} onChange={handleChange} className="bg-light-fill placeholder:text-do-gray text-dao-gray text-gray px-6 py-3 rounded-xl dark:border-dark-stroke dark:bg-light-fill/5" placeholder="Enter Referral Code" />

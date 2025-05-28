@@ -12,6 +12,7 @@ export const DIDProvider = ({ children }) => {
         exist: false,
     });
     const [initialed, setInitialed] = useState(false);
+    const [loaded, setLoaded] = useState(false);
     const { rawAddress } = useAuth();
 
     const clear = () => {
@@ -23,6 +24,7 @@ export const DIDProvider = ({ children }) => {
             }
         );
         setInitialed(false);
+        setLoaded(false);
     }
 
     const setDID = (did, number, exist) => {
@@ -37,6 +39,7 @@ export const DIDProvider = ({ children }) => {
         try {
             const did = await getDIDInfo(rawAddress);
             setDID(did.did, did.number, did.exist);
+            setLoaded(true);
             console.log(did);
         } catch (error) {
             alert(`Error get did info: ${error}`);
@@ -56,6 +59,7 @@ export const DIDProvider = ({ children }) => {
     return (
         <DIDContext.Provider value={{
             didInfo,
+            loaded,
             updateDID,
             clear
         }}>

@@ -70,13 +70,17 @@ export default function Home() {
             {isVisible && <AlertCard image={"/Frame 34643-celeb.svg"} title={`+20 Points`} text={"Daily check success"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={'Failed'} text={failedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
 
-            <div className="flex flex-col gap-4 p-8 pb-28">
+            <div className="flex flex-col gap-4 px-4 pt-8 pb-32">
                 <div className="flex justify-between items-center">
                     <div className="flex gap-2 w-fit items-center">
                         <Image src={userProfile.avatar} className="rounded-full w-[40px] h-[40px] object-cover" width={40} height={40} alt="" />
                         <div className="flex flex-col gap-0 relative top-0.5">
                             <p className="font-semibold text-dark-bg text-xl leading-4 dark:text-white">{userProfile.name}</p>
-                            <p className="text-dao-gray">{didInfo.Exist ? `${didInfo.did.slice(0, 12)}...${didInfo.did.slice(71)}` : `${address?.slice(0, 6)}...${address?.slice(42)}`}</p>
+                            {
+                                didInfo.exist
+                                    ? <p className="text-dao-gray">{`${didInfo.did.slice(0, 12)}...${didInfo.did.slice(71)}`}</p>
+                                    : <Link href={"/did"} target={"_blank"} className="text-dao-green">{"Create DID Free >"}</Link>
+                            }
                         </div>
                     </div>
 
@@ -86,7 +90,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                <Link href={"/tge-pad"}><Image src={"/Frame 34619.png"} className="bg-dao-green rounded" width={393} height={117} alt="" /></Link>
+                <Link href={"/tge-pad"}><Image src={"/Frame 34619.png"} className="bg-dao-green rounded" width={420} height={117} alt="" /></Link>
 
                 <div className="grid grid-cols-2 gap-4">
                     <HomeDoubleCard text={"Total Points"} amount={userInfo.points} icon={"/mdi_star-four-points-outline.svg"} link={"/points-details"} sze={22} shift={1} />
@@ -94,9 +98,9 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <HomeTripleCard icon={"/mdi_star-four-points-circle-outline.svg"} title={"Points Earned Today"} amount={userInfo.todayPoints} text={"Check"} link={"/points-details"} />
-                    <HomeTripleCard icon={"/uil_calender.svg"} title={"Streak Check-In"} amount={20} text={"Claim"} done={"Claimed"} status={dailyAction.has(0)} funcAction={finishDailyTask} />
-                    <HomeTripleCard icon={"/fa6-solid_ranking-star.svg"} title={"My Global Rank"} amount={1000} text={"Check"} link={"/leaderboard"} />
+                    <HomeTripleCard icon={"/mdi_star-four-points-circle-outline.svg"} disabled={!didInfo.exist} title={"Points Earned Today"} amount={userInfo.todayPoints} text={"Check"} link={"/points-details"} />
+                    <HomeTripleCard icon={"/uil_calender.svg"} disabled={!didInfo.exist} title={"Streak Check-In"} amount={20} text={"Claim"} done={"Claimed"} status={dailyAction.has(0)} funcAction={finishDailyTask} />
+                    <HomeTripleCard icon={"/fa6-solid_ranking-star.svg"} disabled={!didInfo.exist} title={"My Global Rank"} amount={1000} text={"Check"} link={"/leaderboard"} />
                 </div>
 
                 <div className="bg-main-blue/10 p-4 py-3 border border-solid border-main-blue/20 flex flex-col justify-between gap-1 rounded-xl dark:bg-sec-bg dark:border-none">

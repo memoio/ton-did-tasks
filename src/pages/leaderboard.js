@@ -66,7 +66,7 @@ export default function LeaderBoardDetailsPage() {
 
     return (
         <>
-            <div className="px-8 py-4 flex flex-col gap-4">
+            <div className="px-4 py-8 flex flex-col gap-4">
                 <SubHeader title={"Leaderboard"} />
 
                 <div className="grid grid-cols-3 gap-4 w-full">

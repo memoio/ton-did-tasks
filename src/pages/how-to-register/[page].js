@@ -1,7 +1,5 @@
 import { SubHeader } from "@/components/accessories";
 import { Footer } from "@/components/footer";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function HowToRegister() {
@@ -10,7 +8,7 @@ export default function HowToRegister() {
 
     return (
         <>
-            <div className="px-8 py-4 flex flex-col gap-4">
+            <div className="px-4 pt-8 flex flex-col gap-4 pb-28">
                 <SubHeader title={"TGE Launchpad Quick Guide"} />
 
                 <div className="text-dao-gray dark:text-white">
@@ -34,7 +32,7 @@ export default function HowToRegister() {
                 </div>
             </div>
 
-            {/* <Footer active={"home"} /> */}
+            <Footer active={"home"} />
         </>
     )
 }

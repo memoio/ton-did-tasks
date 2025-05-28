@@ -62,7 +62,7 @@ export default function InvitationDetail() {
     }
 
     return (
-        <div className="px-8 py-4 flex flex-col gap-4">
+        <div className="px-4 py-8 flex flex-col gap-4">
             <SubHeader title={"Invitation Details"} />
 
             {allInvites.length === 0 ? (

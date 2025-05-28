@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import { useRef, useState } from "react"
 import { BasilArrowUp } from "./icons"
 
-export function AlertCard({ image, title, text, action, size, closeFunc, btn }) {
+export function AlertCard({ image, title, text, size, closeFunc, btn }) {
     return (
         <div className="fixed inset-0 bg-black/50 p-8 z-50 flex items-center justify-center text-black dark:text-white">
             <button onClick={closeFunc} className="fixed inset-0 z-0"></button>
@@ -17,7 +17,7 @@ export function AlertCard({ image, title, text, action, size, closeFunc, btn }) 
                     <h3 className="font-bold text-2xl">{title}</h3>
                     {text && <>
                         <p className="">{text}</p>
-                        {btn && <button onClick={closeFunc} className="bg-dao-green mt-4 min-w-full px-8 py-2 rounded-full text-white dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-green">{btn}</button>}
+                        {btn && <button onClick={closeFunc} className="mt-4 min-w-full px-8 py-2 rounded-full bg-transparent border-y-2 border-solid border-dao-green">{btn}</button>}
                     </>}
                 </div>
             </div>
@@ -25,13 +25,13 @@ export function AlertCard({ image, title, text, action, size, closeFunc, btn }) 
     )
 }
 
-export function HomeDoubleCard({ icon, text, link, amount, shift, sze }) {
+export function HomeDoubleCard({ icon, text, link, amount }) {
     return (
         <div className="bg-main-blue/10 p-4 py-3 border border-solid border-main-blue/20 flex flex-col gap-1 rounded-xl dark:bg-sec-bg dark:border-none">
             <div className="hidden -ml-1"></div>
             <div className="flex items-center gap-1 dark:fill-dao-green">
                 <Image src={icon} width={18} height={18} alt="" />
-                <p className="text-dao-gray text-base truncate w-4/5 dark:text-white">{text}</p>
+                <p className="text-dao-gray text-base truncate w-4/5 dark:text-light-gray">{text}</p>
             </div>
             <div className="flex w-full justify-between">
                 <p className="font-bold text-black dark:text-white">{amount}</p>
@@ -41,18 +41,19 @@ export function HomeDoubleCard({ icon, text, link, amount, shift, sze }) {
     )
 }
 
-export function HomeTripleCard({ icon, title, text, status, link, amount, funcAction }) {
+export function HomeTripleCard({ icon, disabled, title, text, status, link, amount, funcAction }) {
     return (
         <div className="bg-main-blue/10 border border-solid border-main-blue/20 dark:bg-sec-bg dark:border-none p-4 py-3 flex justify-between gap-1 rounded-xl">
             <div className="">
                 <div className="flex flex-row justify-start gap-1">
                     <Image src={icon} width={22} height={22} alt="" />
-                    <p className="text-dao-gray capitalize">{title}</p>
+                    <p className="text-dao-gray capitalize dark:text-light-gray">{title}</p>
                 </div>
                 <p className="font-semibold text-black text-lg dark:text-white">{amount}</p>
             </div>
-            {link ? <Link href={link} className="bg-dao-green w-[80px] text-white px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-green dark:text-white">{text}</Link> : <></>}
-            {funcAction && <button disabled={status} onClick={funcAction} className={`${status ? "bg-light-green" : "bg-[#00B66C]"} w-[80px] text-white px-3 py-1.5 h-fit min-w-8 rounded-full dark:bg-transparent dark:border-y-2 dark:border-solid dark:border-dao-green dark:text-white`}>{status ? "Claimed" : "Claim"}</button>}
+            {link ? <Link disabled={disabled} href={link} className={`${disabled ? "opacity-40" : ""} button_primary text-dao-green w-[80px] h-fit rounded-full px-3 py-1.5`}>{text}</Link> : <></>}
+            {/* {funcAction && <button disabled={disabled || status} onClick={funcAction} className={`${disabled ? "opacity-40" : ""} ${status ? "button_done" : "button_primary text-dao-green dark:text-white"} w-[80px] px-3 py-1.5 h-fit min-w-8 rounded-full text-sm`}>{status ? "Claimed" : "Claim"}</button>} */}
+            {funcAction && <button disabled={disabled || status} onClick={funcAction} className={`${disabled ? "opacity-40" : ""} ${status ? "button_done text-white" : "button_primary text-dao-green"} w-[80px] h-fit rounded-full px-3 py-1.5`}>{status ? "Claimed" : "Claim"}</button>}
         </div >
     )
 }
@@ -94,7 +95,7 @@ export function LinkTask({ icon, text, loginFunc, updateFunc, checked }) {
             <div className="flex gap-2 w-3/4">
                 <div className="border border-solid border-white dark:border-fill-bright/19 rounded h-fit">{icon}</div>
                 <div className="">
-                    <p className="text-dao-gray line-clamp-1">{text}</p>
+                    <p className="text-dao-gray line-clamp-1 dark:text-light-gray">{text}</p>
                     <p className="text-dao-green font-semibold text-sm">+100</p>
                 </div>
             </div>
@@ -109,7 +110,7 @@ export function LinkTask({ icon, text, loginFunc, updateFunc, checked }) {
                     'claim'
                 )}
             </button>}
-            {!clickLink && <button disabled={checked} onClick={handleLink} className={`${checked ? "button_done" : "button_primary"} h-fit rounded-full text-white min-w-16 text-sm`}>{checked ? "linked" : "link"}</button>}
+            {!clickLink && <button disabled={checked} onClick={handleLink} className={`${checked ? "button_done text-white" : "button_primary text-dao-green"} h-fit rounded-full min-w-16 text-sm`}>{checked ? "linked" : "link"}</button>}
         </div>
     )
 }
@@ -144,7 +145,7 @@ export function DailyTask({ icon, text, link, point, updateFunc, checked, todo, 
             <div className="flex gap-2 w-3/4">
                 <div className="border border-solid border-white dark:border-fill-bright/19 rounded h-fit">{icon}</div>
                 <div className="">
-                    <p className="text-dao-gray line-clamp-1">{text}</p>
+                    <p className="text-dao-gray line-clamp-1 dark:text-light-gray">{text}</p>
                     <p className="text-dao-green font-semibold text-sm">+{point ? point : "20"}</p>
                 </div>
             </div>
@@ -159,7 +160,7 @@ export function DailyTask({ icon, text, link, point, updateFunc, checked, todo, 
                     'claim'
                 )}
             </button>}
-            {!clickLink && <button disabled={checked} onClick={handleLink} className={`${checked ? "button_done" : "button_primary"} h-fit rounded-full text-white min-w-16 text-sm`}>{checked ? done : todo}</button>}
+            {!clickLink && <button disabled={checked} onClick={handleLink} className={`${checked ? "button_done text-white" : "button_primary text-dao-green"} h-fit rounded-full min-w-16 text-sm`}>{checked ? done : todo}</button>}
         </div>
     )
 }

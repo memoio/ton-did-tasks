@@ -26,20 +26,6 @@
         color: var(--foreground);
         font-family: "Roboto", sans-serif;
     }
-
-    /*
-    .box {
-        border: none !important;
-        background-color: #0A1913 !important;
-    }
-
-    .button_primary {
-        background-color: #0A1913 !important;
-        border-width: 2px 0px;
-        border-style: solid;
-        border-color: #00B66C;
-    }
-    */
 }
 
 
@@ -97,18 +83,30 @@ body {
 }
 
 .button_primary {
-    background-color: #00B66C;
+    background-color: transparent;
+    border-top: 2px solid #10b981;
+    border-bottom: 2px solid #10b981;
     padding: 8px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .button_done {
-    background-color: lightgray;
+    background-color: #00B66C;
+    opacity: 0.3;
     padding: 8px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .button_claim {
-    background-color: black;
+    background-color: #00B66C;
     padding: 8px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .vr56syh {

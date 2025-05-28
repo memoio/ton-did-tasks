@@ -82,7 +82,7 @@ export default function Home() {
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Failed"} text={"DID creation failed, you may need to try again!"} size={87} closeFunc={closeFunc} btn={"Try Again"} />}
             {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"Success"} text={"DID was successfully created, go do the tasks and earn rewards!"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
 
-            <div className="flex flex-col gap-4 p-8 pb-32">
+            <div className="flex flex-col gap-4 px-4 pt-8 pb-32">
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 p-8 flex flex-col items-center justify-center text-center gap-2 rounded-2xl dark:bg-sec-bg dark:border-none">
                     <Image src={userProfile.avatar} className="rounded-full w-[89px] h-[89px] object-cover" width={89} height={89} alt="" />
                     <h2 className="text-dao-yellow text-2xl font-semibold">Data DID</h2>

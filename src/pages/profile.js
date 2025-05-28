@@ -1,4 +1,4 @@
-import { LinkProfileCard } from "@/components/cards";
+import { LinkProfileCard, AlertCard } from "@/components/cards";
 import { Footer } from "@/components/footer";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +19,7 @@ export default function Profile() {
     const { clear: clearRank } = useRank();
     const { clear: clearTGE } = useTGE();
     const [isCopied, setIsCopied] = useState(false);
+    const [isNotice, setIsNotice] = useState(false);
     const [tonConnectUI] = useTonConnectUI();
 
     const copyToClipboard = (text) => {
@@ -40,6 +41,11 @@ export default function Profile() {
         }
     };
 
+    const closeFunc = () => {
+        setIsNotice(false);
+        router.push('/');
+    }
+
     const logOutFunc = async () => {
         await tonConnectUI.disconnect();
         if (window.okxwallet && window.okxwallet.disconnect) {
@@ -50,8 +56,7 @@ export default function Profile() {
         clearAction();
         clearDID();
         clearAuth();
-
-        router.push('/');
+        setIsNotice(true);
     }
 
     const handleXOauth = async () => {
@@ -91,7 +96,9 @@ export default function Profile() {
 
     return (
         <>
-            <div className="flex flex-col gap-4 p-8 pb-32">
+            {isNotice && <AlertCard image={"/Frame 34643.svg"} title={`Notice`} text={"If you want to switch wallets and log in to our mini app, please switch to another TG account"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
+
+            <div className="flex flex-col gap-4 px-4 pt-8 pb-32">
                 <div id="profile_header" className="rounded-md p-4 flex flex-col">
                     <div className="flex justify-between items-start rounded-md text-white w-full">
                         <div className="flex gap-2 w-fit items-center">
@@ -101,7 +108,7 @@ export default function Profile() {
                                 <p className="text-white">{didInfo.exist ? `${didInfo.did.slice(0, 8)}...${didInfo.did.slice(66)}` : `${address?.slice(0, 6)}...${address?.slice(42)}`}</p>
                             </div>
                         </div>
-                        <Link href={"/profile/edit"}><Image src={"/mage_electricity-fill.svg"} className="rounded-full" width={36} height={36} alt="" /></Link>
+                        <Link href={"/profile/edit"}><Image src={"/iconamoon_edit_white.svg"} className="rounded-full" width={24} height={24} alt="" /></Link>
                     </div>
 
                     <div className="flex flex-wrap gap-2 mt-4">
@@ -113,30 +120,30 @@ export default function Profile() {
 
                 <div className="flex flex-col gap-4 text-dao-gray">
                     <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke flex gap-4 p-4 justify-between rounded-lg">
-                        <p className="">Wallet</p>
+                        <p className="dark:text-light-gray">Wallet</p>
                         <div className="flex gap-2">
-                            <p className="">{`${address?.slice(0, 6)}...${address?.slice(42)}`}</p>
+                            <p className="dark:text-white">{`${address?.slice(0, 6)}...${address?.slice(42)}`}</p>
                             <button onClick={() => copyToClipboard(address)} ><Image src={isCopied ? "/check.svg" : "/copy-icon.svg"} className="" width={18} height={18} alt="" /></button>
                         </div>
                     </div>
 
                     <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke flex gap-4 p-4 justify-between rounded-xl mt-6">
-                        <p className="">Invited Code</p>
-                        {userInfo.bindedCode ? <p className="">{userInfo.invitedCode}</p> : <Link href={"/profile/invite-code"}><Image src={"/iconamoon_edit.svg"} className="" width={24} height={24} alt="" /></Link>}
+                        <p className="dark:text-light-gray">Invited Code</p>
+                        {userInfo.bindedCode ? <p className="dark:text-light-gray">{userInfo.invitedCode}</p> : <Link href={"/profile/invite-code"}><Image src={"/iconamoon_edit.svg"} className="" width={24} height={24} alt="" /></Link>}
                     </div>
 
                     <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke flex gap-4 p-4 justify-between rounded-xl">
-                        <p className="">Privacy Policy</p>
+                        <p className="dark:text-light-gray">Privacy Policy</p>
                         <Link href={"/privacy-policy"} className=""><Image src={"/rer5tyFrame.svg"} className="" width={24} height={24} alt="" /></Link>
                     </div>
 
                     <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke flex gap-4 p-4 justify-between rounded-xl">
-                        <p className="">User Agreement</p>
+                        <p className="dark:text-light-gray">User Agreement</p>
                         <Link href={"/user-agreement"} className=""><Image src={"/rer5tyFrame.svg"} className="" width={24} height={24} alt="" /></Link>
                     </div>
                 </div>
 
-                <button onClick={logOutFunc} className="bg-dao-green text-white p-2 rounded-full dark:bg-sec-bg dark:border-y-2 dark:border-solid dark:border-dao-green">Log Out</button>
+                <button onClick={logOutFunc} className="button_primary text-dao-green p-2 rounded-full">Log Out</button>
             </div>
 
             <Footer active={"profile"} />

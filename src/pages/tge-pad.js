@@ -8,11 +8,11 @@ export default function TGEPad() {
 
     return (
         <>
-            <div className="px-8 py-4 flex flex-col gap-4">
+            <div className="flex flex-col gap-4 pb-32 gap-4 px-4 pt-8 pb-32">
                 <SubHeader title={"Airdrop Wallets"} />
                 <p className="text-sm px-8 text-center text-dao-gray dark:text-light-gray">Secure your exchange addresses for TGE participation</p>
 
-                <Image src={"/Frame 34619-xx.png"} className="bg-dao-green rounded" width={393} height={117} alt="" />
+                <Image src={"/Frame 34619-xx.png"} className="bg-dao-green rounded" width={420} height={117} alt="" />
 
                 <div className="flex flex-col gap-4">
                     <WalletAccessories image={"/Binance.svg"} Link={""} title={"Binance"} address={TGEInfo.binance.bind ? TGEInfo.binance.address : null} />
