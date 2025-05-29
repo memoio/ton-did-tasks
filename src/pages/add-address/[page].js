@@ -139,7 +139,7 @@ export default function AddAddress() {
                 })
             }
         }
-    }, [TGEInfo])
+    }, [TGEInfo, page])
 
     return (
         <>
@@ -170,7 +170,7 @@ export default function AddAddress() {
                     <input onChange={handleChange} value={info.uid} name="uid" type="text" className="bg-main-blue/8 dark:bg-sec-bg text-dao-gray placeholder:text-dao-gray dark:text-white border border-solid border-main-blue/20 dark:border-none px-4 py-3 rounded-lg" placeholder={`Input ${page} account UID`} />
                 </div>
 
-                <button onClick={handleAddEX} className="button_primary text-dao-green rounded-full w-full py-3 text-center">
+                <button onClick={handleAddEX} disabled={loading} className={`button_primary text-dao-green rounded-full w-full py-3 text-center${isUpload ? 'opacity-75 cursor-not-allowed' : ''}`}>
                     {loading ? (
                         <svg className="animate-spin h-6 w-6 text-dao-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
