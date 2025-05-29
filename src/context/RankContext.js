@@ -1,8 +1,6 @@
 import { rank } from "@/components/api/airdrop";
 import { createContext, useEffect, useState, useContext } from "react";
 import { useAuth } from './AuthContext';
-// import { useAccount } from "wagmi";
-// import { useTonAddress } from '@tonconnect/ui-react';
 
 export const RankContext = createContext(null);
 
@@ -102,7 +100,7 @@ export const RankProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        if (!initialed) {
+        if (address && address !== "" && !initialed) {
             const updatePointHistory = async () => {
                 try {
                     const totalRank = await rank(address, 0);
@@ -131,7 +129,7 @@ export const RankProvider = ({ children }) => {
             setInitialed(true);
             updatePointHistory();
         }
-    }, []);
+    }, [address]);
 
     return (
         <RankContext.Provider value={{

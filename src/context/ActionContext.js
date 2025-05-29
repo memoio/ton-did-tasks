@@ -5,6 +5,19 @@ import { useAuth } from './AuthContext';
 import { Actions } from '@/components/config/config';
 import { useDIDInfo } from './DIDContext';
 
+const checkLastDayFinished = (timestamp, day) => {
+    const now = new Date(Date.now());
+
+    const start = Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate()
+    ) - day * 86400000;
+    const end = start + 86400000;
+
+    return timestamp * 1000 >= start && timestamp * 1000 < end;
+}
+
 export const ActionContext = createContext(null);
 
 export const ActionProvider = ({ children }) => {
@@ -59,7 +72,6 @@ export const ActionProvider = ({ children }) => {
 
                     let questSet = new Set();
                     records.map((element) => {
-                        // console.log(element);
                         const action = element.action;
                         if (action >= 50 && action <= 53) {
                             questSet.add(action - 50);
@@ -71,16 +83,14 @@ export const ActionProvider = ({ children }) => {
                     let dailySet = new Set();
                     let day = 0;
                     dailyRecords.map((element) => {
-                        // console.log(element);
                         if (element.action <= 100) {
                             const action = element.action - 70;
-                            const preDayTime = Date.now() - 86400000;
-                            if (element.time * 1000 > preDayTime) {
+                            if (checkLastDayFinished(element.time, 0)) {
                                 dailySet.add(action);
                             }
 
                             if (action === 0 && consequent) {
-                                if (element.time * 1000 <= Date.now() - day * 86400000 && element.time * 1000 > Date.now() - (days + 1) * 86400000) {
+                                if (checkLastDayFinished(element.time, day + 1)) {
                                     day++;
                                 } else {
                                     consequent = false;
@@ -88,6 +98,9 @@ export const ActionProvider = ({ children }) => {
                             }
                         }
                     });
+                    if (dailySet.has(0)) {
+                        day++;
+                    }
 
                     console.log(day);
                     console.log(dailySet);

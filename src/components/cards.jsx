@@ -107,10 +107,10 @@ export function LinkTask({ icon, text, loginFunc, updateFunc, checked }) {
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                 ) : (
-                    'claim'
+                    'Claim'
                 )}
             </button>}
-            {!clickLink && <button disabled={checked} onClick={handleLink} className={`${checked ? "button_done text-white" : "button_primary text-dao-green"} h-fit rounded-full min-w-16 text-sm`}>{checked ? "linked" : "link"}</button>}
+            {!clickLink && <button disabled={checked} onClick={handleLink} className={`${checked ? "button_done text-white" : "button_primary text-dao-green"} h-fit rounded-full min-w-16 text-sm`}>{checked ? "Linked" : "Link"}</button>}
         </div>
     )
 }
@@ -157,7 +157,7 @@ export function DailyTask({ icon, text, link, point, updateFunc, checked, todo, 
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                 ) : (
-                    'claim'
+                    'Claim'
                 )}
             </button>}
             {!clickLink && <button disabled={checked} onClick={handleLink} className={`${checked ? "button_done text-white" : "button_primary text-dao-green"} h-fit rounded-full min-w-16 text-sm`}>{checked ? done : todo}</button>}
@@ -276,13 +276,13 @@ export function Pagination({ currentPage, totalPages, onPageChange }) {
     );
 };
 
-export function LeaderboardCard({ name, point, count }) {
+export function LeaderboardCard({ icon, name, point, count }) {
     return (
         <div className="bg-main-blue/8 border border-solid border-main-blue/21 rounded-lg p-4 flex justify-between items-center dark:bg-sec-bg dark:border-none">
             <div className="flex gap-2">
-                <Image src={"/Ellipse 224.png"} width={43} height={43} alt="" />
+                <Image src={icon && icon !== "" ? icon : "/Ellipse 224.png"} className="rounded-full w-[43px] h-[43px] object-cover" width={43} height={43} alt="" />
                 <div className="flex flex-col justify-center">
-                    <p className="leading-tight text-sm font-semibold text-dark-bg dark:text-white">{name}</p>
+                    <p className="leading-tight text-sm font-semibold text-dark-bg dark:text-white">{name !== "" ? name : "Unkonw"}</p>
                 </div >
             </div >
 

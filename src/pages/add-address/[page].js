@@ -6,7 +6,7 @@ import { bindEXInfo } from "@/components/api/profile";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTGE } from "@/context/TGEContext";
 
 export default function AddAddress() {
@@ -15,9 +15,10 @@ export default function AddAddress() {
     const [isVisible, setIsVisible] = useState(false);
     const [isFailed, setIsFailed] = useState(false);
     const [isNotSupport, setIsNotSupport] = useState(false);
-    const [failedText, setFailedText] = useState(false);
+    const [failedText, setFailedText] = useState("");
+    const [loading, setLoading] = useState(false);
     const { didInfo } = useDIDInfo();
-    const { addTGEInfo } = useTGE();
+    const { TGEInfo, addTGEInfo } = useTGE();
 
     const [info, setInfo] = useState({
         address: '',
@@ -25,9 +26,16 @@ export default function AddAddress() {
     });
 
     const closeFunc = () => {
-        setIsVisible(false)
-        setIsFailed(false)
-        setIsNotSupport(false)
+        setIsVisible(false);
+        setIsFailed(false);
+        setIsNotSupport(false);
+    }
+
+    const closeAndReturnFunc = () => {
+        setIsVisible(false);
+        setIsFailed(false);
+        setIsNotSupport(false);
+        router.push("/tge-pad");
     }
 
     const handleChange = (e) => {
@@ -39,14 +47,24 @@ export default function AddAddress() {
     };
 
     const checkAddress = (address) => {
-        return /^0x[0-9A-Fa-f]+$/.test(address);
+        console.log(address);
+        return /^0x[0-9a-fA-F]{40}$/.test(address);
     }
 
     const checkUid = (uid, tgeName) => {
-        return true;
+        if (tgeName === "Binance") {
+            return /^[0-9]{8,10}$/.test(uid);
+        } else if (tgeName === "OKX") {
+            return /^[0-9]{16,20}$/.test(uid);
+        } else if (tgeName === "Gate.io") {
+            return /^[0-9]+$/.test(uid);
+        } else {
+            return false;
+        }
     }
 
     const handleAddEX = async () => {
+        setLoading(true);
         let exname = "unkonw";
         if (page === "Binance") {
             exname = "binance";
@@ -59,8 +77,13 @@ export default function AddAddress() {
             return;
         }
 
-        if (!checkAddress(info.address) || !checkUid(info.uid, page)) {
-            setFailedText("Please enter the correct address and uid.");
+        if (!checkAddress(info.address)) {
+            setFailedText("Please enter the correct address");
+            setIsFailed(true);
+            return;
+        }
+        if (!checkUid(info.uid, page)) {
+            setFailedText(`Please enter the correct ${page}'s uid.`);
             setIsFailed(true);
             return;
         }
@@ -80,6 +103,7 @@ export default function AddAddress() {
             setFailedText("Please Create DID First");
             setIsFailed(true);
         }
+        setLoading(false);
     }
 
     const handleRegister = () => {
@@ -94,11 +118,34 @@ export default function AddAddress() {
         }
     }
 
+    useEffect(() => {
+        if (TGEInfo) {
+            let exname = "unkonw";
+            if (page === "Binance") {
+                exname = "binance";
+            } else if (page === "OKX") {
+                exname = "okx";
+            } else if (page === "Gate.io") {
+                exname = "gateio";
+            } else {
+                setIsNotSupport(true);
+                return;
+            }
+
+            if (TGEInfo[exname].bind) {
+                setInfo({
+                    address: TGEInfo[exname].address,
+                    uid: TGEInfo[exname].uid,
+                })
+            }
+        }
+    }, [TGEInfo])
+
     return (
         <>
-            {isVisible && <AlertCard image={"/Clip path group-check.svg"} title={"Add Successful"} size={87} closeFunc={closeFunc} />}
-            {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Add Failed"} text={failedText} size={87} closeFunc={closeFunc} />}
-            {isNotSupport && <AlertCard image={"/Frame 34643-x.svg"} title={`Not Support: ${page}`} text={failedText} size={87} closeFunc={closeFunc} />}
+            {isVisible && <AlertCard image={"/Clip path group-check.svg"} title={"Add Successful"} text={"Bind exchange info success!"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
+            {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Add Failed"} text={failedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
+            {isNotSupport && <AlertCard image={"/Frame 34643-x.svg"} title={`Not Support`} text={`${page} is not support, we only support:Binance, OKX, Gate.io`} size={87} closeFunc={closeAndReturnFunc} btn={"Back"} />}
 
             <div className="px-4 pt-8 flex flex-col gap-4 pb-28">
                 <SubHeader title={"Add Address"} />
@@ -116,14 +163,23 @@ export default function AddAddress() {
                 <button onClick={handleRegister} className="button_primary text-dao-green rounded-full w-full py-3 text-center">Register Now</button>
                 <div className="flex flex-col gap-1">
                     <label for="address" className="text-black dark:text-white">Wallet Address</label>
-                    <input onChange={handleChange} name="address" type="text" className="bg-main-blue/8 dark:bg-sec-bg text-dao-gray placeholder:text-dao-gray dark:text-white border border-solid border-main-blue/20 dark:border-none px-4 py-3 rounded-lg" placeholder={`Input ${page} ETH Address`} />
+                    <input onChange={handleChange} value={info.address} name="address" type="text" className="bg-main-blue/8 dark:bg-sec-bg text-dao-gray placeholder:text-dao-gray dark:text-white border border-solid border-main-blue/20 dark:border-none px-4 py-3 rounded-lg" placeholder={`Input ${page} ETH Address`} />
                 </div>
                 <div className="flex flex-col gap-1">
                     <label for="uid" className="text-black dark:text-white">UID</label>
-                    <input onChange={handleChange} name="uid" type="text" className="bg-main-blue/8 dark:bg-sec-bg text-dao-gray placeholder:text-dao-gray dark:text-white border border-solid border-main-blue/20 dark:border-none px-4 py-3 rounded-lg" placeholder={`Input ${page} account UID`} />
+                    <input onChange={handleChange} value={info.uid} name="uid" type="text" className="bg-main-blue/8 dark:bg-sec-bg text-dao-gray placeholder:text-dao-gray dark:text-white border border-solid border-main-blue/20 dark:border-none px-4 py-3 rounded-lg" placeholder={`Input ${page} account UID`} />
                 </div>
 
-                <button onClick={handleAddEX} className="button_primary text-dao-green rounded-full w-full py-3 text-center">Confirm</button>
+                <button onClick={handleAddEX} className="button_primary text-dao-green rounded-full w-full py-3 text-center">
+                    {loading ? (
+                        <svg className="animate-spin h-6 w-6 text-dao-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    ) : (
+                        'Confirm'
+                    )}
+                </button>
             </div>
 
             <Footer active="home" />

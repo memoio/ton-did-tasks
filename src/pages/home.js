@@ -79,7 +79,7 @@ export default function Home() {
                             {
                                 didInfo.exist
                                     ? <p className="text-dao-gray">{`${didInfo.did.slice(0, 12)}...${didInfo.did.slice(71)}`}</p>
-                                    : <Link href={"/did"} target={"_blank"} className="text-dao-green">{"Create DID Free >"}</Link>
+                                    : <Link href={"/did"} className="text-dao-green">{"Create DID Free >"}</Link>
                             }
                         </div>
                     </div>
