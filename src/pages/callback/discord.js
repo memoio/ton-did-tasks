@@ -60,17 +60,13 @@ export default function CallbackPage() {
         if (query.code) {
             handleCallback(query.code, query.state);
         }
-
-        if (query.error) {
-            handleError(query.error, query.error_description);
-        }
-    }, [query.code]);
+    }, [query.code, query.state]);
 
     useEffect(() => {
         if (query.error) {
             handleError(query.error, query.error_description);
         }
-    }, [query.error])
+    }, [query.error, query.error_description])
 
     if (!isFainal) {
         return (

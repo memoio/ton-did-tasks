@@ -59,7 +59,7 @@ export default function CallbackPage() {
         if (query.code) {
             handleCallback(query.code, query.state);
         }
-    }, [query.code]);
+    }, [query.code, query.state]);
 
     useEffect(() => {
         if (query.error) {
