@@ -110,17 +110,17 @@ export const RankProvider = ({ children }) => {
                     setPagedTotalRank(totalRank.top.slice(0, 10));
 
 
-                    const monthlyRank = await rank(address, 1);
-                    setSelfMonthlyRankInfo(monthlyRank.self);
-                    setMonthlyLength(Math.ceil(monthlyRank.total.length / 10));
-                    setMonthlyRankInfo(monthlyRank.total);
-                    setPagedMonthlyRank(monthlyRank.total.slice(0, 10));
+                    // const monthlyRank = await rank(address, 1);
+                    // setSelfMonthlyRankInfo(monthlyRank.self);
+                    // setMonthlyLength(Math.ceil(monthlyRank.total.length / 10));
+                    // setMonthlyRankInfo(monthlyRank.total);
+                    // setPagedMonthlyRank(monthlyRank.total.slice(0, 10));
 
-                    const weeklyRank = await rank(address, 2);
-                    setSelfWeeklyRankInfo(weeklyRank.self);
-                    setWeeklyLength(Math.ceil(weeklyRank.total.length / 10));
-                    setWeeklyRankInfo(weeklyRank.total);
-                    setPagedWeeklyRank(weeklyRank.total.slice(0, 10));
+                    // const weeklyRank = await rank(address, 2);
+                    // setSelfWeeklyRankInfo(weeklyRank.self);
+                    // setWeeklyLength(Math.ceil(weeklyRank.total.length / 10));
+                    // setWeeklyRankInfo(weeklyRank.total);
+                    // setPagedWeeklyRank(weeklyRank.total.slice(0, 10));
                     // console.log(pagedWeeklyRank);
                 } catch (err) {
                     console.log(err);

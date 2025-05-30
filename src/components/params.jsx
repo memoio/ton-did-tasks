@@ -20,7 +20,7 @@ export function decodeStartParams() {
     const params = {};
     if (startParam) {
         try {
-            const paramsStr = base64UrlDecode(startParam || '{}');
+            const paramsStr = base64UrlDecode(startParam);
             paramsStr.split('&').forEach(pair => {
                 const [key, value] = pair.split('=');
                 if (key && value) params[key] = value;

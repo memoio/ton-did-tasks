@@ -74,17 +74,15 @@ export const AuthProvider = ({ children }) => {
 
     const bindChannelInfo = async (addr) => {
         const params = decodeStartParams();
-        // if (params.channel && params.channel !== "") {
-        //     await bindUserChannel(addr, params.channel);
-        // } else {
-        //     await bindUserChannel(addr, "memo");
-        // }
+        if (params.channel && params.channel !== "") {
+            await bindUserChannel(addr, params.channel);
+        } else {
+            await bindUserChannel(addr, "memo");
+        }
 
-        // if (params.activity && params.activity !== "") {
-        //     await bindUserActivity(addr, params.activity);
-        // }
-        console.log(addr);
-        alert(params.code, params.channel, params.acticity);
+        if (params.activity && params.activity !== "") {
+            await bindUserActivity(addr, params.activity);
+        }
     }
 
     const setBindWallet = () => {

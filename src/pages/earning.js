@@ -7,6 +7,7 @@ import { xOauthInfo } from "@/components/api/link";
 import { getUserProfile } from "@/components/api/profile";
 import { useState } from "react";
 import { DiscordLogoIcon, TelegramLogoIconBW, TwitterLogoIcon } from "@/components/icons";
+import { base64UrlEncode } from "@/components/params";
 import { useDIDInfo } from "@/context/DIDContext";
 import { useAuth } from "@/context/AuthContext";
 import { useAction } from "@/context/ActionContext";
@@ -29,7 +30,7 @@ export default function Earnings() {
 
     // const router = useRouter();
 
-    const currentUrl = `${TON_DID_WEB}?startapp=${userInfo?.inviteCode}`;
+    const currentUrl = `${TON_DID_WEB}?startapp=${base64UrlEncode(`code=${userInfo?.inviteCode}`)}`;
     const tweetText = `📈I found a platform that can own, manage and monetize your data @MemoLabsOrg!
 
 🚀Currently all users can participate, and you can easily get points rewards by completing tasks, and you can also redeem more value!
