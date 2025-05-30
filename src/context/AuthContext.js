@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }) => {
         //     await bindUserActivity(addr, params.activity);
         // }
         console.log(addr);
-        alert(params);
+        alert(params.code, params.channel, params.acticity);
     }
 
     const setBindWallet = () => {

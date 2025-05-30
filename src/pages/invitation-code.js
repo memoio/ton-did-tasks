@@ -62,6 +62,7 @@ export default function InvitationCode() {
 
     useEffect(() => {
         const params = decodeStartParams();
+        alert(params.code);
         if (params.code && params.code !== "" && params.code === 6) {
             setInputValue(params.code);
         }
