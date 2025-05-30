@@ -77,7 +77,7 @@ export default function LeaderBoardDetailsPage() {
 
                 <div className="bg-dao-green rounded-lg p-4 flex justify-between items-center dark:bg-sec-bg dark:border-2 dark:border-solid dark:border-dao-green">
                     <div className="flex gap-2">
-                        <Image src={userProfile.avatar} width={43} height={43} alt="" />
+                        <Image src={userProfile.avatar} className="rounded-full w-[43px] h-[43px] object-cover" width={43} height={43} alt="" />
                         <div className="flex flex-col justify-center text-white">
                             <p className="leading-tight text-sm font-semibold">{userProfile.name}</p>
                             <p className="leading-tight text-xs">Me</p>
