@@ -87,9 +87,7 @@ export const ActionProvider = ({ children }) => {
                             const action = element.action - 70;
                             if (checkLastDayFinished(element.time, 0)) {
                                 dailySet.add(action);
-                            }
-
-                            if (action === 0 && consequent) {
+                            } else if (action === 0 && consequent) {
                                 if (checkLastDayFinished(element.time, day + 1)) {
                                     day++;
                                 } else {
@@ -98,10 +96,10 @@ export const ActionProvider = ({ children }) => {
                             }
                         }
                     });
+
                     if (dailySet.has(0)) {
                         day++;
                     }
-
                     console.log(day);
                     console.log(dailySet);
                     console.log(questSet);

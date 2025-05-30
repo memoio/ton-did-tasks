@@ -7,6 +7,7 @@ import { bindInviteCode } from "@/components/api/airdrop";
 import { useAuth } from "@/context/AuthContext";
 import { useAction } from "@/context/ActionContext";
 import { useDIDInfo } from "@/context/DIDContext";
+import { decodeStartParams } from "@/components/params";
 
 
 export default function InvitationCode() {
@@ -60,9 +61,9 @@ export default function InvitationCode() {
     }, [userInfo, router]);
 
     useEffect(() => {
-        const referralCode = window.Telegram?.WebApp?.initDataUnsafe?.start_param
-        if (referralCode && referralCode !== "" && referralCode.length === 6) {
-            setInputValue(referralCode);
+        const params = decodeStartParams();
+        if (params.code && params.code !== "" && params.code === 6) {
+            setInputValue(params.code);
         }
     }, []);
 

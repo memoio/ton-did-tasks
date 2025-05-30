@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, createContext, useContext, useState } from "react";
 import { useTonAddress } from '@tonconnect/ui-react';
-import { bindUserWallet, getUserInfo } from "@/components/api/airdrop";
+import { bindUserActivity, bindUserChannel, bindUserWallet, getUserInfo } from "@/components/api/airdrop";
 import { linkTGAccount } from "@/components/api/link";
 import { getUserProfile } from "@/components/api/profile";
 import { useRef } from "react";
+import { decodeStartParams } from "@/components/params";
 
 const defaultName = "Unkonw";
 const defaultAvatar = "/Frame 34635.png";
@@ -71,6 +72,21 @@ export const AuthProvider = ({ children }) => {
         setAddress("");
     }
 
+    const bindChannelInfo = async (addr) => {
+        const params = decodeStartParams();
+        // if (params.channel && params.channel !== "") {
+        //     await bindUserChannel(addr, params.channel);
+        // } else {
+        //     await bindUserChannel(addr, "memo");
+        // }
+
+        // if (params.activity && params.activity !== "") {
+        //     await bindUserActivity(addr, params.activity);
+        // }
+        console.log(addr);
+        alert(params);
+    }
+
     const setBindWallet = () => {
         if (walletAddress && walletAddress !== "" && address !== walletAddress && !isBinding.current) {
             isBinding.current = true;
@@ -81,6 +97,7 @@ export const AuthProvider = ({ children }) => {
                 setRawAddress(splitted[1]);
                 try {
                     await bindUserWallet(walletAddress);
+                    await bindChannelInfo(walletAddress);
 
                     const res = await getUserInfo(walletAddress);
                     setUserInfo({
@@ -171,7 +188,7 @@ export const AuthProvider = ({ children }) => {
             return {
                 ...prevUserInfo,
                 points: prevUserInfo.points + point,
-                todayPoints: prevUserInfo.points + point,
+                todayPoints: prevUserInfo.todayPoints + point,
             };
         }
         )
