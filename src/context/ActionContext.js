@@ -53,6 +53,8 @@ export const ActionProvider = ({ children }) => {
                 setInvitedCode(inviteCode);
             } else if (action === 1) {
                 updateDID();
+            } else if (action > 1230 && action <= 1233) {
+                setQuest(action - 1230 + 2);
             }
 
             addPoint(actionInfo.Points);
@@ -75,6 +77,8 @@ export const ActionProvider = ({ children }) => {
                         const action = element.action;
                         if (action >= 50 && action <= 53) {
                             questSet.add(action - 50);
+                        } else if (action > 1230 && action <= 1233) {
+                            setQuest(action - 1230 + 2);
                         }
                     });
 
