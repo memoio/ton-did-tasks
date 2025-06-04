@@ -210,7 +210,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }) {
                 <button
                     key={1}
                     onClick={() => onPageChange(1)}
-                    className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-[#05F292] text-black' : 'bg-[#05F29220]'
+                    className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-[#05F292] text-black dark:bg-white' : 'bg-[#05F29220]'
                         }`}
                 >
                     1
@@ -226,7 +226,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }) {
                 <button
                     key={page}
                     onClick={() => onPageChange(page)}
-                    className={`px-4 py-2 rounded-md ${currentPage === page ? 'bg-[#05F292] text-black' : 'bg-[#05F29220]'
+                    className={`px-4 py-2 rounded-md ${currentPage === page ? 'bg-[#05F292] text-black' : 'bg-[#05F29220] dark:bg-white'
                         }`}
                 >
                     {page}
@@ -258,7 +258,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }) {
             <button
                 onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
                 disabled={currentPage === 1}
-                className="px-4 py-2 rounded-md bg-[#05F29220] disabled:opacity-50"
+                className="px-4 py-2 rounded-md bg-[#05F29220] disabled:opacity-50 dark:bg-white"
             >
                 Prev
             </button>
@@ -268,7 +268,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }) {
             <button
                 onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className="px-4 py-2 rounded-md bg-[#05F29220] disabled:opacity-50"
+                className="px-4 py-2 rounded-md bg-[#05F29220] disabled:opacity-50 dark:bg-white"
             >
                 Next
             </button>
@@ -279,16 +279,18 @@ export function Pagination({ currentPage, totalPages, onPageChange }) {
 export function LeaderboardCard({ icon, name, point, count }) {
     return (
         <div className="bg-main-blue/8 border border-solid border-main-blue/21 rounded-lg p-4 flex justify-between items-center dark:bg-sec-bg dark:border-none">
-            <div className="flex gap-2">
-                <Image src={icon && icon !== "" ? icon : "/Ellipse 224.png"} className="rounded-full w-[43px] h-[43px] object-cover" width={43} height={43} alt="" />
-                <div className="flex flex-col justify-center">
-                    <p className="leading-tight text-sm font-semibold text-dark-bg dark:text-white">{name !== "" ? name : "Unkonw"}</p>
-                </div >
-            </div >
+            <div className="flex gap-2 min-w-0 flex-1">
+                <Image src={icon && icon !== "" ? icon : "/Ellipse 224.png"} className="rounded-full w-[43px] h-[43px] object-cover" width={43} height={43} alt="avatar" />
+                <div className="flex flex-col justify-center min-w-0">
+                    <p className="leading-tight text-sm font-semibold text-dark-bg dark:text-white truncate">{name !== "" ? name : "Unknown"}</p>
+                </div>
+            </div>
 
-            <p className="font-semibold text-sm text-dark-bg dark:text-white">{point} Points</p>
-            <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm dark:bg-dao-yellow/15 dark:text-dao-yellow">{count}</p>
-        </div >
+            <div className="flex items-center gap-10 ml-auto pl-4">
+                <p className="font-semibold text-sm text-dark-bg dark:text-white whitespace-nowrap">{point} Points</p>
+                <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm dark:bg-dao-yellow/15 dark:text-dao-yellow whitespace-nowrap">{count}</p>
+            </div>
+        </div>
     )
 }
 

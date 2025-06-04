@@ -55,7 +55,7 @@ export default function InviteCode() {
 
                 <div className="flex flex-col gap-4 mt-6">
                     <label for="code" className="text-black text-lg dark:text-white">Enter your new name</label>
-                    <input onChange={handleChange} id="code" type="text" className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke placeholder:text-dao-gray px-4 py-2 rounded-[10px]" placeholder="Enter" />
+                    <input onChange={handleChange} id="code" type="text" className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke dark:text-white placeholder:text-dao-gray dark:placeholder:text-white px-4 py-2 rounded-[10px]" placeholder="Enter" />
                     <button onClick={handleSetName} disabled={isUpload} className={`button_primary text-dao-green w-full p-2 rounded-full flex items-center justify-center ${isUpload ? 'opacity-75 cursor-not-allowed' : ''}`}>
                         {isUpload ? (
                             <svg className="animate-spin h-6 w-6 text-dao-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

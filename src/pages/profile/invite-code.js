@@ -1,4 +1,4 @@
-import { SubHeaderTri } from "@/components/accessories";
+import { SubHeader } from "@/components/accessories";
 import { AlertCard } from "@/components/cards";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -55,11 +55,11 @@ export default function InviteCode() {
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Failed"} text={failedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
 
             <div className="px-8 py-4 flex flex-col gap-4 pb-28">
-                <SubHeaderTri title={"Invite Code"} />
+                <SubHeader title={"Invite Code"} />
 
                 <div className="flex flex-col gap-4 mt-6">
                     <label htmlFor="code" className="text-black text-lg dark:text-white">Enter your invite Code</label>
-                    <input value={inputValue} onChange={handleChange} id="code" type="text" className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke placeholder:text-dao-gray px-4 py-2 rounded-[10px]" />
+                    <input value={inputValue} onChange={handleChange} id="code" type="text" className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke dark:text-white placeholder:text-dao-gray dark:placeholder:text-white px-4 py-2 rounded-[10px]" />
                     <button onClick={bindCode} className="button_primary text-dao-green w-full p-2 rounded-full">Submit</button>
                 </div>
             </div>

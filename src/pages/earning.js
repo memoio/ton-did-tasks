@@ -281,9 +281,9 @@ export default function Earnings() {
                                     {
                                         params.channel && params.channel == "roam" ?
                                             <>
-                                                <DailyTask checked={questAction.has(3)} point={"50"} done={"Followed"} todo={"Follow"} link={"https://x.com/MemoLabsOrg"} updateFunc={() => finishTask(50, 50, "Follow Roam X Claim Success", "Please confirm that you have followed Roam X")} text={"Follow Roam On X"} icon={<TwitterLogoIcon />} />
-                                                <DailyTask checked={questAction.has(4)} point={"50"} done={"Joined"} todo={"Join"} link={"https://t.me/memolabsio"} updateFunc={() => finishTask(51, 50, "Join Roam TG Claim Success", "Please confirm that you have joined Roam telegram")} text={"Join Roam On TG"} icon={<TelegramLogoIconBW />} />
-                                                <DailyTask checked={questAction.has(5)} point={"50"} done={"Joined"} todo={"Join"} link={'https://discord.com/invite/YG4Ydv2E7X'} updateFunc={() => finishTask(52, 50, "Join Roam Discord Claim Success", "Please confirm that you have joined Roam discord")} text={"Join Roam On Discord"} icon={<DiscordLogoIcon />} />
+                                                <DailyTask checked={questAction.has(3)} point={"50"} done={"Followed"} todo={"Follow"} link={"https://x.com/weRoamxyz"} updateFunc={() => finishTask(50, 50, "Follow Roam X Claim Success", "Please confirm that you have followed Roam X")} text={"Follow Roam On X"} icon={<TwitterLogoIcon />} />
+                                                <DailyTask checked={questAction.has(4)} point={"50"} done={"Joined"} todo={"Join"} link={"https://t.me/WeRoamXYZ"} updateFunc={() => finishTask(51, 50, "Join Roam TG Claim Success", "Please confirm that you have joined Roam telegram")} text={"Join Roam On TG"} icon={<TelegramLogoIconBW />} />
+                                                <DailyTask checked={questAction.has(5)} point={"50"} done={"Joined"} todo={"Join"} link={'https://discord.com/invite/roam'} updateFunc={() => finishTask(52, 50, "Join Roam Discord Claim Success", "Please confirm that you have joined Roam discord")} text={"Join Roam On Discord"} icon={<DiscordLogoIcon />} />
                                             </> :
                                             <></>
                                     }

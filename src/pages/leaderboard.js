@@ -79,13 +79,15 @@ export default function LeaderBoardDetailsPage() {
                     <div className="flex gap-2">
                         <Image src={userProfile.avatar} className="rounded-full w-[43px] h-[43px] object-cover" width={43} height={43} alt="" />
                         <div className="flex flex-col justify-center text-white">
-                            <p className="leading-tight text-sm font-semibold">{userProfile.name}</p>
+                            <p className="leading-tight text-sm font-semibold truncate">{userProfile.name}</p>
                             <p className="leading-tight text-xs">Me</p>
                         </div>
                     </div>
 
-                    <p className="text-white font-semibold text-sm">{selfRankInfo.points} Points</p>
-                    <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm">{selfRankInfo.rank <= 100 ? selfRankInfo.rank : "100+"}</p>
+                    <div className="flex items-center gap-10 ml-auto pl-4">
+                        <p className="text-white font-semibold text-sm">{selfRankInfo.points} Points</p>
+                        <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm dark:bg-dao-yellow/15 dark:text-dao-yellow whitespace-nowrap">{selfRankInfo.rank <= 100 ? selfRankInfo.rank : "100+"}</p>
+                    </div>
                 </div>
 
                 <hr />

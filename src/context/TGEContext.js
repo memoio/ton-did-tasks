@@ -70,20 +70,21 @@ export const TGEProvider = ({ children }) => {
 
             if (tgeInfo) {
                 console.log(tgeInfo);
-                const result = tgeInfo.reduce((acc, { name, uid, evm_address }) => {
-                    acc[name] = {
-                        uid: uid,
-                        evm_address: evm_address,
-                        bind: uid !== "" ? true : false,
-                    };
-                    return acc;
-                })
+                let result = {};
+                tgeInfo.forEach(element => {
+                    console.log(element);
+                    result[element.name] = {
+                        uid: element.uid,
+                        address: element.evm_address,
+                        bind: element.uid !== "",
+                    }
+                });
                 console.log(result);
 
                 setTGEInfo(prev => {
                     return {
                         ...prev,
-                        result
+                        ...result
                     }
                 });
             }
