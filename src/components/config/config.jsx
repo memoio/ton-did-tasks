@@ -82,4 +82,8 @@ export const Actions = {
 
     110: { ActionID: 110, Name: "Invite Friends", Points: 200, OneTime: false },
     111: { ActionID: 111, Name: "Be Invited", Points: 500, OneTime: true },
+
+    1231: { ActionID: 1231, Name: "Follow Roam On Twitter", Points: 50, OneTime: true },
+    1232: { ActionID: 1232, Name: "Join Roam On Telegram", Points: 50, OneTime: true },
+    1233: { ActionID: 1233, Name: "Join Roam On Discord", Points: 50, OneTime: true },
 }

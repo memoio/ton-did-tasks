@@ -78,7 +78,7 @@ export const ActionProvider = ({ children }) => {
                         if (action >= 50 && action <= 53) {
                             questSet.add(action - 50);
                         } else if (action > 1230 && action <= 1233) {
-                            setQuest(action - 1230 + 2);
+                            questSet.add(action - 1230 + 2);
                         }
                     });
 
