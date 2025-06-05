@@ -7,15 +7,17 @@ import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { TON_DID_WEB } from "@/components/config/config";
 import { base64UrlEncode } from "@/components/params";
+import { useParams } from "@/context/ParamContext";
 
 export default function Earnings() {
     const popup = useRef(null)
     const [isCopied, setIsCopied] = useState(false)
     const { userInfo } = useAuth()
+    const { params } = useParams()
 
     const router = useRouter();
 
-    const currentUrl = `${TON_DID_WEB}?startapp=${base64UrlEncode(`code=${userInfo?.inviteCode}`)}`;
+    const currentUrl = params.channel && params.channel !== "" ? `${TON_DID_WEB}?startapp=${base64UrlEncode(`code=${userInfo?.inviteCode}&channel=${params.channel}`)}` : `${TON_DID_WEB}?startapp=${base64UrlEncode(`code=${userInfo?.inviteCode}`)}`;
 
     const tgText = `🎉 Welcome to the MEMO data ecosystem, a platform where you can own, manage and monetize your data! 💰
 

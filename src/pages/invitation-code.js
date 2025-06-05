@@ -58,7 +58,7 @@ export default function InvitationCode() {
         if (userInfo.bindedCode === true && isSuccess !== true) {
             router.push('/home');
         }
-    }, [userInfo, router]);
+    }, [userInfo, isSuccess, router]);
 
     useEffect(() => {
         const params = decodeStartParams();
