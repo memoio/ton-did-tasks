@@ -88,7 +88,7 @@ export default function Earnings() {
 
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke text-black dark:text-white p-4 rounded-lg flex flex-col gap-2">
                     <h2 className="text-lg font-bold">Referral Link</h2>
-                    <p className="bg-[#1D1F1D]/8 p-4 rounded-md dark:bg-[#1D1F1D]">{
+                    <p className="bg-[#1D1F1D]/8 p-4 rounded-md dark:bg-[#1D1F1D] break-words overflow-wrap-break-word whitespace-normal">{
                         currentUrl
                     }</p>
                     <div className="flex gap-2 items-center justify-center mt-1">
