@@ -50,7 +50,6 @@ export async function bindUserWallet(address) {
     if (response.data.result === -1) {
         throw new Error(`API return error: ${response.data.error}`);
     }
-    console.log("bind address success")
 }
 
 export async function bindUserActivity(address, activity) {
@@ -65,8 +64,6 @@ export async function bindUserActivity(address, activity) {
     if (response.status !== 200) {
         throw new Error(`API request failed with status ${response.status}: ${response.data}`);
     }
-
-    console.log("bind activity success")
 }
 
 export async function bindUserChannel(address, channel) {
@@ -81,8 +78,6 @@ export async function bindUserChannel(address, channel) {
     if (response.status !== 200) {
         throw new Error(`API request failed with status ${response.status}: ${response.data}`);
     }
-
-    console.log("bind channel success")
 }
 
 export async function rank(address, type) {

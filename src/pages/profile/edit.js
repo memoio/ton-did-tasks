@@ -8,8 +8,8 @@ export default function ProfileEdit() {
 
     return (
         <>
-            <div className="px-8 py-4">
-                <SubHeader title={"Edit"} />
+            <SubHeader title={"Edit"} />
+            <div className="px-8 pt-18">
 
                 <div className="flex flex-col gap-4 mt-6">
                     <div className="bg-dao-green p-4 rounded-xl flex flex-col gap-2 items-center justify-center mb-4">

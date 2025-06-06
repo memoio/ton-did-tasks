@@ -147,8 +147,8 @@ export default function AddAddress() {
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Add Failed"} text={failedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
             {isNotSupport && <AlertCard image={"/Frame 34643-x.svg"} title={`Not Support`} text={`${page} is not support, we only support:Binance, OKX, Gate.io`} size={87} closeFunc={closeAndReturnFunc} btn={"Back"} />}
 
-            <div className="px-4 pt-8 flex flex-col gap-4 pb-28">
-                <SubHeader title={"Add Address"} />
+            <SubHeader title={"Add Address"} />
+            <div className="px-4 pt-18 flex flex-col gap-4 pb-28">
 
                 <div className="bg-dao-green rounded-lg p-4 relative flex justify-between items-center text-white dark:text-light-gray dark:bg-sec-bg">
                     <div className="absolute inset-0 bg-black/20"></div>

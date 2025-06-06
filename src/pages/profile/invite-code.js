@@ -54,8 +54,8 @@ export default function InviteCode() {
             {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"+500 Points"} text={"Invitation code binding successful"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Failed"} text={failedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
 
-            <div className="px-8 py-4 flex flex-col gap-4 pb-28">
-                <SubHeader title={"Invite Code"} />
+            <SubHeader title={"Invite Code"} />
+            <div className="px-8 pt-18 flex flex-col gap-4">
 
                 <div className="flex flex-col gap-4 mt-6">
                     <label htmlFor="code" className="text-black text-lg dark:text-white">Enter your invite Code</label>

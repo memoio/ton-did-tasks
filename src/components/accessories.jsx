@@ -9,22 +9,10 @@ export function SubHeader({ title }) {
     const router = useRouter()
 
     return (
-        <nav className="flex justify-between gap-10">
+        <nav className="fixed top-0 left-0 right-0 bg-white dark:bg-black z-50 px-4 py-4 flex justify-between gap-10 border-b border-gray-200 dark:border-gray-800">
             <button onClick={() => router.back()} className=""><Image src={"/arrow-Vector.svg"} className="w-4" width={14} height={19} alt="" /></button>
             <h1 className="text-xl font-semibold text-black text-center dark:text-white">{title}</h1>
             <button className="invisible"><Image src={"/arrow-Vector.svg"} width={14} height={19} alt="" /></button>
-        </nav>
-    )
-}
-
-export function SubHeaderTri({ title }) {
-    const router = useRouter()
-
-    return (
-        <nav className="flex justify-between gap-10 items-center">
-            <button onClick={() => router.back()} className=""><Image src={"/vector-bb.svg"} className="w-8" width={24} height={24} alt="" /></button>
-            <h1 className="text-xl font-semibold text-black text-center dark:text-white">{title}</h1>
-            {/* <button className=""><Image src={"/mage_electricity-fill-bb.svg"} className="w-7" width={24} height={24} alt="" /></button> */}
         </nav>
     )
 }

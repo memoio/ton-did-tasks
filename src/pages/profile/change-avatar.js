@@ -78,8 +78,8 @@ export default function InviteCode() {
             {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"Set Avatar Success"} text={"Set user avatar successful"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Set Avatar Failed"} text={failedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
 
-            <div className="px-8 py-4 flex flex-col gap-4 pb-28">
-                <SubHeader title={"Change Avatar"} />
+            <SubHeader title={"Change Avatar"} />
+            <div className="px-8 pt-18 flex flex-col gap-4 pb-28">
 
                 <div className="flex flex-col gap-4 mt-6">
                     <label for="file" className="text-black text-lg dark:text-white">Choose from my gallery</label>

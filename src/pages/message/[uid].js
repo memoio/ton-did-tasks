@@ -44,8 +44,8 @@ export default function MessageUID() {
 
     return (
         <>
-            <div className="px-8 py-4 flex flex-col gap-4">
-                <SubHeader title={"Message"} />
+            <SubHeader title={"Message"} />
+            <div className="px-8 pt-18 flex flex-col gap-4">
 
                 <div className="flex flex-col gap-4">
                     <MessageList image={"/messenger.png"} title={currentMessage.title} message={currentMessage.message} timestamp={timestampToLocaleTime(currentMessage.create_at)} isClamp={false} />

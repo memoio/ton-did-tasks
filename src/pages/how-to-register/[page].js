@@ -8,8 +8,8 @@ export default function HowToRegister() {
 
     return (
         <>
-            <div className="px-4 pt-8 flex flex-col gap-4 pb-28">
-                <SubHeader title={"TGE Launchpad Quick Guide"} />
+            <SubHeader title={"TGE Launchpad Quick Guide"} />
+            <div className="px-4 pt-18 flex flex-col gap-4 pb-28">
 
                 <div className="text-dao-gray dark:text-white">
                     <div className="flex items-center gap-4"><p className="min-w-8 max-w-8 size-8 font-semibold bg-dao-yellow/15 text-dao-yellow rounded-full flex items-center justify-center">1</p> Log in to the MEMO TGE Launchpad</div>

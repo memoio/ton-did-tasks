@@ -26,11 +26,11 @@ export default function ConnectWallet() {
 
                         <section className="p-8 flex flex-col gap-12">
                             <h1 className="text-white nunito text-3xl font-normal uppercase text-center">Connect<br /><span className="text-dao-green">Your Wallet</span></h1>
-                            <p className="text-center inter text-xs px-12">Connect Your Ton Wallet To Create Your Unique MEMO Identity</p>
+                            <p className="text-center inter text-xs px-12 dark:text-white">Connect Your Ton Wallet To Create Your Unique MEMO Identity</p>
 
                             <div className="relative mx-auto">
                                 <TonConnectButton className="absolute h-full w-full mx-auto inset-0 opacity-0" />
-                                <button className="border-y-2 border-solid border-dao-green rounded-full px-12 py-3 mx-auto">Connect Wallet</button>
+                                <button className="border-y-2 border-solid border-dao-green rounded-full px-12 py-3 mx-auto dark:text-white">Connect Wallet</button>
                             </div>
                         </section>
 

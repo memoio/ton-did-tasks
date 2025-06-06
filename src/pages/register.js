@@ -39,9 +39,8 @@ export default function Register() {
     return (
         <>
             {isVisible && <AlertCard image={"/Clip path group-check.svg"} title={"Add Successful"} size={87} closeFunc={closeFunc} />}
-
-            <div className="flex flex-col gap-4 px-4 pt-8 pb-32 text-dark-bg dark:text-white">
-                <SubHeader title={"Register"} />
+            <SubHeader title={"Register"} />
+            <div className="flex flex-col gap-4 px-4 pt-18 pb-32 text-dark-bg dark:text-white">
                 <div className="flex gap-4 items-start">
                     <Image src={"/Vector 1-logo.svg"} width={33} height={27} alt="" />
                     <p className="text-sm">Unlock $30,050 in exclusive rewards and get invited to participate in special events!</p>

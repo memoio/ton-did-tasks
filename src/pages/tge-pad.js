@@ -8,8 +8,8 @@ export default function TGEPad() {
 
     return (
         <>
-            <div className="flex flex-col gap-4 pb-32 gap-4 px-4 pt-8 pb-32">
-                <SubHeader title={"Airdrop Wallets"} />
+            <SubHeader title={"Airdrop Wallets"} />
+            <div className="flex flex-col gap-4 px-4 pt-18 pb-32">
                 <p className="text-sm px-8 text-center text-dao-gray dark:text-light-gray">Secure your exchange addresses for TGE participation</p>
 
                 <Image src={"/Frame 34619-xx.png"} className="bg-dao-green rounded" width={420} height={117} alt="" />

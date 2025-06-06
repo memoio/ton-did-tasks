@@ -18,8 +18,8 @@ export default function InvitationDetailsPage() {
     const { message } = useTGE();
     return (
         <>
-            <div className="px-8 py-4 flex flex-col gap-4">
-                <SubHeader title={"Message"} />
+            <SubHeader title={"Message"} />
+            <div className="px-8 py-4 flex flex-col gap-4 pt-16">
 
                 <div className="flex flex-col gap-4">
                     {message.map((item, key) => {

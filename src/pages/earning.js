@@ -19,7 +19,7 @@ export default function Earnings() {
     const [isVisible, setIsVisible] = useState(false)
     const [isFailed, setIsFailed] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
-    const [isCheckedIn, setIsCheckedIn] = useState(false)
+    const [isNoticed, setIsNoticed] = useState(false)
 
     const [points, setPoints] = useState(0)
     const [text, setText] = useState(null)
@@ -52,16 +52,11 @@ export default function Earnings() {
 `
 
     const closeFunc = () => {
-        if (isVisible || isFailed || isSuccess || isCheckedIn) {
+        if (isVisible || isFailed || isSuccess || isNoticed) {
             setIsVisible(false)
             setIsFailed(false)
             setIsSuccess(false)
-            setIsCheckedIn(false)
-        } else {
-            setIsVisible(true)
-            setIsFailed(true)
-            setIsSuccess(true)
-            setIsCheckedIn(true)
+            setIsNoticed(false)
         }
     }
 
@@ -214,7 +209,7 @@ export default function Earnings() {
     return (
         <>
             {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"Success"} text={"After your friend binds the invitation code & creates a DID, you will receive points as rewards!"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
-            {/* {isCheckedIn && <AlertCard image={"/Frame 34643-celeb.svg"} title={"+10 Points"} text={"Daily check success"} size={87} closeFunc={closeFunc} btn={"Back Tomorrow"} />} */}
+            {isNoticed && <AlertCard image={"/notice.svg"} title={"Notice"} text={"The game will be released later, please stay tuned"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
             {isVisible && <AlertCard image={"/Frame 34643-celeb.svg"} title={`+${points} Points`} text={text} size={87} closeFunc={closeFunc} btn={"Ok"} />}
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={'Failed'} text={isFailedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
 
@@ -253,8 +248,7 @@ export default function Earnings() {
                     <div className="w-3/4">
                         <h2 className="font-semibold text-xl">Play to Earn</h2>
                         <p className="">Earn Points with Every Tap!</p>
-                        <button onClick={() => { setIsFailedText("The game will be released later, please stay tuned"); setIsFailed(true); }}><Image src={"basil_arrow-up-solid-green-bg.svg"} width={32} height={32} alt="" /></button>
-                        {/* <Link href={"/play-game"} className=""><Image src={"basil_arrow-up-solid-green-bg.svg"} width={32} height={32} alt="" /></Link> */}
+                        <button onClick={() => { setIsNoticed(true); }}><Image src={"basil_arrow-up-solid-green-bg.svg"} width={32} height={32} alt="" /></button>
                     </div>
                     <Image src={"/openmoji_double-tap.svg"} width={56} height={56} alt="" />
                 </div>
