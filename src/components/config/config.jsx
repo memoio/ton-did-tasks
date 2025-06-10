@@ -48,6 +48,9 @@ export const API_URL_V2 = {
     "AIRDROP_USER_PROFILE_V2": AIRDROP_BACKEND_URL + "/v2/user/info",
 
     "AIRDROP_MESSAGE": AIRDROP_BACKEND_URL + "/v2/activity/message/list",
+
+    "AIRDROP_BIND_ROAM": AIRDROP_BACKEND_URL + "/v2/user/roam/address",
+    "AIRDROP_ROAM_INFO": AIRDROP_BACKEND_URL + "/v2/user/roam",
 }
 
 export const API_URL = API_URL_V2;

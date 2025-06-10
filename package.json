@@ -1,6 +1,6 @@
 {
-  "name": "modao",
-  "version": "0.1.0",
+  "name": "data-did-v2",
+  "version": "2.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.2.4",
+    "@solana/web3.js": "^1.98.2",
     "@tanstack/react-query": "^5.74.4",
     "@tonconnect/ui-react": "^2.1.0",
     "axios": "^1.9.0",

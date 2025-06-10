@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useRef, useState } from "react"
-import { BasilArrowUp } from "./icons"
+import { BasilArrowUp, TelegramLogoIcon } from "./icons"
 
 export function AlertCard({ image, title, text, size, closeFunc, btn }) {
     return (
@@ -165,7 +165,96 @@ export function DailyTask({ icon, text, link, point, updateFunc, checked, todo, 
     )
 }
 
+export function BindCard({ title, closeFunc, confirmFunc }) {
+    const [solana, setSolana] = useState("");
 
+    const handleChange = (e) => {
+        setSolana(e.target.value);
+    }
+
+    return (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-end justify-center text-black dark:text-white">
+            <button onClick={closeFunc} className="fixed inset-0 z-0"></button>
+            <div className="w-full relative z-10 bg-white dark:bg-sec-bg px-4 py-4 rounded-2xl border border-solid dark:border-dark-stroke flex flex-col items-center text-center pb-8" style={{
+                borderRadius: "12px 12px 0 0",
+                boxShadow: "0 -4px 12px rgba(0, 0, 0, 0.1)",
+                marginBottom: "env(safe-area-inset-bottom)"
+            }}>
+
+                <div className="flex flex-col gap-2 text-center items-center">
+                    <h3 className="font-bold text-2xl">{title}</h3>
+                </div>
+
+                <div className="flex flex-col gap-4 mt-6">
+                    <label for="roamSolana" className="text-black text-lg dark:text-white">Enter your roam solana Address</label>
+                    <input onChange={handleChange} id="roamSolana" type="text" className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke dark:text-white placeholder:text-dao-gray dark:placeholder:text-white px-4 py-2 rounded-[10px]" placeholder="Enter" />
+                    <button onClick={() => { confirmFunc(solana) }} className="mt-4 min-w-full px-8 py-2 rounded-full bg-transparent border-y-2 border-solid border-dao-green">Confirm</button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export function RoamCard({ icon, text, address, binded, confirmFunc }) {
+    const [showModal, setShowModal] = useState(false);
+    const [isCopied, setIsCopied] = useState(false);
+
+    const handleBindClick = () => {
+        if (!binded) {
+            setShowModal(true);
+        }
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
+    const handleConfirm = async (solana) => {
+        await confirmFunc(solana);
+        setShowModal(false);
+    };
+
+    const copyToClipboard = (text) => {
+        if (navigator?.clipboard?.writeText) {
+            navigator.clipboard.writeText(text)
+                .then(() => setIsCopied(true))
+                .then(() => setTimeout(() => setIsCopied(false), 1500))
+        } else {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 1500);
+        }
+    };
+
+    return (
+        <>
+            {showModal && <BindCard title="Bind Roam" confirmFunc={handleConfirm} closeFunc={closeModal} />}
+            <div className="flex justify-between gap-4 max-w-full">
+                <div className="flex gap-2 w-full items-center">
+                    <div className="border border-solid border-white dark:border-fill-bright/19 rounded h-fit">{icon}</div>
+                    <div className="flex justify-between gap-4 w-full">
+                        <p className="text-dao-gray line-clamp-1 dark:text-light-gray">{text}</p>
+                        {
+                            binded ?
+                                <div className="flex items-center gap-2 -mt-2">
+                                    <p className="text-dao-gray line-clamp-1 dark:text-light-gray">{`${address.slice(0, 4)}...${address.slice(address.length - 4)}`}</p>
+                                    <button onClick={() => copyToClipboard(address)} className="min-w-6 max-w-6 flex justify-end"><Image src={isCopied ? "/check.svg" : "/icons_copy.svg"} width={28} height={28} alt="" /></button>
+                                </div>
+                                : <button disabled={binded} onClick={handleBindClick} className={`${binded ? "button_done text-white" : "button_primary text-dao-green"} h-fit rounded-full min-w-16 text-sm`}>{binded ? "Binded" : "Bind"}</button>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </>
+    )
+}
 
 export function ReferralCard({ icon, text, points }) {
     return (
@@ -192,89 +281,6 @@ export function LinkProfileCard({ name, status, handleFunc }) {
         </div>
     )
 }
-
-export function Pagination({ currentPage, totalPages, onPageChange }) {
-    const renderPageNumbers = () => {
-        const pageNumbers = [];
-        const maxVisiblePages = 2;
-
-        let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-        if (endPage - startPage + 1 < maxVisiblePages) {
-            startPage = Math.max(1, endPage - maxVisiblePages + 1);
-        }
-
-        if (startPage > 1) {
-            pageNumbers.push(
-                <button
-                    key={1}
-                    onClick={() => onPageChange(1)}
-                    className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-[#05F292] text-black dark:bg-white' : 'bg-[#05F29220]'
-                        }`}
-                >
-                    1
-                </button>
-            );
-            if (startPage > 2) {
-                pageNumbers.push(<span className="page-link">...</span>);
-            }
-        }
-
-        for (let page = startPage; page <= endPage; page++) {
-            pageNumbers.push(
-                <button
-                    key={page}
-                    onClick={() => onPageChange(page)}
-                    className={`px-4 py-2 rounded-md ${currentPage === page ? 'bg-[#05F292] text-black' : 'bg-[#05F29220] dark:bg-white'
-                        }`}
-                >
-                    {page}
-                </button>
-            );
-        }
-
-        if (endPage < totalPages) {
-            if (endPage < totalPages - 1) {
-                pageNumbers.push(<span>...</span>);
-            }
-            pageNumbers.push(
-                <button
-                    key={totalPages}
-                    onClick={() => onPageChange(totalPages)}
-                    className={`px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-[#05F292] text-black' : 'bg-[#05F29220]'
-                        }`}
-                >
-                    {totalPages}
-                </button>
-            );
-        }
-
-        return pageNumbers;
-    };
-
-    return (
-        <div className="flex justify-center mt-6 gap-2">
-            <button
-                onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
-                disabled={currentPage === 1}
-                className="px-4 py-2 rounded-md bg-[#05F29220] disabled:opacity-50 dark:bg-white"
-            >
-                Prev
-            </button>
-
-            {renderPageNumbers()}
-
-            <button
-                onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                className="px-4 py-2 rounded-md bg-[#05F29220] disabled:opacity-50 dark:bg-white"
-            >
-                Next
-            </button>
-        </div>
-    );
-};
 
 export function LeaderboardCard({ icon, name, point, count }) {
     return (

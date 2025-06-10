@@ -1,14 +1,23 @@
 'use client';
 import { createContext, useContext, useState, useEffect } from 'react';
-import { getMessage, getEXInfo } from '@/components/api/profile';
+import { getMessage, getEXInfo, getRoamInfo } from '@/components/api/profile';
 import { useDIDInfo } from './DIDContext';
+import { useAuth } from './AuthContext';
+import { useParams } from './ParamContext';
 
 export const TGEContext = createContext(null);
 
 export const TGEProvider = ({ children }) => {
+    const { params } = useParams();
+    const { address } = useAuth();
     const { didInfo } = useDIDInfo();
     const [initialed, setInitialed] = useState(false);
+    const [roamInitialed, setRoamInitialed] = useState(false);
 
+    const [roamInfo, setRoamInfo] = useState({
+        solana: "",
+        binded: false,
+    })
     const [message, setMessage] = useState([])
     const [TGEInfo, setTGEInfo] = useState({
         binance: {
@@ -31,8 +40,13 @@ export const TGEProvider = ({ children }) => {
     });
 
     const clear = () => {
-        setMessage([]);
+        setRoamInitialed(false);
         setInitialed(false);
+
+        setRoamInfo({
+            solana: "",
+            binded: false,
+        })
 
         setTGEInfo({
             binance: {
@@ -53,6 +67,20 @@ export const TGEProvider = ({ children }) => {
                 bind: false,
             },
         });
+    }
+
+    const handleRoamInfo = async () => {
+        if (params && params.channel === "roam") {
+            try {
+                const info = await getRoamInfo(address);
+                setRoamInfo({
+                    solana: info.solana_address,
+                    binded: true,
+                })
+            } catch (err) {
+                console.log(err)
+            }
+        }
     }
 
     const handleMessage = async () => {
@@ -106,12 +134,26 @@ export const TGEProvider = ({ children }) => {
         });
     }
 
+    const setRoam = (solanaAddress) => {
+        setRoamInfo({
+            solana: solanaAddress,
+            binded: true,
+        })
+    }
+
     useEffect(() => {
         if (didInfo.exist && !initialed) {
             setInitialed(true);
             handleTGE();
         }
     }, [didInfo, initialed])
+
+    useEffect(() => {
+        if (address && address !== "" && !roamInitialed) {
+            setRoamInitialed(true);
+            handleRoamInfo();
+        }
+    }, [address, roamInitialed])
 
     useEffect(() => {
         handleMessage();
@@ -121,7 +163,9 @@ export const TGEProvider = ({ children }) => {
         <TGEContext.Provider value={{
             message,
             TGEInfo,
+            roamInfo,
             addTGEInfo,
+            setRoam,
             clear
         }}>
             {children}
