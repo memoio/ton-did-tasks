@@ -13,12 +13,14 @@ import { useParams } from "@/context/ParamContext";
 import { TelegramLogoIconBW } from "@/components/icons";
 import { useTGE } from "@/context/TGEContext";
 import { PublicKey } from "@solana/web3.js"
+import { bindRoamInfo } from "@/components/api/profile"
 
 export default function Home() {
     const [isVisible, setIsVisible] = useState(false)
     const [isFailed, setIsFailed] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
     const [invalid, setInvalid] = useState(false)
+    const [successText, setSuccessText] = useState("")
     const [failedText, setFailedText] = useState("")
     const [isCopied, setIsCopied] = useState(false)
 
@@ -82,26 +84,13 @@ export default function Home() {
     const bindRoamSolanaAddress = async (solanaAddress) => {
         if (isValidSolanaAddress(solanaAddress)) {
             try {
-                await bindRoamSolanaAddress(address, solanaAddress);
+                await bindRoamInfo(address, solanaAddress);
                 setRoam(solanaAddress);
+                setSuccessText("Bind Roam Solana Address Success")
+                setIsSuccess(true);
             } catch (err) {
                 console.log(err);
-                setFailedText("");
-                setIsFailed(true);
-            }
-        } else {
-            setInvalid(true);
-        }
-    }
-
-    const bindRoamSolanaAddressTX = async (solanaAddress) => {
-        if (isValidSolanaAddress(solanaAddress)) {
-            try {
-                // await bindRoamSolanaAddress(address, solanaAddress);
-                setRoam(solanaAddress);
-            } catch (err) {
-                console.log(err);
-                setFailedText("");
+                setFailedText(err.message);
                 setIsFailed(true);
             }
         } else {
@@ -114,9 +103,8 @@ export default function Home() {
 
         try {
             await createDIDTon(rawAddress, address);
-            console.log("create did success!");
-
             setIsVisible(false);
+            setSuccessText("DID was successfully created, go do the tasks and earn rewards!")
             setIsSuccess(true);
 
             finishAction(1);
@@ -131,7 +119,7 @@ export default function Home() {
         <>
             {isVisible && <AlertCard image={"/Frame 34643-hg.png"} title={"Waiting..."} text={"DID is being created, please wait patiently!"} size={87} closeFunc={closeFunc} />}
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={"Failed"} text={failedText} size={87} closeFunc={closeFunc} btn={"Try Again"} />}
-            {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"Success"} text={"DID was successfully created, go do the tasks and earn rewards!"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
+            {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"Success"} text={successText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
             {invalid && <AlertCard image={"/Frame 34643-x.svg"} title={"Failed"} text={"Invaliad roam address, Please input solana address"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
 
             <div className="flex flex-col gap-4 px-4 pt-8 pb-32">
@@ -159,12 +147,12 @@ export default function Home() {
                                 </div>
                             </div>
                             : <>
-                                {/* <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px]">
+                                <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px]">
                                     <h2 className="font-semibold text-lg text-black dark:text-white">Roam Info</h2>
                                     <div className="flex flex-col gap-4 mt-4">
-                                        <RoamCard icon={<TelegramLogoIconBW />} text={"Solana Address"} address={roamInfo.solana} binded={roamInfo.binded} confirmFunc={bindRoamSolanaAddressTX} />
+                                        <RoamCard icon={<TelegramLogoIconBW />} text={"Solana Address"} address={roamInfo.solana} binded={roamInfo.binded} confirmFunc={bindRoamSolanaAddress} />
                                     </div>
-                                </div> */}
+                                </div>
                             </>
                         }
                     </>
