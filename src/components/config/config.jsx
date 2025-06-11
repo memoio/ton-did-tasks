@@ -1,4 +1,5 @@
 export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be.metamemo.one"
+export const LOCAL_AIRDROP_BACKEND_URL = "http://localhost:8080"
 
 export const TON_DID_WEB = "https://t.me/tondid_bot/datadid"
 export const TON_DID_WEB_RAW = "https://datadid-ton-v2.memolabs.net"
@@ -48,6 +49,8 @@ export const API_URL_V2 = {
     "AIRDROP_USER_PROFILE_V2": AIRDROP_BACKEND_URL + "/v2/user/info",
 
     "AIRDROP_MESSAGE": AIRDROP_BACKEND_URL + "/v2/activity/message/list",
+
+    "BLINDBOX_GIFTS": AIRDROP_BACKEND_URL + "/v2/blindbox/gifts",
 }
 
 export const API_URL = API_URL_V2;
