@@ -9,7 +9,7 @@ import { useState } from "react";
 // import { useAccount } from "wagmi";
 import { createDIDTon } from "@/components/api/did";
 import { useAction } from "@/context/ActionContext";
-// import { useParams } from "@/context/ParamContext";
+import { useParams } from "@/context/ParamContext";
 import { TelegramLogoIconBW } from "@/components/icons";
 import { useTGE } from "@/context/TGEContext";
 import { PublicKey } from "@solana/web3.js"
@@ -27,7 +27,7 @@ export default function Home() {
     // const { address } = useAccount();
     const { didInfo } = useDIDInfo();
     const { address, rawAddress, userProfile } = useAuth();
-    // const { params } = useParams();
+    const { params } = useParams();
     const { roamInfo, setRoam } = useTGE();
     const { finishAction } = useAction();
 

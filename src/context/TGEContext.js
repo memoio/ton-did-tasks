@@ -3,12 +3,12 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { getMessage, getEXInfo, getRoamInfo } from '@/components/api/profile';
 import { useDIDInfo } from './DIDContext';
 import { useAuth } from './AuthContext';
-// import { useParams } from './ParamContext';
+import { useParams } from './ParamContext';
 
 export const TGEContext = createContext(null);
 
 export const TGEProvider = ({ children }) => {
-    // const { params } = useParams();
+    const { params } = useParams();
     const { address } = useAuth();
     const { didInfo } = useDIDInfo();
     const [initialed, setInitialed] = useState(false);
