@@ -54,7 +54,7 @@ export async function bindUserWallet(address) {
 
 export async function bindUserActivity(address, activity) {
     const response = await axios.post(
-        API_URL_V1.BACKEND_ACTIVITY_BIND_ACTIVITY,
+        API_URL.ACTIVITY_BIND_ACTIVITY,
         {
             address: address,
             activity: activity,
@@ -68,7 +68,7 @@ export async function bindUserActivity(address, activity) {
 
 export async function bindUserChannel(address, channel) {
     const response = await axios.post(
-        API_URL_V1.BACKEND_ACTIVITY_BIND_CHANNEL,
+        API_URL.ACTIVITY_BIND_CHANNEL,
         {
             address: address,
             channel: channel,
@@ -78,6 +78,24 @@ export async function bindUserChannel(address, channel) {
     if (response.status !== 200) {
         throw new Error(`API request failed with status ${response.status}: ${response.data}`);
     }
+}
+
+export async function getUserChannel(address) {
+    const response = await axios.get(API_URL.ACTIVITY_GET_ACTIVITY, {
+        params: {
+            "address": address,
+        },
+    });
+
+    if (response.status !== 200) {
+        throw new Error(`API request failed with status ${response.status}: ${response.data}`);
+    }
+
+    if (response.data.result === -1) {
+        throw new Error(`API return error: ${response.data.error}`);
+    }
+
+    return response.data.data;
 }
 
 export async function rank(address, type) {

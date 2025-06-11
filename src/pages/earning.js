@@ -32,7 +32,7 @@ export default function Earnings() {
 
     // const router = useRouter();
 
-    const currentUrl = params.channel && params.channel !== "" ? `${TON_DID_WEB}?startapp=${base64UrlEncode(`code=${userInfo?.inviteCode}&channel=${params.channel}`)}` : `${TON_DID_WEB}?startapp=${base64UrlEncode(`code=${userInfo?.inviteCode}`)}`;
+    const currentUrl = params.channel && params.channel !== "" && params.channel !== "memo" ? `${TON_DID_WEB}?startapp=${base64UrlEncode(`code=${userInfo?.inviteCode}&channel=${params.channel}`)}` : `${TON_DID_WEB}?startapp=${base64UrlEncode(`code=${userInfo?.inviteCode}`)}`;
     const tweetText = `📈I found a platform that can own, manage and monetize your data @MemoLabsOrg!
 
 🚀Currently all users can participate, and you can easily get points rewards by completing tasks, and you can also redeem more value!

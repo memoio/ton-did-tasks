@@ -86,6 +86,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const setBindWallet = () => {
+        console.log(walletAddress, address);
         if (walletAddress && walletAddress !== "" && address !== walletAddress && !isBinding.current) {
             isBinding.current = true;
             const bindWallet = async () => {

@@ -9,7 +9,7 @@ import { useState } from "react";
 // import { useAccount } from "wagmi";
 import { createDIDTon } from "@/components/api/did";
 import { useAction } from "@/context/ActionContext";
-import { useParams } from "@/context/ParamContext";
+// import { useParams } from "@/context/ParamContext";
 import { TelegramLogoIconBW } from "@/components/icons";
 import { useTGE } from "@/context/TGEContext";
 import { PublicKey } from "@solana/web3.js"
@@ -27,7 +27,7 @@ export default function Home() {
     // const { address } = useAccount();
     const { didInfo } = useDIDInfo();
     const { address, rawAddress, userProfile } = useAuth();
-    const { params } = useParams();
+    // const { params } = useParams();
     const { roamInfo, setRoam } = useTGE();
     const { finishAction } = useAction();
 
@@ -146,13 +146,8 @@ export default function Home() {
                                     <RoamCard icon={<TelegramLogoIconBW />} text={"Solana Address"} address={roamInfo.solana} binded={roamInfo.binded} confirmFunc={bindRoamSolanaAddress} />
                                 </div>
                             </div>
-                            : <>
-                                {/* <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px]">
-                                    <h2 className="font-semibold text-lg text-black dark:text-white">Roam Info</h2>
-                                    <div className="flex flex-col gap-4 mt-4">
-                                        <RoamCard icon={<TelegramLogoIconBW />} text={"Solana Address"} address={roamInfo.solana} binded={roamInfo.binded} confirmFunc={bindRoamSolanaAddress} />
-                                    </div>
-                                </div> */}
+                            :
+                            <>
                             </>
                         }
                     </>

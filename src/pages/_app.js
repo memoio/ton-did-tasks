@@ -29,8 +29,8 @@ export default function App({ Component, pageProps }) {
 
     return (
         <TonConnectUIProvider manifestUrl={manifestUrl}>
-            <ParamsProvider>
-                <AuthProvider>
+            <AuthProvider>
+                <ParamsProvider>
                     <DIDProvider>
                         <ActionProvider>
                             <RankProvider>
@@ -41,8 +41,8 @@ export default function App({ Component, pageProps }) {
                             </RankProvider>
                         </ActionProvider>
                     </DIDProvider>
-                </AuthProvider>
-            </ParamsProvider>
+                </ParamsProvider>
+            </AuthProvider>
         </TonConnectUIProvider>
     )
 }

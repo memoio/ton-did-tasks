@@ -17,8 +17,8 @@ export const API_URL_V1 = {
     "AIRDROP_CREATE_TON_DID": AIRDROP_BACKEND_URL + "/did/createtondid",
     "AIRDROP_DID_INFO": AIRDROP_BACKEND_URL + "/did/info",
 
-    "BACKEND_ACTIVITY_BIND_CHANNEL": AIRDROP_BACKEND_URL + "/activity/bind/channel",
-    "BACKEND_ACTIVITY_BIND_ACTIVITY": AIRDROP_BACKEND_URL + "/activity/bind/activity",
+    "ACTIVITY_BIND_CHANNEL": AIRDROP_BACKEND_URL + "/activity/bind/channel",
+    "ACTIVITY_BIND_ACTIVITY": AIRDROP_BACKEND_URL + "/activity/bind/activity",
 }
 
 export const API_URL_V2 = {
@@ -51,6 +51,10 @@ export const API_URL_V2 = {
 
     "AIRDROP_BIND_ROAM": AIRDROP_BACKEND_URL + "/v2/user/roam/address",
     "AIRDROP_ROAM_INFO": AIRDROP_BACKEND_URL + "/v2/user/roam",
+
+    "ACTIVITY_BIND_CHANNEL": AIRDROP_BACKEND_URL + "/v2/activity/bind/channel",
+    "ACTIVITY_BIND_ACTIVITY": AIRDROP_BACKEND_URL + "/v2/activity/bind/activity",
+    "ACTIVITY_GET_ACTIVITY": AIRDROP_BACKEND_URL + "/v2/activity/channel"
 }
 
 export const API_URL = API_URL_V2;

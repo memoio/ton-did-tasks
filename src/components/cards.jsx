@@ -242,9 +242,9 @@ export function RoamCard({ icon, text, address, binded, confirmFunc }) {
                         <p className="text-dao-gray line-clamp-1 dark:text-light-gray">{text}</p>
                         {
                             binded ?
-                                <div className="flex items-center gap-2 -mt-2">
+                                <div className="flex items-center gap-2">
                                     <p className="text-dao-gray line-clamp-1 dark:text-light-gray">{`${address.slice(0, 4)}...${address.slice(address.length - 4)}`}</p>
-                                    <button onClick={() => copyToClipboard(address)} className="min-w-6 max-w-6 flex justify-end"><Image src={isCopied ? "/check.svg" : "/icons_copy.svg"} width={28} height={28} alt="" /></button>
+                                    <button onClick={() => copyToClipboard(address)} className="min-w-6 max-w-6 flex justify-end"><Image src={isCopied ? "/check.svg" : "/icons_copy.svg"} width={20} height={20} alt="" /></button>
                                 </div>
                                 : <button disabled={binded} onClick={handleBindClick} className={`${binded ? "button_done text-white" : "button_primary text-dao-green"} h-fit rounded-full min-w-16 text-sm`}>{binded ? "Binded" : "Bind"}</button>
                         }
@@ -275,7 +275,7 @@ export function LinkProfileCard({ name, status, handleFunc }) {
         <div className="border-2 border-solid border-white bg-white/24 h-10 px-1.5 rounded-md flex items-center gap-4 text-white">
             <p className="text-xs">{name}</p>
             {status ?
-                <Image src={"/aaFrame.svg"} width={16} height={16} /> :
+                <Image src={"/aaFrame.svg"} width={16} height={16} alt="" /> :
                 <button onClick={handleFunc} className="bg-dao-yellow px-2 py-1 text-sm border-2 border-solid border-white rounded text-[10px]">+ Add</button>
             }
         </div>
