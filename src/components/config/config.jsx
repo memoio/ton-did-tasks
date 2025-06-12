@@ -28,6 +28,8 @@ export const API_URL_V2 = {
     "AIRDROP_LINK_X_ACCOUNT_BY_TWEET": AIRDROP_BACKEND_URL + "/v2/link/x/link/tweet",
     "AIRDROP_LINK_TELEGRAM_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/telegram/link",
     "AIRDROP_LINK_DISCORD_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/discord/link",
+    "AIRDROP_EMAIL_CODE": AIRDROP_BACKEND_URL + "/v2/link/email/code",
+    "AIRDROP_LINK_EMAIL": AIRDROP_BACKEND_URL + "/v2/link/email/link",
 
     "AIRDROP_USER_WALLET_BIND": AIRDROP_BACKEND_URL + "/v2/data/bind",
     "AIRDROP_USER_INFO": AIRDROP_BACKEND_URL + "/v2/data/info",
@@ -64,7 +66,7 @@ export const TWITTER_CLIENT_ID = "Y1g3SVlIN0E1cUpRM2dNaHBrYUc6MTpjaQ";
 export const TWITTER_CALLBACK_URL = "https://datadid-ton-v2.memolabs.net/callback/twitter";
 
 export const DISCORD_OAUTH_STATE = "DiscordAuthForDataDIDV2";
-export const DISCORD_CLIENT_ID = "1369582017217298483";
+export const DISCORD_CLIENT_ID = "1382293025547485349";
 export const DISCORD_CALLBACK_URL = "https://datadid-ton-v2.memolabs.net/callback/discord";
 
 export const Actions = {
