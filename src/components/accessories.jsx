@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ArrowRightGreen, CopyIcon } from "./icons";
+import { sendEmailCode, bindEmail } from "@/components/api/profile";
 
 
 export function SubHeader({ title }) {
@@ -119,4 +120,81 @@ export function DidMint({ title, text }) {
             <p className="font-semibold text-black dark:text-white">{text}</p>
         </div>
     )
+}
+
+export default function EmailBindModal({ address, onClose, onSuccess }) {
+    const [email, setEmail] = useState("");
+    const [code, setCode] = useState("");
+    const [step, setStep] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const [msg, setMsg] = useState("");
+
+    const handleSendCode = async () => {
+        if (!email) return setMsg("Please enter your email.");
+        setLoading(true);
+        try {
+            await sendEmailCode(email);
+            setStep(2);
+            setMsg("Code sent.");
+        } catch (err) {
+            setMsg(err.message || "Send failed.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleBind = async () => {
+        if (!code) return setMsg("Please enter code.");
+        setLoading(true);
+        try {
+            await bindEmail(address, email, code);
+            setMsg("Email bound!");
+            onSuccess?.();
+            onClose();
+        } catch (err) {
+            setMsg(err.message || "Bind failed.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/40">
+            <div className="bg-white dark:bg-sec-bg rounded-xl p-6 w-80 space-y-4 shadow-lg">
+                <h2 className="text-lg font-semibold text-center">Bind Email</h2>
+
+                <input
+                    type="email"
+                    placeholder="Email"
+                    disabled={step === 2}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-3 py-2 border rounded dark:bg-black border-main-blue/30 dark:border-dark-stroke"
+                />
+
+                {step === 2 && (
+                    <input
+                        type="text"
+                        placeholder="Verification Code"
+                        value={code}
+                        onChange={(e) => setCode(e.target.value)}
+                        className="w-full px-3 py-2 border rounded dark:bg-black border-main-blue/30 dark:border-dark-stroke"
+                    />
+                )}
+
+                {msg && <p className="text-sm text-center text-dao-green">{msg}</p>}
+
+                <div className="flex gap-2">
+                    <button onClick={onClose} className="w-1/2 border py-2 rounded dark:border-dark-stroke">Cancel</button>
+                    <button
+                        onClick={step === 1 ? handleSendCode : handleBind}
+                        disabled={loading}
+                        className="w-1/2 bg-dao-green text-white py-2 rounded disabled:opacity-60"
+                    >
+                        {loading ? "..." : step === 1 ? "Send Code" : "Bind"}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
 }
