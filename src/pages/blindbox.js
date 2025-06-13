@@ -100,7 +100,7 @@ export default function BlindBox() {
     try {
       console.log("address:", address);
 
-      const response = await fetch(`${API_URL_V2.BLINDBOX_GIFTS}`, {
+      const response = await fetch(`${API_URL_V2.BLINDBOX_PLAY}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
