@@ -8,46 +8,99 @@ export default function BlindBox() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [giftInfos, setGiftInfos] = useState([]); 
+  const [pointsData, setPointsData] = useState({ 
+    points: 0,
+    todayPoints: 0,
+    pointsRank: "0"
+  }); 
+  const [hasDrawnToday, setHasDrawnToday] = useState(false);
 
   // get auth info
   const { userInfo, userProfile, address } = useAuth();
 
   // 奖品名称表
-  const items = ['🎁 普通卡A', '🎉 普通卡B', '🧧 稀有卡', '💎 史诗卡', '👑 传说卡'];
+  const items = ['🎉 普通卡', '🧧 稀有卡', '💎 史诗卡', '👑 传说卡'];
+
+  // 检查是否有今天的抽取记录
+  const checkTodayDraw = (gifts) => {
+    if (!gifts || gifts.length === 0) return false;
+    
+    const today = new Date().toISOString().split('T')[0]; // 获取今天的日期字符串 YYYY-MM-DD
+    return gifts.some(gift => {
+      const giftDate = gift.CreatedAt.split('T')[0];
+      return giftDate === today;
+    });
+  };
 
   // 获取当前地址的所有礼品索引
   const fetchGiftList = async () => {
     if (!address) return;
   
     try {
-      const response = await fetch(`http://localhost:8080/v2/blindbox/gifts?address=${address}`);
+      const response = await fetch(`${API_URL_V2.BLINDBOX_GIFTS}?address=${address}`);
       const data = await response.json();
   
       if (response.ok && data.result === 1 && Array.isArray(data.list)) {
-        setGiftInfos(data.list); // 这里直接保存 GiftInfo 列表
+        setGiftInfos(data.list); // save cards list 
+        setHasDrawnToday(checkTodayDraw(data.list));
         console.log("list:",data.list);
       } else {
         setGiftInfos([]);
+        setHasDrawnToday(false);
       }
     } catch (error) {
       console.error("获取卡片列表失败：", error);
       setGiftInfos([]);
+      setHasDrawnToday(false);
+    }
+  };
+
+  // 积分查询函数
+  const fetchPointsBalance = async () => {
+    if (!address) return;
+    
+    try {
+      const response = await fetch(`${API_URL_V2.AIRDROP_USER_INFO}?address=${address}`);
+      const data = await response.json();
+      
+      if (response.ok && data.result === 1) {
+        setPointsData({
+          points: data.data.points || 0,
+          todayPoints: data.data.todayPoints || 0,
+          pointsRank: data.data.pointsRank || "0"
+        });
+      } else {
+        setPointsData({
+          points: 0,
+          todayPoints: 0,
+          pointsRank: "0"
+        });
+      }
+    } catch (error) {
+      console.error("获取积分信息失败：", error);
+      setPointsData({
+        points: 0,
+        todayPoints: 0,
+        pointsRank: "0"
+      });
     }
   };
 
   // 页面加载后首次获取
   useEffect(() => {
     fetchGiftList();
+    fetchPointsBalance();
   }, [address]);
 
-  const handleDraw = async () => {
+  // play blindbox (free)
+  const handleDrawFree = async () => {
     setLoading(true);
     setResult(null);
 
     try {
       console.log("address:", address);
 
-      const response = await fetch("http://localhost:8080/v2/blindbox/play", {
+      const response = await fetch(`${API_URL_V2.BLINDBOX_GIFTS}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,6 +114,7 @@ export default function BlindBox() {
       if (response.ok && typeof data.index === 'number' && data.index >= 0 && data.index < items.length) {
         setResult(items[data.index]);
         fetchGiftList(); // 抽奖成功后刷新列表
+        fetchPointsBalance(); // get points
       } else {
         setResult("❌ 抽奖失败，请稍后再试");
       }
@@ -72,12 +126,47 @@ export default function BlindBox() {
     setLoading(false);
   };
 
+  // play blindbox (using points)
+  const handleDrawPoints = async () => {
+    // 这里你可以添加积分扣除逻辑
+    // 目前先调用和免费抽取相同的逻辑
+    await handleDrawFree();
+  };
+
+  // 判断是否显示"先连接钱包"
+  const isWalletConnected = !!address;
+  const buttonText = !isWalletConnected 
+    ? '先连接钱包' 
+    : loading 
+      ? '抽取中...' 
+      : hasDrawnToday 
+        ? '积分抽取' 
+        : '免费抽取';
+
   return (
     <>
+    {/* show current points */}
+    <div style={{
+        position: 'absolute',
+        top: '1rem',
+        right: '1rem',
+        padding: '0.5rem 1rem',
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        borderRadius: '20px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        fontSize: '0.9rem',
+        fontWeight: 'bold',
+        display: 'flex',
+        alignItems: 'center'
+      }}>
+        <span style={{ marginRight: '0.5rem' }}>💰</span>
+        当前积分: {pointsData.points}
+      </div>
+
       <div style={{ padding: '2rem', textAlign: 'center' }}>
         <button
-        onClick={handleDraw}
-        disabled={loading}
+        onClick={handleDrawFree}
+        disabled={loading || !isWalletConnected}
         style={{
             background: 'linear-gradient(135deg, #ff8a00, #e52e71)',
             color: 'white',
@@ -91,7 +180,7 @@ export default function BlindBox() {
             boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
         }}
         >
-        {loading ? '抽取中...' : '🎉 开始抽卡'}
+        {buttonText}
         </button>
 
         {result && <div style={{ marginTop: '1rem', fontSize: '1.5rem' }}>{result}</div>}
