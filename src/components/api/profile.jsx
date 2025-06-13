@@ -160,3 +160,49 @@ export async function getRoamInfo(address) {
 
     return response.data.data;
 }
+
+export async function sendEmailCode(email) {
+    const response = await axios.post(API_URL.AIRDROP_EMAIL_CODE,
+        {
+            "email": email,
+        },
+        {
+            headers: {
+                accept: "application/hal+json",
+                "Content-Type": "application/json",
+            },
+        }
+    )
+
+    if (response.status !== 200) {
+        throw new Error(`API request failed with status ${response.status}: ${response.data}`);
+    }
+
+    if (response.data.result === -1) {
+        throw new Error(`API return error: ${response.data.error}`);
+    }
+}
+
+export async function bindEmail(address, eamil, code) {
+    const response = await axios.post(API_URL.AIRDROP_LINK_EMAIL,
+        {
+            "address": address,
+            "email": eamil,
+            "code": code,
+        },
+        {
+            headers: {
+                accept: "application/hal+json",
+                "Content-Type": "application/json",
+            },
+        }
+    )
+
+    if (response.status !== 200) {
+        throw new Error(`API request failed with status ${response.status}: ${response.data}`);
+    }
+
+    if (response.data.result === -1) {
+        throw new Error(`API return error: ${response.data.error}`);
+    }
+}

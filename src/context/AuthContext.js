@@ -40,6 +40,9 @@ export const AuthProvider = ({ children }) => {
         discordName: "",
         linkedDiscord: false,
 
+        email: "",
+        linkedEmail: false,
+
         name: defaultName,
         avatar: defaultAvatar,
     });
@@ -63,6 +66,9 @@ export const AuthProvider = ({ children }) => {
 
             discordName: "",
             linkedDiscord: false,
+
+            email: "",
+            linkedEmail: false,
 
             name: defaultName,
             avatar: defaultAvatar,
@@ -139,6 +145,9 @@ export const AuthProvider = ({ children }) => {
 
                 telegramName: res.telegram_info.telegram_first_name,
                 linkedTG: res.telegram_info.telegram_id !== 0,
+
+                email: res.email,
+                linkedEmail: res.email !== "",
 
                 name: res.name !== "" ? res.name : (res.telegram_info.telegram_first_name !== "" ? res.telegram_info.telegram_first_name : defaultName),
                 avatar: res.icon !== "" ? res.icon : (res.telegram_info.telegram_photo !== "" ? res.telegram_info.telegram_photo : defaultAvatar)

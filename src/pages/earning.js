@@ -5,8 +5,9 @@ import Link from "next/link";
 import { recordAdd } from "@/components/api/airdrop";
 import { xOauthInfo } from "@/components/api/link";
 import { getUserProfile } from "@/components/api/profile";
+import EmailBindModal from "@/components/accessories";
 import { useState } from "react";
-import { DiscordLogoIcon, TelegramLogoIconBW, TwitterLogoIcon } from "@/components/icons";
+import { DiscordLogoIcon, TelegramLogoIconBW, TwitterLogoIcon, EmailLogoIcon } from "@/components/icons";
 import { base64UrlEncode } from "@/components/params";
 import { useParams } from "@/context/ParamContext";
 import { useDIDInfo } from "@/context/DIDContext";
@@ -24,6 +25,8 @@ export default function Earnings() {
     const [points, setPoints] = useState(0)
     const [text, setText] = useState(null)
     const [isFailedText, setIsFailedText] = useState(null)
+
+    const [showEmailModal, setShowEmailModal] = useState(false);
 
     const { params } = useParams();
     const { didInfo, loaded } = useDIDInfo();
@@ -62,7 +65,7 @@ export default function Earnings() {
 
     const finishTask = async (action, point, txt, failText) => {
         if (didInfo.exist && address) {
-            if ((userProfile.linkedX && userProfile.linkedDiscord) || action === 70) {
+            if ((userProfile.linkedX && userProfile.linkedDiscord && userProfile.linkedEmail) || action === 70) {
                 setPoints(point);
                 setText(txt);
                 setIsFailedText(failText);
@@ -76,7 +79,7 @@ export default function Earnings() {
                     setIsFailed(true);
                 }
             } else {
-                setIsFailedText("Please Link Your X/TG/Discord Account First");
+                setIsFailedText("Please Link Your X/TG/Discord/Email Account First");
                 setIsFailed(true);
             }
         } else {
@@ -198,6 +201,35 @@ export default function Earnings() {
         }
     }
 
+    const handleEmailBind = () => setShowEmailModal(true);
+
+    const verifyEmailBind = async () => {
+        if (address) {
+            if (userProfile.linkedEmail) {
+                setText("Link Email Success");
+                setPoints(100);
+                setIsVisible(true);
+            } else {
+                try {
+                    const profile = await getUserProfile(address);
+                    if (profile.email !== "") {
+                        finishAction(57);
+                        setText("Bind Email Success");
+                        setPoints(100);
+                        setIsVisible(true);
+                    } else {
+                        setIsFailedText("Please bind email first.");
+                        setIsFailed(true);
+                    }
+                } catch (err) {
+                    setIsFailedText(err.message);
+                    setIsFailed(true);
+                }
+            }
+        }
+    };
+
+
     if (!loaded) {
         return (
             <div className="flex justify-center items-center h-screen">
@@ -239,8 +271,9 @@ export default function Earnings() {
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px]">
                     <h2 className="font-semibold text-lg text-black dark:text-white">Beginner Quest</h2>
                     <div className="flex flex-col gap-4 mt-4">
-                        <LinkTask checked={userProfile.linkedX} loginFunc={handleXOauth} updateFunc={verifyXOauth} text={"link X Account"} icon={<TwitterLogoIcon />} />
-                        <LinkTask checked={userProfile.linkedDiscord} loginFunc={handleDiscordOauth} updateFunc={verifyDiscordOauth} text={"link Discord Account"} icon={<DiscordLogoIcon />} />
+                        <LinkTask checked={userProfile.linkedX} loginFunc={handleXOauth} updateFunc={verifyXOauth} text={"Link X Account"} icon={<TwitterLogoIcon />} />
+                        <LinkTask checked={userProfile.linkedDiscord} loginFunc={handleDiscordOauth} updateFunc={verifyDiscordOauth} text={"Link Discord Account"} icon={<DiscordLogoIcon />} />
+                        <LinkTask checked={userProfile.linkedEmail} loginFunc={handleEmailBind} updateFunc={verifyEmailBind} text={"Bind Email Address"} icon={<EmailLogoIcon />} />
                     </div >
                 </div >
 
@@ -288,6 +321,14 @@ export default function Earnings() {
                 }
             </div >
             <Footer active={"earning"} />
+
+            {showEmailModal && (
+                <EmailBindModal
+                    address={address}
+                    onClose={() => setShowEmailModal(false)}
+                    onSuccess={verifyEmailBind}
+                />
+            )}
         </>
     )
 }
