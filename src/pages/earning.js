@@ -65,7 +65,7 @@ export default function Earnings() {
 
     const finishTask = async (action, point, txt, failText) => {
         if (didInfo.exist && address) {
-            if ((userProfile.linkedX && userProfile.linkedDiscord && userProfile.linkedEmail) || action === 70) {
+            if ((userProfile.linkedX || userProfile.linkedDiscord || userProfile.linkedEmail) || action === 70) {
                 setPoints(point);
                 setText(txt);
                 setIsFailedText(failText);
@@ -287,30 +287,30 @@ export default function Earnings() {
                 </div>
 
                 {
-                    userProfile.linkedX && userProfile.linkedDiscord && (
+                    (userProfile.linkedX || userProfile.linkedDiscord || userProfile.linkedTG) && (
                         <div>
                             <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px]">
                                 <h2 className="font-semibold text-lg text-black dark:text-white">Daily Task</h2>
                                 <div className="flex flex-col gap-4 mt-4">
-                                    <DailyTask checked={dailyAction.has(1)} point={"20"} done={"Shared"} todo={"Share"} link={'https://t.me/share/url?url=' + encodeURIComponent(currentUrl) + '&text=' + encodeURIComponent(tgText)} updateFunc={() => finishTask(71, 20, "Share Referral Link to TG", "Please confirm that you have shared referral link to TG")} text={"Share Referral Link to TG"} icon={<TelegramLogoIconBW />} />
-                                    <DailyTask checked={dailyAction.has(2)} point={"20"} done={"Shared"} todo={"Share"} link={"https://discord.com/invite/YG4Ydv2E7X"} updateFunc={() => finishTask(72, 20, "Share Referral Link to Discord", "Please confirm that you have shared referral link to Discord")} text={"Share Referral Link to Discord"} icon={<DiscordLogoIcon />} />
-                                    <DailyTask checked={dailyAction.has(3)} point={"20"} done={"Shared"} todo={"Share"} link={'https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText)} updateFunc={() => finishTask(73, 20, "Share Referral Link to X", "Please confirm that you have shared referral link to X")} text={"Share Referral Link to X"} icon={<TwitterLogoIcon />} />
+                                    {userProfile.linkedTG && <DailyTask checked={dailyAction.has(1)} point={"20"} done={"Shared"} todo={"Share"} link={'https://t.me/share/url?url=' + encodeURIComponent(currentUrl) + '&text=' + encodeURIComponent(tgText)} updateFunc={() => finishTask(71, 20, "Share Referral Link to TG", "Please confirm that you have shared referral link to TG")} text={"Share Referral Link to TG"} icon={<TelegramLogoIconBW />} />}
+                                    {userProfile.linkedX && <DailyTask checked={dailyAction.has(3)} point={"20"} done={"Shared"} todo={"Share"} link={'https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText)} updateFunc={() => finishTask(73, 20, "Share Referral Link to X", "Please confirm that you have shared referral link to X")} text={"Share Referral Link to X"} icon={<TwitterLogoIcon />} />}
+                                    {userProfile.linkedDiscord && <DailyTask checked={dailyAction.has(2)} point={"20"} done={"Shared"} todo={"Share"} link={"https://discord.com/invite/YG4Ydv2E7X"} updateFunc={() => finishTask(72, 20, "Share Referral Link to Discord", "Please confirm that you have shared referral link to Discord")} text={"Share Referral Link to Discord"} icon={<DiscordLogoIcon />} />}
                                 </div >
                             </div >
 
                             <div className="mt-4 bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px]">
                                 <h2 className="font-semibold text-lg text-black dark:text-white">Community Task</h2>
                                 <div className="flex flex-col gap-4 mt-4">
-                                    <DailyTask checked={questAction.has(0)} point={"50"} done={"Followed"} todo={"Follow"} link={"https://x.com/MemoLabsOrg"} updateFunc={() => finishTask(50, 50, "Follow Memo X Claim Success", "Please confirm that you have followed MEMO X")} text={"Follow MemoLabs On X"} icon={<TwitterLogoIcon />} />
-                                    <DailyTask checked={questAction.has(1)} point={"50"} done={"Joined"} todo={"Join"} link={"https://t.me/memolabsio"} updateFunc={() => finishTask(51, 50, "Join Memo TG Claim Success", "Please confirm that you have joined MEMO telegram")} text={"Join MemoLabs On TG"} icon={<TelegramLogoIconBW />} />
-                                    <DailyTask checked={questAction.has(2)} point={"50"} done={"Joined"} todo={"Join"} link={'https://discord.com/invite/YG4Ydv2E7X'} updateFunc={() => finishTask(52, 50, "Join Memo Discord Claim Success", "Please confirm that you have joined MEMO discord")} text={"Join MemoLabs On Discord"} icon={<DiscordLogoIcon />} />
+                                    {userProfile.linkedTG && <DailyTask checked={questAction.has(1)} point={"50"} done={"Joined"} todo={"Join"} link={"https://t.me/memolabsio"} updateFunc={() => finishTask(51, 50, "Join Memo TG Claim Success", "Please confirm that you have joined MEMO telegram")} text={"Join MemoLabs On TG"} icon={<TelegramLogoIconBW />} />}
+                                    {userProfile.linkedX && <DailyTask checked={questAction.has(0)} point={"50"} done={"Followed"} todo={"Follow"} link={"https://x.com/MemoLabsOrg"} updateFunc={() => finishTask(50, 50, "Follow Memo X Claim Success", "Please confirm that you have followed MEMO X")} text={"Follow MemoLabs On X"} icon={<TwitterLogoIcon />} />}
+                                    {userProfile.linkedDiscord && <DailyTask checked={questAction.has(2)} point={"50"} done={"Joined"} todo={"Join"} link={'https://discord.com/invite/YG4Ydv2E7X'} updateFunc={() => finishTask(52, 50, "Join Memo Discord Claim Success", "Please confirm that you have joined MEMO discord")} text={"Join MemoLabs On Discord"} icon={<DiscordLogoIcon />} />}
 
                                     {
                                         params.channel && params.channel == "roam" ?
                                             <>
-                                                <DailyTask checked={questAction.has(3)} point={"50"} done={"Followed"} todo={"Follow"} link={"https://x.com/weRoamxyz"} updateFunc={() => finishTask(1231, 50, "Follow Roam X Claim Success", "Please confirm that you have followed Roam X")} text={"Follow Roam On X"} icon={<TwitterLogoIcon />} />
-                                                <DailyTask checked={questAction.has(4)} point={"50"} done={"Joined"} todo={"Join"} link={"https://t.me/WeRoamXYZ"} updateFunc={() => finishTask(1232, 50, "Join Roam TG Claim Success", "Please confirm that you have joined Roam telegram")} text={"Join Roam On TG"} icon={<TelegramLogoIconBW />} />
-                                                <DailyTask checked={questAction.has(5)} point={"50"} done={"Joined"} todo={"Join"} link={'https://discord.com/invite/roam'} updateFunc={() => finishTask(1233, 50, "Join Roam Discord Claim Success", "Please confirm that you have joined Roam discord")} text={"Join Roam On Discord"} icon={<DiscordLogoIcon />} />
+                                                {userProfile.linkedTG && <DailyTask checked={questAction.has(4)} point={"50"} done={"Joined"} todo={"Join"} link={"https://t.me/WeRoamXYZ"} updateFunc={() => finishTask(1232, 50, "Join Roam TG Claim Success", "Please confirm that you have joined Roam telegram")} text={"Join Roam On TG"} icon={<TelegramLogoIconBW />} />}
+                                                {userProfile.linkedX && <DailyTask checked={questAction.has(3)} point={"50"} done={"Followed"} todo={"Follow"} link={"https://x.com/weRoamxyz"} updateFunc={() => finishTask(1231, 50, "Follow Roam X Claim Success", "Please confirm that you have followed Roam X")} text={"Follow Roam On X"} icon={<TwitterLogoIcon />} />}
+                                                {userProfile.linkedDiscord && <DailyTask checked={questAction.has(5)} point={"50"} done={"Joined"} todo={"Join"} link={'https://discord.com/invite/roam'} updateFunc={() => finishTask(1233, 50, "Join Roam Discord Claim Success", "Please confirm that you have joined Roam discord")} text={"Join Roam On Discord"} icon={<DiscordLogoIcon />} />}
                                             </> :
                                             <></>
                                     }
