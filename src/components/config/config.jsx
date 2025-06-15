@@ -52,6 +52,7 @@ export const API_URL_V2 = {
 
     "BLINDBOX_GIFTS": AIRDROP_BACKEND_URL + "/v2/blindbox/gifts",
     "BLINDBOX_PLAY": AIRDROP_BACKEND_URL + "/v2/blindbox/play",
+    "BLINDBOX_NOW": AIRDROP_BACKEND_URL + "/v2/blindbox/now",
 }
 
 export const API_URL = API_URL_V2;
