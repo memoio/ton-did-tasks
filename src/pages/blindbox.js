@@ -22,6 +22,8 @@ export default function BlindBox() {
   // get auth info
   const { userInfo, userProfile, address } = useAuth();
 
+  const [isInitializing, setIsInitializing] = useState(true); // 加载状态
+
   // 奖品名称表
   const items = ['🎉 普通卡', '🧧 稀有卡', '💎 史诗卡', '👑 传说卡'];
 
@@ -41,16 +43,13 @@ export default function BlindBox() {
 
   // 检查是否有今天的抽取记录
   const checkTodayDraw = (gifts) => {
-    if (!gifts || gifts.length === 0 || !serverDate) return false; // 检查 serverDate 是否存在
+    if (!gifts || !Array.isArray(gifts) || gifts.length === 0 || !serverDate) return false;
     
-    const today = serverDate.split(' ')[0]; // 只取日期部分（假设格式是 "YYYY-MM-DD HH:mm:ss"）
+    const today = serverDate.split(' ')[0]; 
     
     return gifts.some(gift => {
+      if (!gift || !gift.CreatedAt) return false;
       const giftDate = gift.CreatedAt.split('T')[0];
-
-      console.log("gift date:", giftDate);
-      console.log("today:", today);
-
       return giftDate === today;
     });
   };
@@ -62,14 +61,11 @@ export default function BlindBox() {
     try {
       const response = await fetch(`${API_URL_V2.BLINDBOX_GIFTS}?address=${address}`);
       const data = await response.json();
-      console.log("data.list:",data.list)
   
       if (response.ok && data.result === 1 && Array.isArray(data.list)) {
-        setGiftInfos(data.list); // save cards list 
+        setGiftInfos(data.list);
         const drawnToday = checkTodayDraw(data.list);
-        console.log("drawn today:",drawnToday)
-        setHasDrawnToday(drawnToday); 
-        console.log("list:",data.list);
+        setHasDrawnToday(drawnToday); // 这里会正确设置状态
       } else {
         setGiftInfos([]);
         setHasDrawnToday(false);
@@ -112,18 +108,23 @@ export default function BlindBox() {
     }
   };
 
-useEffect(() => {
-  const fetchAllData = async () => {
-    await fetchServerDate();  // 先确保日期获取完成
-    await fetchGiftList();   // 再获取礼品列表
-    await fetchPointsBalance(); // 最后获取积分
-  };
-  fetchAllData();
-}, [address]);
+  useEffect(() => {
+    const fetchAllData = async () => {
+      setIsInitializing(true); // 开始加载
+      try {
+        await fetchServerDate();
+        await fetchGiftList();
+        await fetchPointsBalance();
+      } finally {
+        setIsInitializing(false); // 结束加载
+      }
+    };
+    fetchAllData();
+  }, [address, serverDate]);
 
   // play blindbox (free)
   const handleDrawFree = async () => {
-    if (hasDrawnToday) {
+    if (hasDrawnToday || isInitializing) { // 添加初始化检查
       setResult("⚠️ 今天已经抽过卡了，请使用积分抽取");
       return;
     }
@@ -134,14 +135,12 @@ useEffect(() => {
     try {
       console.log("address:", address);
 
-      const response = await fetch(`${API_URL_V2.BLINDBOX_PLAY}`, {
-        method: "POST",
+      const response = await fetch(`${API_URL_V2.BLINDBOX_PLAY}?address=${address}`,{
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json', // 根据后端要求调整
         },
-        body: JSON.stringify({ address })
       });
-
       const data = await response.json();
       console.log("index:", data.index);
 
@@ -207,7 +206,7 @@ useEffect(() => {
   const isWalletConnected = !!address;
   const getButtonText = () => {
     if (!isWalletConnected) return '先连接钱包';
-    if (loading) return '抽取中...';
+    if (loading || isInitializing) return '加载中...'; // 添加初始化状态
     return hasDrawnToday 
       ? (pointsData.points < 10 ? '积分不足' : '积分抽取')
       : '免费抽取';
@@ -215,7 +214,7 @@ useEffect(() => {
 
   const isButtonDisabled = () => {
     if (!isWalletConnected) return true;
-    if (loading) return true;
+    if (loading || isInitializing) return true; // 添加初始化检查
     return hasDrawnToday && pointsData.points < 10;
   };
 

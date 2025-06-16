@@ -1,5 +1,5 @@
 export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be.metamemo.one"
-export const TEST_AIRDROP_BACKEND_URL = "https://data-be-api.memolabs.net/"
+export const TEST_AIRDROP_BACKEND_URL = "https://data-be-api.memolabs.net"
 
 export const TON_DID_WEB = "https://t.me/tondid_bot/datadid"
 export const TON_DID_WEB_RAW = "https://datadid-ton-v2.memolabs.net"
