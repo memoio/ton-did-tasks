@@ -31,7 +31,8 @@ export default function BlindBox() {
       const response = await fetch(`${API_URL_V2.BLINDBOX_NOW}`);
       const data = await response.json();
       if (response.ok && data.result === 1) {
-        setServerDate(data.date); // Assuming the API returns {result: 1, date: "YYYY-MM-DD"}
+        setServerDate(data.datetime); // Assuming the API returns {result: 1, date: "YYYY-MM-DD"}
+        console.log("API returned date:", data.datetime); 
       }
     } catch (error) {
       console.error("获取服务器日期失败：", error);
@@ -40,11 +41,16 @@ export default function BlindBox() {
 
   // 检查是否有今天的抽取记录
   const checkTodayDraw = (gifts) => {
-    if (!gifts || gifts.length === 0) return false;
+    if (!gifts || gifts.length === 0 || !serverDate) return false; // 检查 serverDate 是否存在
     
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const today = serverDate.split(' ')[0]; // 只取日期部分（假设格式是 "YYYY-MM-DD HH:mm:ss"）
+    
     return gifts.some(gift => {
-      const giftDate = gift.CreatedAt.split('T')[0]; // 确保 API 返回的日期格式一致
+      const giftDate = gift.CreatedAt.split('T')[0];
+
+      console.log("gift date:", giftDate);
+      console.log("today:", today);
+
       return giftDate === today;
     });
   };
@@ -106,13 +112,14 @@ export default function BlindBox() {
     }
   };
 
-  // 页面加载后首次获取
-  useEffect(() => {
-    fetchServerDate().then(() => {
-      fetchGiftList();
-      fetchPointsBalance();
-    });
-  }, [address]);
+useEffect(() => {
+  const fetchAllData = async () => {
+    await fetchServerDate();  // 先确保日期获取完成
+    await fetchGiftList();   // 再获取礼品列表
+    await fetchPointsBalance(); // 最后获取积分
+  };
+  fetchAllData();
+}, [address]);
 
   // play blindbox (free)
   const handleDrawFree = async () => {
