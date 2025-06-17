@@ -282,7 +282,7 @@ export function LinkProfileCard({ name, status, handleFunc }) {
     )
 }
 
-export function LeaderboardCard({ icon, name, point, count }) {
+export function LeaderboardCard({ icon, name, inviteCount, point, rank }) {
     return (
         <div className="bg-main-blue/8 border border-solid border-main-blue/21 rounded-lg p-4 flex justify-between items-center dark:bg-sec-bg dark:border-none">
             <div className="flex gap-2 min-w-0 flex-1">
@@ -292,10 +292,14 @@ export function LeaderboardCard({ icon, name, point, count }) {
                 </div>
             </div>
 
-            <div className="flex items-center gap-10 ml-auto pl-4">
-                <p className="font-semibold text-sm text-dark-bg dark:text-white whitespace-nowrap">{point} Points</p>
-                <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm dark:bg-dao-yellow/15 dark:text-dao-yellow whitespace-nowrap">{count}</p>
+            <div className="flex items-center gap-6 ml-auto pl-4 text-sm font-semibold text-dark-bg dark:text-white whitespace-nowrap">
+                <p className="w-16 text-center">{inviteCount}</p>
+                <p className="w-20 text-center">{point}</p>
+                <p className="w-8 h-8 bg-dao-yellow text-white flex items-center justify-center rounded-full text-sm dark:bg-dao-yellow/15 dark:text-dao-yellow">
+                    {rank}
+                </p>
             </div>
+
         </div>
     )
 }
