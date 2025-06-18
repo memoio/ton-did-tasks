@@ -56,6 +56,8 @@ export default function LeaderBoardDetailsPage() {
 
     const currentRankList = rankType === "points" ? (isWeekly === 2 ? weeklyRankInfo : isWeekly === 1 ? monthlyRankInfo : totalRankInfo) : totalInviteRankInfo;
 
+    const medalIcons = ["/medal-gold.svg", "/medal-silver.svg", "/medal-bronze.svg"];
+
     // test
     useEffect(() => {
         console.log("selfRankInfo:", selfRankInfo);
@@ -67,7 +69,9 @@ export default function LeaderBoardDetailsPage() {
         <>
             <SubHeader title={"Leaderboard"} />
             <div className="relative h-screen flex flex-col pt-10">
-                <div className="px-4 pt-8 pb-4 bg-white dark:bg-black z-10">
+                {/* {fix top area} */}
+                <div className="shrink-0 px-4 pt-8 pb-0 bg-white dark:bg-black z-10">
+                    {/* {rank type} */}
                     <div className="flex w-full bg-gray-100 dark:bg-dark-bg rounded-full p-1 mb-4">
                         <button
                             className={`flex-1 py-2 rounded-full text-sm font-semibold ${rankType === "points" ? "bg-dao-green text-white" : "text-gray-500"
@@ -84,10 +88,9 @@ export default function LeaderBoardDetailsPage() {
                             Referral Rank
                         </button>
                     </div>
-                </div>
 
-                <div className="px-4 pt-4">
-                    <div className="text-sm text-gray-400 tracking-wider dark:text-dao-gray mb-1">Your Rank</div>
+                    {/* {my rank} */}
+                    <div className="text-sm text-gray-400 tracking-wider dark:text-dao-gray mb-1">My Rank</div>
                     <div className="bg-dao-green rounded-lg p-4 flex justify-between items-center dark:bg-sec-bg dark:border dark:border-dao-green">
                         <div className="flex gap-2 items-center min-w-0">
                             <Image
@@ -115,9 +118,9 @@ export default function LeaderBoardDetailsPage() {
                             </p>
                         </div>
                     </div>
-                </div>
 
-                <div className="px-4 pt-6">
+                    {/* { top table header} */}
+                    <div className="px-4 pt-4"></div>
                     <div className="text-sm text-gray-400 tracking-wider dark:text-dao-gray mb-2">Top 100</div>
                     <div className="flex flex-col gap-4 pb-4">
 
@@ -127,18 +130,39 @@ export default function LeaderBoardDetailsPage() {
                             <p className="w-20 text-center">Points</p>
                             <p className="w-8 text-center">Rank</p>
                         </div>
-
-                        {currentRankList.map((rankInfo, index) => (
-                            <LeaderboardCard
-                                key={index}
-                                icon={rankInfo.avatar}
-                                name={rankInfo.name}
-                                inviteCount={rankInfo.inviteCount}
-                                point={rankInfo.points}
-                                rank={index + 1}
-                            />
-                        ))}
                     </div>
+
+                    {/* {Top 3} */}
+                    {currentRankList.slice(0, 3).map((rankInfo, index) => (
+                        <div key={index} className="border-glow">
+                            <div className="bg-white dark:bg-sec-bg rounded-lg">
+                                <LeaderboardCard
+                                    key={index}
+                                    icon={rankInfo.avatar}
+                                    name={rankInfo.name}
+                                    inviteCount={rankInfo.inviteCount}
+                                    point={rankInfo.points}
+                                    rank={index + 1}
+                                    showCrown={true}
+                                    medalIcon={medalIcons[index]}
+                                />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* {scrolling area} */}
+                <div className="flex-1 overflow-y-auto px-4 pt-0 pb-6">
+                    {currentRankList.slice(3).map((rankInfo, index) => (
+                        <LeaderboardCard
+                            key={index + 3}
+                            icon={rankInfo.avatar}
+                            name={rankInfo.name}
+                            inviteCount={rankInfo.inviteCount}
+                            point={rankInfo.points}
+                            rank={index + 4}
+                        />
+                    ))}
                 </div>
 
                 <div className="px-4 py-4 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 z-10">

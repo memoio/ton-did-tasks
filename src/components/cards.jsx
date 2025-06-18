@@ -282,13 +282,22 @@ export function LinkProfileCard({ name, status, handleFunc }) {
     )
 }
 
-export function LeaderboardCard({ icon, name, inviteCount, point, rank }) {
+export function LeaderboardCard({ icon, name, inviteCount, point, rank, showCrown = false, medalIcon }) {
     return (
         <div className="bg-main-blue/8 border border-solid border-main-blue/21 rounded-lg p-4 flex justify-between items-center dark:bg-sec-bg dark:border-none">
             <div className="flex gap-2 min-w-0 flex-1">
-                <Image src={icon && icon !== "" ? icon : "/Ellipse 224.png"} className="rounded-full w-[43px] h-[43px] object-cover" width={43} height={43} alt="avatar" />
+                {/* {icon + crown} */}
+                <div className="relative">
+                    <Image src={icon && icon !== "" ? icon : "/Ellipse 224.png"} className="rounded-full w-[43px] h-[43px] object-cover" width={43} height={43} alt="avatar" />
+                    {showCrown && (<Image src="/crown-gold.svg" alt="Crown" width={24} height={24} className="absolute -top-3 left-1/2 -translate-x-1/2" />)}
+                </div>
+
+                {/* {name + medal} */}
                 <div className="flex flex-col justify-center min-w-0">
-                    <p className="leading-tight text-sm font-semibold text-dark-bg dark:text-white truncate">{name !== "" ? name : "Unknown"}</p>
+                    <div className="flex items-center gap-1">
+                        {medalIcon && (<Image src={medalIcon} alt="Medal" width={16} height={16} />)}
+                        <p className="leading-tight text-sm font-semibold text-dark-bg dark:text-white truncate">{name !== "" ? name : "Unknown"}</p>
+                    </div>
                 </div>
             </div>
 
