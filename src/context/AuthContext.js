@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, createContext, useContext, useState } from "react";
 import { useTonAddress } from '@tonconnect/ui-react';
-import { bindUserActivity, bindUserChannel, bindUserWallet, getUserInfo, tiersInfo } from "@/components/api/airdrop";
+import { bindUserActivity, bindUserChannel, bindUserWallet, getUserInfo } from "@/components/api/airdrop";
 import { linkTGAccount } from "@/components/api/link";
 import { getUserProfile } from "@/components/api/profile";
 import { useRef } from "react";
@@ -20,12 +20,6 @@ export const AuthProvider = ({ children }) => {
     const [isWalletBound, setIsWalletBound] = useState(false);
     const isBinding = useRef(false);
 
-    const [userTier, setUserTier] = useState({
-        tier: 1,
-        points: 20000,
-        inviter: 20,
-        name: "Iron",
-    });
     const [userInfo, setUserInfo] = useState({
         inviteCode: "",
         invitedCode: "",
@@ -82,12 +76,6 @@ export const AuthProvider = ({ children }) => {
 
         setRawAddress("");
         setAddress("");
-        setUserTier({
-            tier: 1,
-            points: 20000,
-            inviter: 20,
-            Name: "Iron",
-        })
     }
 
     const bindChannelInfo = async (addr) => {
@@ -127,17 +115,7 @@ export const AuthProvider = ({ children }) => {
                         invitedCode: res.invitedCode,
                     });
 
-                    const rest = await tiersInfo(walletAddress);
-
-                    setUserTier({
-                        tier: rest.tier,
-                        points: rest.points,
-                        inviters: rest.inviters,
-                        name: rest.name
-                    });
-
                     console.log(res);
-                    console.log("rest: ", rest);
 
                     await getProfile(walletAddress);
                     setIsWalletBound(true);
@@ -284,7 +262,6 @@ export const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider value={{
             userInfo,
-            userTier,
             userProfile,
             address,
             rawAddress,
