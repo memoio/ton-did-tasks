@@ -109,18 +109,24 @@ export const AuthProvider = ({ children }) => {
     }
 
     const setBindWallet = () => {
+        console.log("start bind")
         console.log(walletAddress, address);
         if (walletAddress && walletAddress !== "" && address !== walletAddress && !isBinding.current) {
             isBinding.current = true;
+
+            console.log("start bind2")
             const bindWallet = async () => {
                 setAddress(walletAddress);
                 console.log(walletRawAddress);
                 const splitted = walletRawAddress.split(":");
                 setRawAddress(splitted[1]);
                 try {
+                    console.log("bind wallet")
                     await bindUserWallet(walletAddress);
+                    console.log("bind channel info")
                     await bindChannelInfo(walletAddress);
 
+                    console.log("get user info")
                     const res = await getUserInfo(walletAddress);
                     setUserInfo({
                         inviteCode: res.inviteCode,
@@ -134,6 +140,7 @@ export const AuthProvider = ({ children }) => {
 
                     console.log(res);
 
+                    console.log("get profile")
                     await getProfile(walletAddress);
                     setIsWalletBound(true);
                 } catch (error) {
