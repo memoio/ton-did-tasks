@@ -1,69 +1,69 @@
-export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be.metamemo.one"
-export const TEST_AIRDROP_BACKEND_URL = "https://data-be-api.memolabs.net"
-export const LOCAL_AIRDROP_BACKEND_URL = "http://localhost:8080"
+export const PRODUCT_DATABE_URL = "https://data-be.metamemo.one"
+export const TEST_DATABE_URL = "https://data-be-api.memolabs.net"
+export const LOCAL_DATABE_URL = "http://localhost:8080"
 
 export const TON_DID_WEB = "https://t.me/tondid_bot/datadid"
 export const TON_DID_WEB_RAW = "https://datadid-ton-v2.memolabs.net"
-export const AIRDROP_BACKEND_URL = TEST_AIRDROP_BACKEND_URL
+export const DATABE_URL = TEST_DATABE_URL
 
 export const API_URL_V1 = {
-    "AIRDROP_USER_WALLET_BIND": AIRDROP_BACKEND_URL + "/data/bind",
-    "AIRDROP_USER_INFO": AIRDROP_BACKEND_URL + "/data/info",
-    "AIRDROP_POINTS_RANK": AIRDROP_BACKEND_URL + "/data/rank",
-    "AIRDROP_INVITE_BIND": AIRDROP_BACKEND_URL + "/data/invite/bind",
-    "AIRDROP_INVITE_LIST": AIRDROP_BACKEND_URL + "/data/invite/list",
-    "AIRDROP_RECORD_ADD": AIRDROP_BACKEND_URL + "/data/record/add",
-    "AIRDROP_RECORD_LIST": AIRDROP_BACKEND_URL + "/data/record/list",
+    "AIRDROP_USER_WALLET_BIND": DATABE_URL + "/data/bind",
+    "AIRDROP_USER_INFO": DATABE_URL + "/data/info",
+    "AIRDROP_POINTS_RANK": DATABE_URL + "/data/rank",
+    "AIRDROP_INVITE_BIND": DATABE_URL + "/data/invite/bind",
+    "AIRDROP_INVITE_LIST": DATABE_URL + "/data/invite/list",
+    "AIRDROP_RECORD_ADD": DATABE_URL + "/data/record/add",
+    "AIRDROP_RECORD_LIST": DATABE_URL + "/data/record/list",
 
-    "AIRDROP_CREATE_DID": AIRDROP_BACKEND_URL + "/did/createadmin",
-    "AIRDROP_CREATE_TON_DID": AIRDROP_BACKEND_URL + "/did/createtondid",
-    "AIRDROP_DID_INFO": AIRDROP_BACKEND_URL + "/did/info",
+    "AIRDROP_CREATE_DID": DATABE_URL + "/did/createadmin",
+    "AIRDROP_CREATE_TON_DID": DATABE_URL + "/did/createtondid",
+    "AIRDROP_DID_INFO": DATABE_URL + "/did/info",
 
-    "ACTIVITY_BIND_CHANNEL": AIRDROP_BACKEND_URL + "/activity/bind/channel",
-    "ACTIVITY_BIND_ACTIVITY": AIRDROP_BACKEND_URL + "/activity/bind/activity",
+    "ACTIVITY_BIND_CHANNEL": DATABE_URL + "/activity/bind/channel",
+    "ACTIVITY_BIND_ACTIVITY": DATABE_URL + "/activity/bind/activity",
 }
 
 export const API_URL_V2 = {
-    "AIRDROP_USER_PROFILE": AIRDROP_BACKEND_URL + "/v2/link/user/profile",
-    "AIRDROP_X_OAUTH_INFO": AIRDROP_BACKEND_URL + "/v2/link/x/oauth",
-    "AIRDROP_LINK_X_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/x/link",
-    "AIRDROP_LINK_X_ACCOUNT_BY_TWEET": AIRDROP_BACKEND_URL + "/v2/link/x/link/tweet",
-    "AIRDROP_LINK_TELEGRAM_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/telegram/link",
-    "AIRDROP_LINK_DISCORD_ACCOUNT": AIRDROP_BACKEND_URL + "/v2/link/discord/link",
-    "AIRDROP_EMAIL_CODE": AIRDROP_BACKEND_URL + "/v2/link/email/code",
-    "AIRDROP_LINK_EMAIL": AIRDROP_BACKEND_URL + "/v2/link/email/link",
+    "AIRDROP_USER_PROFILE": DATABE_URL + "/v2/link/user/profile",
+    "AIRDROP_X_OAUTH_INFO": DATABE_URL + "/v2/link/x/oauth",
+    "AIRDROP_LINK_X_ACCOUNT": DATABE_URL + "/v2/link/x/link",
+    "AIRDROP_LINK_X_ACCOUNT_BY_TWEET": DATABE_URL + "/v2/link/x/link/tweet",
+    "AIRDROP_LINK_TELEGRAM_ACCOUNT": DATABE_URL + "/v2/link/telegram/link",
+    "AIRDROP_LINK_DISCORD_ACCOUNT": DATABE_URL + "/v2/link/discord/link",
+    "AIRDROP_EMAIL_CODE": DATABE_URL + "/v2/link/email/code",
+    "AIRDROP_LINK_EMAIL": DATABE_URL + "/v2/link/email/link",
 
-    "AIRDROP_USER_WALLET_BIND": AIRDROP_BACKEND_URL + "/v2/data/bind",
-    "AIRDROP_USER_INFO": AIRDROP_BACKEND_URL + "/v2/data/info",
-    "AIRDROP_POINTS_RANK": AIRDROP_BACKEND_URL + "/v2/data/rank",
-    "AIRDROP_INVITE_BIND": AIRDROP_BACKEND_URL + "/v2/data/invite/bind",
-    "AIRDROP_INVITE_LIST": AIRDROP_BACKEND_URL + "/v2/data/invite/list",
-    "AIRDROP_RECORD_ADD": AIRDROP_BACKEND_URL + "/v2/data/record/add",
-    "AIRDROP_RECORD_LIST": AIRDROP_BACKEND_URL + "/v2/data/record/list",
+    "AIRDROP_USER_WALLET_BIND": DATABE_URL + "/v2/data/bind",
+    "AIRDROP_USER_INFO": DATABE_URL + "/v2/data/info",
+    "AIRDROP_POINTS_RANK": DATABE_URL + "/v2/data/rank",
+    "AIRDROP_INVITE_BIND": DATABE_URL + "/v2/data/invite/bind",
+    "AIRDROP_INVITE_LIST": DATABE_URL + "/v2/data/invite/list",
+    "AIRDROP_RECORD_ADD": DATABE_URL + "/v2/data/record/add",
+    "AIRDROP_RECORD_LIST": DATABE_URL + "/v2/data/record/list",
 
-    "AIRDROP_CREATE_DID": AIRDROP_BACKEND_URL + "/v2/did/createadmin",
-    "AIRDROP_CREATE_TON_DID": AIRDROP_BACKEND_URL + "/v2/did/createtondid",
-    "AIRDROP_DID_INFO": AIRDROP_BACKEND_URL + "/v2/did/info",
+    "AIRDROP_CREATE_DID": DATABE_URL + "/v2/did/createadmin",
+    "AIRDROP_CREATE_TON_DID": DATABE_URL + "/v2/did/createtondid",
+    "AIRDROP_DID_INFO": DATABE_URL + "/v2/did/info",
 
-    "AIRDROP_SET_NAME": AIRDROP_BACKEND_URL + "/v2/user/set-name",
-    "AIRDROP_SET_PHOTO": AIRDROP_BACKEND_URL + "/v2/user/set-photo",
-    "AIRDROP_BIND_EX_INFO": AIRDROP_BACKEND_URL + "/v2/user/bind-exchange-info",
-    "AIRDROP_GET_EX_INFO": AIRDROP_BACKEND_URL + "/v2/user/get-exchange-info",
-    "AIRDROP_USER_PROFILE_V2": AIRDROP_BACKEND_URL + "/v2/user/info",
+    "AIRDROP_SET_NAME": DATABE_URL + "/v2/user/set-name",
+    "AIRDROP_SET_PHOTO": DATABE_URL + "/v2/user/set-photo",
+    "AIRDROP_BIND_EX_INFO": DATABE_URL + "/v2/user/bind-exchange-info",
+    "AIRDROP_GET_EX_INFO": DATABE_URL + "/v2/user/get-exchange-info",
+    "AIRDROP_USER_PROFILE_V2": DATABE_URL + "/v2/user/info",
 
-    "AIRDROP_MESSAGE": AIRDROP_BACKEND_URL + "/v2/activity/message/list",
+    "AIRDROP_MESSAGE": DATABE_URL + "/v2/activity/message/list",
 
-    "AIRDROP_BIND_ROAM": AIRDROP_BACKEND_URL + "/v2/user/roam/address",
-    "AIRDROP_ROAM_INFO": AIRDROP_BACKEND_URL + "/v2/user/roam",
+    "AIRDROP_BIND_ROAM": DATABE_URL + "/v2/user/roam/address",
+    "AIRDROP_ROAM_INFO": DATABE_URL + "/v2/user/roam",
 
-    "ACTIVITY_BIND_CHANNEL": AIRDROP_BACKEND_URL + "/v2/activity/bind/channel",
-    "ACTIVITY_BIND_ACTIVITY": AIRDROP_BACKEND_URL + "/v2/activity/bind/activity",
-    "ACTIVITY_GET_ACTIVITY": AIRDROP_BACKEND_URL + "/v2/activity/channel",
+    "ACTIVITY_BIND_CHANNEL": DATABE_URL + "/v2/activity/bind/channel",
+    "ACTIVITY_BIND_ACTIVITY": DATABE_URL + "/v2/activity/bind/activity",
+    "ACTIVITY_GET_ACTIVITY": DATABE_URL + "/v2/activity/channel",
 
     // blindbox v2
-    "ACTIVITY_POINTS_BLINDBOX":AIRDROP_BACKEND_URL + "/v2/activity/points-draw",
-    "ACTIVITY_FREE_BLINDBOX":AIRDROP_BACKEND_URL + "/v2/activity/free-draw",
-    "BLINDBOX_GET_BOXES": AIRDROP_BACKEND_URL + "/v2/blindbox/getboxes",
+    "ACTIVITY_POINTS_BLINDBOX":DATABE_URL + "/v2/activity/points-draw",
+    "ACTIVITY_FREE_BLINDBOX":DATABE_URL + "/v2/activity/free-draw",
+    "BLINDBOX_GET_BOXES": DATABE_URL + "/v2/blindbox/getboxes",
 }
 
 export const API_URL = API_URL_V2;
