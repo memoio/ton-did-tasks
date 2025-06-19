@@ -202,3 +202,21 @@ export async function recordList(address, type) {
 
     return response.data.data;
 }
+
+export async function tiersInfo(address) {
+    const response = await axios.get(API_URL.ACTIVITY_TIER_INFO, {
+        params: {
+            "address": address,
+        },
+    });
+
+    if (response.status !== 200) {
+        throw new Error(`API request failed with status ${response.status}: ${response.data}`);
+    }
+
+    if (response.data.result === -1) {
+        throw new Error(`API return error: ${response.data.error}`);
+    }
+
+    return response.data.data;
+}
