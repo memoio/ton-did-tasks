@@ -1,0 +1,5 @@
+<!-- /public/medal-silver.svg -->
+<svg width="20" height="20" viewBox="0 0 24 24" fill="#C0C0C0" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="14" r="6" stroke="#A9A9A9" stroke-width="2" fill="#C0C0C0" />
+  <path d="M6 2L10 8H14L18 2H6Z" fill="#A9A9A9" />
+</svg>

@@ -48,6 +48,25 @@
     --color-dark-bg: #060706;
 }
 
+@keyframes borderFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.border-glow {
+    padding: 2px;
+    border-radius: 0.75rem;
+    /* Tailwind rounded-lg */
+    background: linear-gradient(270deg, #00ff80, #3333ff, #00ffee, #0080ff);
+    background-size: 600% 600%;
+    animation: borderFlow 4s linear infinite;
+}
+
 body {
     color: var(--foreground);
     font-family: "Roboto", sans-serif;

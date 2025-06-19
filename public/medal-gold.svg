@@ -1,0 +1,5 @@
+<!-- /public/medal-gold.svg -->
+<svg width="20" height="20" viewBox="0 0 24 24" fill="gold" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="14" r="6" stroke="goldenrod" stroke-width="2" fill="gold" />
+  <path d="M6 2L10 8H14L18 2H6Z" fill="goldenrod" />
+</svg>
