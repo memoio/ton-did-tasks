@@ -20,6 +20,23 @@ export const AuthProvider = ({ children }) => {
     const [isWalletBound, setIsWalletBound] = useState(false);
     const isBinding = useRef(false);
 
+    // sub point from userInfo
+    const subPoint = (point) => {
+        setUserInfo(prevUserInfo => {
+            if (!prevUserInfo) {
+                return null;
+            }
+            if (!prevUserInfo.points) {
+                return prevUserInfo; // Don't subtract if points don't exist
+            }
+            return {
+                ...prevUserInfo,
+                points: Math.max(0, prevUserInfo.points - point), // Ensure points don't go negative
+                todayPoints: Math.max(0, prevUserInfo.todayPoints - point),
+            };
+        });
+    }
+
     const [userInfo, setUserInfo] = useState({
         inviteCode: "",
         invitedCode: "",
@@ -270,6 +287,7 @@ export const AuthProvider = ({ children }) => {
             setName,
             setInvitedCode,
             addPoint,
+            subPoint, 
             clear,
             isWalletBound,
         }}>

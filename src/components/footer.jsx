@@ -10,7 +10,7 @@ export function Footer ( props ) {
                 { props.active == 'earning'? <FooterKey title={"Earning"} image={"/mingcute_coin-2-line-active.svg"} active={true} />: <FooterKey title={"Earning"} image={"/mingcute_coin-2-line.svg"} url={"/earning"} active={false} /> }
                 { props.active == 'referral'? <FooterKey title={"Referral"} image={"/material-symbols-light_box-add-sharp-active.svg"} active={true} />: <FooterKey title={"Referral"} image={"/material-symbols-light_box-add-sharp.svg"} url={"/referral"} active={false} /> }
                 { props.active == 'profile'? <FooterKey title={"Profile"} image={"/iconamoon_profile-light-active.svg"} active={true} />: <FooterKey title={"Profile"} image={"/iconamoon_profile-light.svg"} url={"/profile"} active={false} /> }
-                { props.active == 'blindbox'? <FooterKey title={"BlindBox"} image={"/blindbox-active.svg"} active={true} />: <FooterKey title={"BlindBox"} image={"/blindbox.svg"} url={"/blindbox"} active={false} /> }
+                { props.active == 'blindboxv2'? <FooterKey title={"BlindBox"} image={"/blindbox-active.svg"} active={true} />: <FooterKey title={"BlindBoxV2"} image={"/blindbox.svg"} url={"/blindboxv2"} active={false} /> }
             </footer>
         </section>
     )

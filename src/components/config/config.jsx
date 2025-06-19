@@ -1,9 +1,10 @@
 export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be.metamemo.one"
 export const TEST_AIRDROP_BACKEND_URL = "https://data-be-api.memolabs.net"
+export const LOCAL_AIRDROP_BACKEND_URL = "http://localhost:8080"
 
 export const TON_DID_WEB = "https://t.me/tondid_bot/datadid"
 export const TON_DID_WEB_RAW = "https://datadid-ton-v2.memolabs.net"
-export const AIRDROP_BACKEND_URL = TEST_AIRDROP_BACKEND_URL
+export const AIRDROP_BACKEND_URL = LOCAL_AIRDROP_BACKEND_URL
 
 export const API_URL_V1 = {
     "AIRDROP_USER_WALLET_BIND": AIRDROP_BACKEND_URL + "/data/bind",
@@ -59,6 +60,12 @@ export const API_URL_V2 = {
     "ACTIVITY_BIND_ACTIVITY": AIRDROP_BACKEND_URL + "/v2/activity/bind/activity",
     "ACTIVITY_GET_ACTIVITY": AIRDROP_BACKEND_URL + "/v2/activity/channel",
 
+    // blindbox v2
+    "ACTIVITY_POINTS_BLINDBOX":AIRDROP_BACKEND_URL + "/v2/activity/points-draw",
+    "ACTIVITY_FREE_BLINDBOX":AIRDROP_BACKEND_URL + "/v2/activity/free-draw",
+    "BLINDBOX_GET_BOXES": AIRDROP_BACKEND_URL + "/v2/blindbox/getboxes",
+
+    // blindbox v1
     "BLINDBOX_GIFTS": AIRDROP_BACKEND_URL + "/v2/blindbox/gifts",
     "BLINDBOX_PLAY": AIRDROP_BACKEND_URL + "/v2/blindbox/play",
     "BLINDBOX_NOW": AIRDROP_BACKEND_URL + "/v2/blindbox/now",
