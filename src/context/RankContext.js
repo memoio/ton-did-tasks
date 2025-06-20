@@ -10,21 +10,15 @@ export const RankProvider = ({ children }) => {
 
     const [selfTotalRankInfo, setSelfTotalRankInfo] = useState({
         points: 0,
-        inviteCount: 0,
         pointRank: 0,
-        inviteRank: 0,
     })
     const [selfWeeklyRankInfo, setSelfWeeklyRankInfo] = useState({
         points: 0,
-        inviteCount: 0,
         pointRank: 0,
-        inviteRank: 0,
     })
     const [selfMonthlyRankInfo, setSelfMonthlyRankInfo] = useState({
         points: 0,
-        inviteCount: 0,
         pointRank: 0,
-        inviteRank: 0,
     })
     const [totalRankInfo, setTotalRankInfo] = useState([
         {
@@ -68,7 +62,6 @@ export const RankProvider = ({ children }) => {
             const totalRank = await rank(address, 0);
             setSelfTotalRankInfo(totalRank.self);
             setTotalRankInfo(totalRank.pointTop);
-            setTotalInviteRankInfo(totalRank.inviteTop);
 
 
             // const monthlyRank = await rank(address, 1);

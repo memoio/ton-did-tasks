@@ -54,17 +54,8 @@ export default function LeaderBoardDetailsPage() {
         }
     }
 
-    const currentRankList = rankType === "points" ? (isWeekly === 2 ? weeklyRankInfo : isWeekly === 1 ? monthlyRankInfo : totalRankInfo) : totalInviteRankInfo;
-
-    const medalIcons = ["/medal-gold.svg", "/medal-silver.svg", "/medal-bronze.svg"];
-
-    // test
-    useEffect(() => {
-        console.log("selfRankInfo:", selfRankInfo);
-        console.log("currentRankList:", currentRankList);
-        console.log("inviteRankInfo:", totalInviteRankInfo);
-    }, [selfRankInfo, currentRankList, totalInviteRankInfo]);
-
+    const currentRankList = isWeekly === 2 ? weeklyRankInfo : isWeekly === 1 ? monthlyRankInfo : totalRankInfo;
+    console.log(totalRankInfo)
     return (
         <>
             <SubHeader title={"Leaderboard"} />
@@ -106,15 +97,10 @@ export default function LeaderBoardDetailsPage() {
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-6 ml-auto text-sm font-semibold text-white whitespace-nowrap">
-                            <p className="w-16 text-center">
-                                {selfRankInfo.inviteCount}
-                            </p>
-                            <p className="w-20 text-center">
-                                {selfRankInfo.points}
-                            </p>
-                            <p className="w-8 h-8 bg-dao-yellow text-white flex items-center justify-center rounded-full text-sm dark:bg-dao-yellow/15 dark:text-dao-yellow">
-                                {rankType === "points" ? (selfRankInfo.pointRank <= 100 ? selfRankInfo.pointRank : "100+") : (selfRankInfo.inviteRank <= 100 ? selfRankInfo.inviteRank : "100+")}
+                        <div className="flex items-center gap-10 ml-auto pl-4">
+                            <p className="text-white font-semibold text-sm">{selfRankInfo.points} Points</p>
+                            <p className={`bg-dao-yellow ${selfRankInfo.pointRank <= 100 ? "size-6" : "size-8"} text-white flex items-center justify-center rounded-full text-sm dark:bg-dao-yellow/15 dark:text-dao-yellow whitespace-nowrap`}>
+                                {selfRankInfo.pointRank <= 100 ? selfRankInfo.pointRank : "100+"}
                             </p>
                         </div>
                     </div>
