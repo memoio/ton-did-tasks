@@ -88,20 +88,11 @@ export default function Earnings() {
         }
     }
 
-    const getTaskStatus = (day, days, checked) => {
-        if (!checked) {
-            if (day === days + 1) {
-                return "2";
-            }
-            if (day === 4 && days >= 4) {
-                return "2";
-            }
-        }
-
+    const getTaskStatus = (day, days) => {
         if (day <= days) {
-            return "1";
+            return 1;
         } else {
-            return "0";
+            return 0;
         }
     }
 
@@ -202,6 +193,10 @@ export default function Earnings() {
     }
 
     const handleEmailBind = () => setShowEmailModal(true);
+    const hasCheckedIn = dailyAction.has(0);
+    const reward = days < 3 ? 10 : 20;
+    const baseDay = days % 7;
+    const currentDay = hasCheckedIn ? (baseDay === 0 ? 7 : baseDay) : (baseDay + 1);
 
     const verifyEmailBind = async () => {
         if (address) {
@@ -260,12 +255,26 @@ export default function Earnings() {
 
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px]">
                     <h2 className="flex gap-1 items-center font-semibold text-lg text-black dark:text-white">Daily Check <Image src={"/jam_alert.svg"} width={20} height={20} alt="" /></h2>
-                    <div className="grid grid-cols-4 gap-2 mt-2">
-                        <CheckInCard day={1} status={getTaskStatus(1, days, dailyAction.has(0))} checkInFunc={async () => { finishTask(70, 20, "Daily Check-In", "Please Check-In", "https://x.com/MemoLabsOrg") }} />
-                        <CheckInCard day={2} status={getTaskStatus(2, days, dailyAction.has(0))} checkInFunc={async () => { finishTask(70, 20, "Daily Check-In", "Please Check-In", "https://x.com/MemoLabsOrg") }} />
-                        <CheckInCard day={3} status={getTaskStatus(3, days, dailyAction.has(0))} checkInFunc={async () => { finishTask(70, 20, "Daily Check-In", "Please Check-In", "https://x.com/MemoLabsOrg") }} />
-                        <CheckInCard day={4} status={getTaskStatus(4, days, dailyAction.has(0))} checkInFunc={async () => { finishTask(70, 20, "Daily Check-In", "Please Check-In", "https://x.com/MemoLabsOrg") }} />
+                    <div className="grid grid-cols-7 gap-2 mb-4">
+                        {[1, 2, 3, 4, 5, 6, 7].map((day) => (
+                            <CheckInCard
+                                key={day}
+                                day={day}
+                                currentDay={currentDay}
+                                status={getTaskStatus(day, days)}
+                            />
+                        ))}
                     </div>
+                    <button
+                        onClick={hasCheckedIn ? undefined : async () => {
+                            await finishTask(70, reward, "Daily Check-In", "Please Check-In", "https://x.com/MemoLabsOrg");
+                        }}
+                        disabled={hasCheckedIn}
+                        className={`w-full rounded-full text-white font-semibold py-2 text-sm 
+                        ${hasCheckedIn ? "bg-main-blue/8 dark:bg-fill-bright/19 cursor-not-allowed" : "bg-dao-green cursor-pointer"}`}
+                    >
+                        {hasCheckedIn ? "Back Tomorrow" : "Check-in"}
+                    </button>
                 </div>
 
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px]">
