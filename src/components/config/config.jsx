@@ -80,6 +80,7 @@ export const Actions = {
     54: { ActionID: 54, Name: "Bind Twitter", Points: 100, OneTime: true },
     55: { ActionID: 55, Name: "Bind Telegram", Points: 100, OneTime: true },
     56: { ActionID: 56, Name: "Bind Discord", Points: 100, OneTime: true },
+    57: { ActionID: 57, Name: "Bind Email", Points: 100, OneTime: true },
 
     70: { ActionID: 70, Name: "Daily Check In", Points: 20, OneTime: false },
     71: { ActionID: 71, Name: "Daily Share To ChatGroup", Points: 20, OneTime: false },
