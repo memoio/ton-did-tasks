@@ -10,21 +10,36 @@ export const RankProvider = ({ children }) => {
 
     const [selfTotalRankInfo, setSelfTotalRankInfo] = useState({
         points: 0,
+        inviteCount: 0,
         pointRank: 0,
+        inviteRank: 0,
     })
     const [selfWeeklyRankInfo, setSelfWeeklyRankInfo] = useState({
         points: 0,
+        inviteCount: 0,
         pointRank: 0,
+        inviteRank: 0,
     })
     const [selfMonthlyRankInfo, setSelfMonthlyRankInfo] = useState({
         points: 0,
+        inviteCount: 0,
         pointRank: 0,
+        inviteRank: 0,
     })
     const [totalRankInfo, setTotalRankInfo] = useState([
         {
             points: 0,
             name: "",
             avatar: "",
+            inviteCount: 0,
+        }
+    ]);
+    const [totalInviteRankInfo, setTotalInviteRankInfo] = useState([
+        {
+            points: 0,
+            name: "",
+            avatar: "",
+            inviteCount: 0,
         }
     ]);
     const [monthlyRankInfo, setMonthlyRankInfo] = useState([
@@ -32,6 +47,7 @@ export const RankProvider = ({ children }) => {
             points: 0,
             name: "",
             avatar: "",
+            inviteCount: 0,
         }
     ]);
     const [weeklyRankInfo, setWeeklyRankInfo] = useState([
@@ -39,6 +55,7 @@ export const RankProvider = ({ children }) => {
             points: 0,
             name: "",
             avatar: "",
+            inviteCount: 0,
         }
     ]);
 
@@ -51,6 +68,7 @@ export const RankProvider = ({ children }) => {
             const totalRank = await rank(address, 0);
             setSelfTotalRankInfo(totalRank.self);
             setTotalRankInfo(totalRank.pointTop);
+            setTotalInviteRankInfo(totalRank.inviteTop);
 
 
             // const monthlyRank = await rank(address, 1);
@@ -78,6 +96,7 @@ export const RankProvider = ({ children }) => {
             totalRankInfo,
             monthlyRankInfo,
             weeklyRankInfo,
+            totalInviteRankInfo,
             selfTotalRankInfo,
             selfMonthlyRankInfo,
             selfWeeklyRankInfo,

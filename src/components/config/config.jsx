@@ -2,6 +2,7 @@ export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be.metamemo.one"
 
 export const TON_DID_WEB = "https://t.me/tondid_bot/datadid"
 export const TON_DID_WEB_RAW = "https://datadid-ton-v2.memolabs.net"
+// export const AIRDROP_BACKEND_URL = process.env.AIRDROP_BACKEND_URL
 export const AIRDROP_BACKEND_URL = PRODUCT_AIRDROP_BACKEND_URL
 
 export const API_URL_V1 = {
@@ -56,7 +57,8 @@ export const API_URL_V2 = {
 
     "ACTIVITY_BIND_CHANNEL": AIRDROP_BACKEND_URL + "/v2/activity/bind/channel",
     "ACTIVITY_BIND_ACTIVITY": AIRDROP_BACKEND_URL + "/v2/activity/bind/activity",
-    "ACTIVITY_GET_ACTIVITY": AIRDROP_BACKEND_URL + "/v2/activity/channel"
+    "ACTIVITY_GET_ACTIVITY": AIRDROP_BACKEND_URL + "/v2/activity/channel",
+    "ACTIVITY_TIER_INFO": AIRDROP_BACKEND_URL + "/v2/activity/tier/info",
 }
 
 export const API_URL = API_URL_V2;
@@ -73,14 +75,14 @@ export const Actions = {
     1: { ActionID: 1, Name: "Create DID", Points: 1000, OneTime: true },
     2: { ActionID: 2, Name: "Visit Faucet", Points: 500, OneTime: true },
 
-    50: { ActionID: 50, Name: "Follow MEMO On Twitter", Points: 50, OneTime: true },
-    51: { ActionID: 51, Name: "Join MEMO On Telegram", Points: 50, OneTime: true },
-    52: { ActionID: 52, Name: "Join MEMO On Discord", Points: 50, OneTime: true },
-    53: { ActionID: 53, Name: "Retweet MEMO's Tweet", Points: 50, OneTime: true },
-    54: { ActionID: 54, Name: "Bind Twitter", Points: 100, OneTime: true },
-    55: { ActionID: 55, Name: "Bind Telegram", Points: 100, OneTime: true },
-    56: { ActionID: 56, Name: "Bind Discord", Points: 100, OneTime: true },
-    57: { ActionID: 57, Name: "Bind Email", Points: 100, OneTime: true },
+    50: { ActionID: 50, Name: "Follow MEMO On Twitter", Points: 50, OneTime: true, Daily: false },
+    51: { ActionID: 51, Name: "Join MEMO On Telegram", Points: 50, OneTime: true, Daily: false },
+    52: { ActionID: 52, Name: "Join MEMO On Discord", Points: 50, OneTime: true, Daily: false },
+    53: { ActionID: 53, Name: "Retweet MEMO's Tweet", Points: 50, OneTime: true, Daily: false },
+    54: { ActionID: 54, Name: "Bind Twitter", Points: 100, OneTime: true, Daily: false },
+    55: { ActionID: 55, Name: "Bind Telegram", Points: 100, OneTime: true, Daily: false },
+    56: { ActionID: 56, Name: "Bind Discord", Points: 100, OneTime: true, Daily: false },
+    57: { ActionID: 57, Name: "Bind Email", Points: 100, OneTime: true, Daily: false },
 
     70: { ActionID: 70, Name: "Daily Check In", Points: 20, OneTime: false },
     71: { ActionID: 71, Name: "Daily Share To ChatGroup", Points: 20, OneTime: false },
