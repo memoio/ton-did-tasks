@@ -35,6 +35,31 @@ export default function Home() {
 
     const router = useRouter();
 
+    const romanNumerals = ["I", "II", "III", "IV"];
+    const tierName = ["Bronze", "Silver", "Gold", "Diamond"];
+    const tierStyles = [
+        // Tier I
+        {
+            bg: "bg-gradient-to-br from-[#00B66C] to-[#3ECB7D]",
+            border: "border-[#00995B]/50",
+        },
+        // Tier II
+        {
+            bg: "bg-gradient-to-br from-[#336FFB] to-[#72A4FE]",
+            border: "border-[#215FF2]/50",
+        },
+        // Tier III
+        {
+            bg: "bg-gradient-to-br from-[#FF730F] to-[#FFB54B]",
+            border: "border-[#ED6300]/50",
+        },
+        // Tier IV
+        {
+            bg: "bg-gradient-to-br from-[#724AFF] to-[#B388EF]",
+            border: "border-[#6139F0]/50",
+        },
+    ];
+
     const copyToClipboard = (text) => {
         if (navigator?.clipboard?.writeText) {
             navigator.clipboard.writeText(text)
@@ -127,38 +152,80 @@ export default function Home() {
             <div className="flex flex-col gap-4 px-4 pt-8 pb-32">
                 {didInfo.exist ?
                     <>
-                        <div className="bg-main-blue/8 border border-solid border-main-blue/21 p-4 flex flex-col gap-2 rounded-2xl dark:bg-sec-bg dark:border-none">
-                            <h1 className="font-bold dark:text-white flex items-center">
-                                <span className="text-black dark:text-white text-3xl">Data DID</span>
-                                <span
-                                    className="inline-flex items-center ml-2 px-4 bg-gray-300 rounded-full"
-                                >
-                                    <span className="number-badge text-base">{`No.  ${didInfo.number}`}</span>
+                        <div className={`${tierStyles[userTier.tier - 1].bg}  ${tierStyles[userTier.tier - 1].border} border border-solid  p-4 flex flex-col gap-2 rounded-2xl dark:bg-sec-bg dark:border-none`}>
+                            <div className="flex items-center">
+                                <span className="text-white font-bold text-2xl">Data DID</span>
+                                <span className="ml-2 px-3 py-1 bg-white/40 rounded-full text-base text-white font-semibold">{`No.${didInfo.number}`}</span>
+                                <span className="ml-auto cursor-pointer">
+                                    <svg width="20" height="20" fill="none"><path d="M15 5a2 2 0 1 0-2-2 2 2 0 0 0 2 2Zm-10 7a2 2 0 1 0 2 2 2 2 0 0 0-2-2Zm10 3a2 2 0 1 0 2 2 2 2 0 0 0-2-2Zm-7.59-1.17 6.18 2.34m0-8.34-6.18 2.34" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
                                 </span>
-                            </h1>
-                            <div className="w-full flex justify-between gap-2 -mt-2">
-                                <p className="text-gray break-all dark:text-light-gray">{shortener(didInfo.did)}</p>
-                                {/* <button onClick={() => copyToClipboard(didInfo.did)} className="min-w-6 max-w-6 flex justify-end"><Image src={isCopied ? "/check.svg" : "/icons_copy.svg"} width={28} height={28} alt="" /></button> */}
                             </div>
-                            <p className="text-xs text-dao-gray dark:text-white">Your all–in–one, privacy–preserving self–sovereign identity. Own, manage, and monetize your data!</p>
+                            <div className="text-white/90 text-sm mt-1 break-all">{shortener(didInfo.did)}</div>
+                            <div className="flex items-center gap-3 mt-2">
+                                <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                    <Image src="/icon/x.png" alt="x" width={20} height={20} />
+                                </span>
+                                <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                    <Image src="/icon/tg.png" alt="tg" width={20} height={20} />
+                                </span>
+                                <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                    <Image src="/icon/discord.png" alt="discord" width={20} height={20} />
+                                </span>
+                                <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                    <Image src="/icon/email.png" alt="email" width={20} height={20} />
+                                </span>
+                                <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                    <Image src="/icon/eth.png" alt="eth" width={20} height={20} />
+                                </span>
+                                <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                    <Image src="/icon/none.png" alt="none" width={20} height={20} />
+                                </span>
+                                <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-xl text-white">…</span>
+                            </div>
+                            <p className="text-xs text-white/90 mt-2">
+                                Your all–in–one, privacy–preserving self–sovereign identity. Own, manage, and monetize your data!
+                            </p>
                         </div>
                         <div className="bg-main-blue/8 border border-solid border-main-blue/21 p-4 flex flex-col gap-2 rounded-2xl dark:bg-sec-bg dark:border-none">
-                            <h1 className="font-bold dark:text-white  text-3xl flex items-center">
-                                <Image
-                                    src={userProfile.avatar}
-                                    alt="Tier Icon"
-                                    width={34}
-                                    height={34}
-                                    className="mr-3 object-cover align-middle"
-                                    style={{ minWidth: 34, minHeight: 34 }}
-                                />
-                                <span className="ml-1">{`Tier I: ${userTier.name}`}</span>
-                            </h1>
-                            <p>{`Referrals left to Tier II: diamond  ${userTier.inviters}`}</p>
-                            <p>{`Points left to Tier II: diamond ${userTier.points}`}</p>
-                            <div className="flex gap-2 mt-4 ">
-                                <button className="flex-1 bg-gray-400 text-white rounded-full  py-1 font-semibold">Share with Friends</button>
-                                <button className="flex-1 bg-gray-400 text-white  rounded-full py-1 font-semibold">Earn Points</button>
+                            <div className="flex items-center gap-4">
+                                {/* 六边形等级图标 */}
+                                <div className="w-14 h-14 flex items-center justify-center">
+                                    <Image
+                                        src={`/tier/${userTier.name}.png`} // 如 /tier/Bronze.png
+                                        alt={userTier.name}
+                                        width={56}
+                                        height={56}
+                                        className="w-14 h-14"
+                                    />
+                                </div>
+                                {/* 等级标题 */}
+                                <div>
+                                    <div className="font-bold text-2xl text-black">{`Tier ${romanNumerals[(userTier.tier || 1) - 1]}: ${userTier.name}`}</div>
+                                </div>
+                            </div>
+                            {/* 进度描述 */}
+                            <div>
+                                <div className="text-black text-base mb-1">
+                                    {`Referrals left to Tier II: ${tierName[(userTier.tier)] || tierName[3]}`}
+                                    <span className="ml-1 text-[#00B66C] font-bold">{userTier.inviters}</span>
+                                </div>
+                                <div className="text-black text-base">
+                                    {`Points left to Tier II: ${tierName[(userTier.tier)] || tierName[3]}`}
+                                    <span className="ml-1 text-[#00B66C] font-bold">{userTier.points}</span>
+                                </div>
+                            </div>
+                            {/* 按钮区 */}
+                            <div className="flex gap-3 mt-2">
+                                <button className="flex-1 bg-gradient-to-r from-[#00B66C] to-[#3ECB7D] text-white rounded-full py-2 font-semibold shadow-md"
+                                    onClick={() => router.push("/referral")}
+                                >
+                                    Share with Friends
+                                </button>
+                                <button className="flex-1 bg-gradient-to-r from-[#00B66C] to-[#3ECB7D] text-white rounded-full py-2 font-semibold shadow-md"
+                                    onClick={() => router.push("/earning")}
+                                >
+                                    Earn Points
+                                </button>
                             </div>
                         </div>
 
@@ -187,58 +254,59 @@ export default function Home() {
                                     {/* Tier I */}
                                     <div className="flex items-start">
                                         <div className="flex flex-col items-center mr-3">
-                                            {/* 图标方块 */}
-                                            <div className="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center border border-gray-300">
-                                                {/* 这里可以放图片 <img src="..." alt="" /> */}
-                                                <span className="text-gray-400 text-xl">🖼️</span>
+                                            {/* 六边形图标 */}
+                                            <div className="w-12 h-12 flex items-center justify-center">
+                                                <Image src="/tier/Bronze.png" alt="Bronze" width={48} height={48} className="w-12 h-12" />
                                             </div>
                                             {/* 虚线 */}
                                             <div className="flex-1 w-px bg-gray-300 border-dashed border-l-2 border-gray-300" style={{ minHeight: 40, marginTop: 2 }}></div>
                                         </div>
                                         <div>
-                                            <div className="font-bold text-lg">Tier I: Iron</div>
+                                            <div className="font-bold text-lg">Tier I: Bronze</div>
                                             <div className="text-gray-600 text-sm">New Users</div>
                                         </div>
                                     </div>
                                     {/* Tier II */}
                                     <div className="flex items-start">
                                         <div className="flex flex-col items-center mr-3">
-                                            {/* 图标方块 */}
-                                            <div className="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center border border-gray-300">
-                                                {/* 这里可以放图片 <img src="..." alt="" /> */}
-                                                <span className="text-gray-400 text-xl">🖼️</span>
+                                            {/* 六边形图标 */}
+                                            <div className="w-12 h-12 flex items-center justify-center">
+                                                <Image src="/tier/Silver.png" alt="Silver" width={48} height={48} className="w-12 h-12" />
                                             </div>
                                             {/* 虚线 */}
                                             <div className="flex-1 w-px bg-gray-300 border-dashed border-l-2 border-gray-300" style={{ minHeight: 40, marginTop: 2 }}></div>
                                         </div>
                                         <div>
-                                            <div className="font-bold text-lg">Tier II: Bronze</div>
+                                            <div className="font-bold text-lg">Tier II: Silver</div>
                                             <div className="text-gray-600 text-sm">20 Referrals or 20k Points</div>
                                         </div>
                                     </div>
                                     {/* Tier III */}
                                     <div className="flex items-start">
                                         <div className="flex flex-col items-center mr-3">
-                                            <div className="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center border border-gray-300">
-                                                <span className="text-gray-400 text-xl">🖼️</span>
+                                            {/* 六边形图标 */}
+                                            <div className="w-12 h-12 flex items-center justify-center">
+                                                <Image src="/tier/Gold.png" alt="Gold" width={48} height={48} className="w-12 h-12" />
                                             </div>
+                                            {/* 虚线 */}
                                             <div className="flex-1 w-px bg-gray-300 border-dashed border-l-2 border-gray-300" style={{ minHeight: 40, marginTop: 2 }}></div>
                                         </div>
                                         <div>
-                                            <div className="font-bold text-lg">Tier III: Silver</div>
+                                            <div className="font-bold text-lg">Tier III: Gold</div>
                                             <div className="text-gray-600 text-sm">30 Referrals or 30k Points</div>
                                         </div>
                                     </div>
                                     {/* Tier IV */}
                                     <div className="flex items-start">
                                         <div className="flex flex-col items-center mr-3">
-                                            <div className="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center border border-gray-300">
-                                                <span className="text-gray-400 text-xl">🖼️</span>
+                                            {/* 六边形图标 */}
+                                            <div className="w-12 h-12 flex items-center justify-center">
+                                                <Image src="/tier/Diamond.png" alt="Diamond" width={48} height={48} className="w-12 h-12" />
                                             </div>
                                             {/* 最后一项不需要虚线 */}
                                         </div>
                                         <div>
-                                            <div className="font-bold text-lg">Tier IV: Gold</div>
+                                            <div className="font-bold text-lg">Tier IV: Diamond</div>
                                             <div className="text-gray-600 text-sm">40 Referrals or 40k Points</div>
                                         </div>
                                     </div>

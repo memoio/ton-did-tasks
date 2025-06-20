@@ -2,8 +2,8 @@ export const PRODUCT_AIRDROP_BACKEND_URL = "https://data-be.metamemo.one"
 
 export const TON_DID_WEB = "https://t.me/tondid_bot/datadid"
 export const TON_DID_WEB_RAW = "https://datadid-ton-v2.memolabs.net"
-// export const AIRDROP_BACKEND_URL = process.env.AIRDROP_BACKEND_URL
-export const AIRDROP_BACKEND_URL = PRODUCT_AIRDROP_BACKEND_URL
+export const AIRDROP_BACKEND_URL = process.env.AIRDROP_BACKEND_URL
+// export const AIRDROP_BACKEND_URL = PRODUCT_AIRDROP_BACKEND_URL
 
 export const API_URL_V1 = {
     "AIRDROP_USER_WALLET_BIND": AIRDROP_BACKEND_URL + "/data/bind",
