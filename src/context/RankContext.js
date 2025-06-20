@@ -10,15 +10,15 @@ export const RankProvider = ({ children }) => {
 
     const [selfTotalRankInfo, setSelfTotalRankInfo] = useState({
         points: 0,
-        rank: 0,
+        pointRank: 0,
     })
     const [selfWeeklyRankInfo, setSelfWeeklyRankInfo] = useState({
         points: 0,
-        rank: 0,
+        pointRank: 0,
     })
     const [selfMonthlyRankInfo, setSelfMonthlyRankInfo] = useState({
         points: 0,
-        rank: 0,
+        pointRank: 0,
     })
     const [totalRankInfo, setTotalRankInfo] = useState([
         {
@@ -50,7 +50,7 @@ export const RankProvider = ({ children }) => {
         try {
             const totalRank = await rank(address, 0);
             setSelfTotalRankInfo(totalRank.self);
-            setTotalRankInfo(totalRank.top);
+            setTotalRankInfo(totalRank.pointTop);
 
 
             // const monthlyRank = await rank(address, 1);

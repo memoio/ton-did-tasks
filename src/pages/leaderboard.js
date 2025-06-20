@@ -51,7 +51,7 @@ export default function LeaderBoardDetailsPage() {
     }
 
     const currentRankList = isWeekly === 2 ? weeklyRankInfo : isWeekly === 1 ? monthlyRankInfo : totalRankInfo;
-
+    console.log(totalRankInfo)
     return (
         <>
             <SubHeader title={"Leaderboard"} />
@@ -69,8 +69,8 @@ export default function LeaderBoardDetailsPage() {
 
                         <div className="flex items-center gap-10 ml-auto pl-4">
                             <p className="text-white font-semibold text-sm">{selfRankInfo.points} Points</p>
-                            <p className="bg-dao-yellow size-6 text-white flex items-center justify-center rounded-full text-sm dark:bg-dao-yellow/15 dark:text-dao-yellow whitespace-nowrap">
-                                {selfRankInfo.rank <= 100 ? selfRankInfo.rank : "100+"}
+                            <p className={`bg-dao-yellow ${selfRankInfo.pointRank <= 100 ? "size-6" : "size-8"} text-white flex items-center justify-center rounded-full text-sm dark:bg-dao-yellow/15 dark:text-dao-yellow whitespace-nowrap`}>
+                                {selfRankInfo.pointRank <= 100 ? selfRankInfo.pointRank : "100+"}
                             </p>
                         </div>
                     </div>
