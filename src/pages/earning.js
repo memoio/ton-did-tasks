@@ -6,7 +6,7 @@ import { recordAdd } from "@/components/api/airdrop";
 import { xOauthInfo } from "@/components/api/link";
 import { getUserProfile } from "@/components/api/profile";
 import EmailBindModal from "@/components/accessories";
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { DiscordLogoIcon, TelegramLogoIconBW, TwitterLogoIcon, EmailLogoIcon } from "@/components/icons";
 import { base64UrlEncode } from "@/components/params";
 import { useParams } from "@/context/ParamContext";
@@ -32,6 +32,9 @@ export default function Earnings() {
     const { didInfo, loaded } = useDIDInfo();
     const { userInfo, userProfile, address, setName } = useAuth();
     const { days, dailyAction, questAction, finishAction } = useAction();
+
+    const [showCheckinTip, setShowCheckinTip] = useState(false);
+    const tipRef = useRef(null);
 
     // const router = useRouter();
 
@@ -224,6 +227,23 @@ export default function Earnings() {
         }
     };
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (tipRef.current && !tipRef.current.contains(event.target)) {
+                setShowCheckinTip(false);
+            }
+        }
+
+        if (showCheckinTip) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showCheckinTip]);
 
     if (!loaded) {
         return (
@@ -237,7 +257,9 @@ export default function Earnings() {
         <>
             {isSuccess && <AlertCard image={"/Frame 34643-g.svg"} title={"Success"} text={"After your friend binds the invitation code & creates a DID, you will receive points as rewards!"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
             {isNoticed && <AlertCard image={"/notice.svg"} title={"Notice"} text={"The game will be released later, please stay tuned"} size={87} closeFunc={closeFunc} btn={"Ok"} />}
-            {isVisible && <AlertCard image={"/Frame 34643-celeb.svg"} title={`+${points} Points`} text={text} size={87} closeFunc={closeFunc} btn={"Ok"} />}
+            {isVisible && currentDay === 7 && text === "Daily Check-In" ? (
+                <AlertCard image={"/blind-box-opened.png"} title={`+${points} Points and Gift`} text={"Daily Check-In\nGift: You can view it in Profile"} size={87} closeFunc={closeFunc} btn={"Ok"} />
+            ) : isVisible && <AlertCard image={"/Frame 34643-celeb.svg"} title={`+${points} Points`} text={text} size={87} closeFunc={closeFunc} btn={"Ok"} />}
             {isFailed && <AlertCard image={"/Frame 34643-x.svg"} title={'Failed'} text={isFailedText} size={87} closeFunc={closeFunc} btn={"Ok"} />}
 
             <div className="flex flex-col gap-4 px-4 pt-8 pb-32">
@@ -254,7 +276,27 @@ export default function Earnings() {
                 </div>
 
                 <div className="bg-main-blue/8 border border-solid border-main-blue/21 dark:bg-sec-bg dark:border-dark-stroke p-4 rounded-[10px]">
-                    <h2 className="flex gap-1 items-center font-semibold text-lg text-black dark:text-white">Daily Check <Image src={"/jam_alert.svg"} width={20} height={20} alt="" /></h2>
+                    <h2 className="flex gap-1 items-center font-semibold text-lg text-black dark:text-white">Daily Check
+                        <div className="relative inline-block" ref={tipRef}>
+                            <Image
+                                src={"/jam_alert.svg"}
+                                width={20}
+                                height={20}
+                                alt="info"
+                                className="cursor-pointer"
+                                onClick={() => setShowCheckinTip(!showCheckinTip)}
+                            />
+                            {showCheckinTip && (
+                                <div className="absolute left-0 top-[120%] w-[245px] z-50">
+                                    <div className="w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white dark:border-b-[#242424] mx-4" />
+                                    <p className="bg-white p-4 text-sm font-normal rounded-lg text-black dark:border dark:border-solid dark:border-[#242424] dark:bg-[#060706] dark:text-white">
+                                        Check-in Rules:<br />
+                                        Check-in for 7 consecutive days to earn one ZenHive Rush Mystery Box. If you miss a check-in, the count starts over.
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    </h2>
                     <div className="grid grid-cols-7 gap-2 mb-4">
                         {[1, 2, 3, 4, 5, 6, 7].map((day) => (
                             <CheckInCard
