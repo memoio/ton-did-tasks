@@ -58,9 +58,15 @@ export const ActionProvider = ({ children }) => {
     }
 
     const finishAction = (action, inviteCode = '') => {
-        const actionInfo = Actions[action];
-        console.log(actionInfo);
-        if (actionInfo !== null) {
+        const reward = days < 3 ? 10 : 20;
+        const originInfo = Actions[action];
+        if (originInfo !== null && originInfo !== undefined) {
+            const actionInfo = { ...originInfo };
+            if (action === 70) {
+                actionInfo.Points = reward;
+            }
+            console.log(actionInfo);
+
             if (action >= 50 && action < 70) {
                 setQuest(action - 50);
             } else if (action >= 70 && action < 80) {

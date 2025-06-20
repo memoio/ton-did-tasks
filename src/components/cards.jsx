@@ -59,15 +59,25 @@ export function HomeTripleCard({ icon, disabled, title, text, status, link, amou
 }
 
 
-export function CheckInCard({ day, status, checkInFunc }) {
-    return (
-        <div className="bg-main-blue/8 border border-solid border-main-blue/21 p-2 rounded-lg flex flex-col items-center gap-2 dark:bg-fill-bright/19 dark:border-white/6 dark:border-2">
-            <p className="font-semibold text-black dark:text-white">+20</p>
-            {status == 1 && <div className="size-6 border border-solid border-dao-green rounded-full flex items-center justify-center"><Image src={"/check.svg"} className="w-3" width={6} height={5} alt="" /></div>}
-            {status == 0 && <div className="size-6 border border-solid border-dao-yellow rounded-full flex items-center justify-center"><Image src={"/material-symbols-light_lock-outline.svg"} className="w-4" width={10} height={10} alt="" /></div>}
-            {status == 2 && <button onClick={checkInFunc} className="bg-dao-green text-[10px] text-white p-1 w-full rounded">Check</button>}
+export function CheckInCard({ day, currentDay, status }) {
+    const reward = day <= 3 ? "+10" : "+20";
+    const label = day === currentDay ? "Today" : `Day ${day}`;
 
-            <p className="text-dao-gray text-sm dark:text-light-gray">Day {day}</p>
+    const icon = status === 1
+        ? "/check.svg"
+        : day === 7
+            ? "/gift.svg"
+            : "/material-symbols-light_lock-outline.svg";
+
+    return (
+        <div className="flex flex-col items-center">
+            <div className="bg-main-blue/8 border border-solid border-main-blue/21 p-2 rounded-lg flex flex-col items-center gap-2 dark:bg-fill-bright/19 dark:border-white/6 dark:border-2">
+                <p className="text-xs font-semibold text-black dark:text-white">{reward}</p>
+                <div className="size-6 border border-solid border-dao-green rounded-full flex items-center justify-center my-1">
+                    <Image src={icon} width={14} height={14} alt="status" />
+                </div>
+            </div>
+            <p className="text-[10px] text-dao-gray dark:text-light-gray">{label}</p>
         </div>
     )
 }

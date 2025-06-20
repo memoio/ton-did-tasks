@@ -133,7 +133,7 @@ export default function LeaderBoardDetailsPage() {
                     </div>
 
                     {/* {Top 3} */}
-                    {currentRankList.slice(0, 3).map((rankInfo, index) => (
+                    {currentRankList && currentRankList.length >= 1 && currentRankList.slice(0, 3).map((rankInfo, index) => (
                         <div key={index} className="border-glow">
                             <div className="bg-white dark:bg-sec-bg rounded-lg">
                                 <LeaderboardCard
@@ -153,7 +153,7 @@ export default function LeaderBoardDetailsPage() {
 
                 {/* {scrolling area} */}
                 <div className="flex-1 overflow-y-auto px-4 pt-0 pb-6">
-                    {currentRankList.slice(3).map((rankInfo, index) => (
+                    {currentRankList && currentRankList.length > 3 && currentRankList.slice(3).map((rankInfo, index) => (
                         <LeaderboardCard
                             key={index + 3}
                             icon={rankInfo.avatar}

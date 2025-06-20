@@ -1,0 +1,8 @@
+<!-- public/gift.svg -->
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="3" y="9" width="18" height="12" rx="2" fill="#FFD700"/>
+  <path d="M3 9H21V7C21 6.44772 20.5523 6 20 6H4C3.44772 6 3 6.44772 3 7V9Z" fill="#FFB800"/>
+  <path d="M12 9V21" stroke="#FFFFFF" stroke-width="2"/>
+  <path d="M12 6C13.5 6 15 4.5 15 3C15 2.44772 14.5523 2 14 2C13 2 12 3 12 4V6Z" fill="#FF6F61"/>
+  <path d="M12 6C10.5 6 9 4.5 9 3C9 2.44772 9.44772 2 10 2C11 2 12 3 12 4V6Z" fill="#FF6F61"/>
+</svg>
